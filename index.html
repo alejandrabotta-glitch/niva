@@ -469,7 +469,7 @@
     .result-container {
       max-width: 640px;
       margin: 0 auto;
-      padding: 60px 24px 40px;
+      padding: 40px 24px 32px;
       display: none;
       animation: fadeUp 0.6s ease-out;
     }
@@ -499,7 +499,7 @@
     }
     .result-intro {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 28px;
       font-size: 0.92em;
       color: var(--text-mid);
       line-height: 1.8;
@@ -514,7 +514,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin-bottom: 40px;
+      margin-bottom: 16px;
     }
     .sup-card {
       background: var(--blanco);
@@ -563,9 +563,9 @@
     .plan-card {
       background: var(--blanco);
       border: 1px solid var(--border);
-      padding: 40px;
+      padding: 32px;
       text-align: center;
-      margin: 40px 0;
+      margin: 24px 0 16px;
     }
     .plan-card .plan-label {
       font-size: 0.7em;
@@ -604,8 +604,8 @@
       justify-content: center;
       gap: 32px;
       flex-wrap: wrap;
-      margin: 32px 0;
-      padding: 24px 0;
+      margin: 16px 0;
+      padding: 20px 0;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
@@ -625,8 +625,8 @@
     /* CTA section */
     .cta-section {
       text-align: center;
-      margin-top: 48px;
-      padding: 48px 32px;
+      margin-top: 24px;
+      padding: 36px 32px;
       background: var(--piedra);
       border-radius: 8px;
     }
@@ -1247,7 +1247,7 @@
         'entry.380781196': sheetData.suplemento_2||'',
         'entry.1015253526': sheetData.dosis_2||'',
         'entry.2018852506': sheetData.suplemento_3||'',
-        'entry.1830406472': sheetData.dosis_3||'',
+        'entry.434870582': sheetData.dosis_3||'',
         'entry.595941863': '',
         'entry.1403490488': '',
         'entry.211084352': sheetData.scores_json||''
@@ -1308,7 +1308,7 @@
         'entry.380781196': d.suplemento_2||'',
         'entry.1015253526': d.dosis_2||'',
         'entry.2018852506': d.suplemento_3||'',
-        'entry.1830406472': d.dosis_3||'',
+        'entry.434870582': d.dosis_3||'',
         'entry.595941863': tipoTexto,
         'entry.1403490488': String(precioFinal),
         'entry.211084352': d.scores_json||''
@@ -1319,7 +1319,7 @@
       document.querySelector('.cta-section > p:not(.cta-fine-print)').style.display='none';
       document.querySelector('.cta-fine-print').style.display='none';
       document.getElementById('confirmacionCompra').style.display='block';
-      window.scrollTo({top:0,behavior:'smooth'});
+      document.getElementById('confirmacionCompra').scrollIntoView({behavior:'smooth',block:'center'});
     }
 
     function volverAlInicio(){
