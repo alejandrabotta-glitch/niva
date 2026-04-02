@@ -1014,7 +1014,11 @@
         <div style="font-size:1.5rem;margin-bottom:1rem;color:var(--bosque);">&#10003;</div>
         <h3 style="font-family:'Inter',sans-serif;font-weight:400;margin-bottom:0.5rem;">Listo, recibimos tu pedido</h3>
         <p style="color:var(--text-mid);font-weight:300;">Te enviamos un email con tu recomendacion. Nos contactamos en menos de 24hs.</p>
+        <button class="btn-secondary" style="margin-top:2rem;display:inline-block;" onclick="volverAlInicio()">VOLVER AL INICIO</button>
       </div>
+    </div>
+    <div style="text-align:center;padding:2rem 0;">
+      <button class="btn-secondary" style="display:inline-block;font-size:13px;padding:12px 32px;" onclick="volverAlInicio()">VOLVER AL INICIO</button>
     </div>
   </section>
 
@@ -1315,6 +1319,34 @@
       document.querySelector('.cta-section > p:not(.cta-fine-print)').style.display='none';
       document.querySelector('.cta-fine-print').style.display='none';
       document.getElementById('confirmacionCompra').style.display='block';
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function volverAlInicio(){
+      // Reset form and show landing
+      document.getElementById('results').style.display='none';
+      document.getElementById('formContainer').style.display='none';
+      document.getElementById('loading').style.display='none';
+      document.getElementById('heroWrapper').style.display='flex';
+      document.getElementById('pasosSection').style.display='block';
+      // Reset form state
+      currentStep=1;
+      updateProgress();
+      showStep(1);
+      document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+      document.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false);
+      document.querySelectorAll('input[type="text"],input[type="email"]').forEach(i=>i.value='');
+      // Reset CTA section
+      const ctaBtns=document.querySelector('.cta-buttons');
+      if(ctaBtns) ctaBtns.style.display='';
+      const ctaH3=document.querySelector('.cta-section h3');
+      if(ctaH3) ctaH3.style.display='';
+      const ctaP=document.querySelector('.cta-section > p:not(.cta-fine-print)');
+      if(ctaP) ctaP.style.display='';
+      const ctaFine=document.querySelector('.cta-fine-print');
+      if(ctaFine) ctaFine.style.display='';
+      document.getElementById('confirmacionCompra').style.display='none';
+      window.scrollTo({top:0,behavior:'smooth'});
     }
   </script>
 </body>
