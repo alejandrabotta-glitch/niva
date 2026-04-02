@@ -243,11 +243,15 @@
     }
 
     .landing-note {
-      margin-top: 16px;
-      font-size: 0.75em;
-      color: var(--text-light);
-      font-weight: 300;
+      margin-top: 20px;
+      font-size: 0.85em;
+      color: var(--carbon);
+      font-weight: 600;
       letter-spacing: 0.5px;
+      background: var(--piedra);
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 20px;
     }
 
 
@@ -919,16 +923,16 @@
     <!-- STEP 7 -->
     <div class="form-step" data-step="7">
       <h2>Inmunidad</h2>
-      <p class="step-desc">Tu exposicion nos ayuda a calibrar.</p>
+      <p class="step-desc">Queremos entender tu nivel de exposicion diaria.</p>
       <div class="form-group">
-        <label>Contacto con personas vulnerables?</label>
+        <label>Convivis o tenes contacto frecuente con ninos o personas que se enferman seguido?</label>
         <div class="option-grid">
           <div class="option-card" onclick="selectRadio(this,'poblacion_vulnerable')"><input type="radio" name="poblacion_vulnerable" value="si"><div class="check"></div><span>Si</span></div>
           <div class="option-card" onclick="selectRadio(this,'poblacion_vulnerable')"><input type="radio" name="poblacion_vulnerable" value="no"><div class="check"></div><span>No</span></div>
         </div>
       </div>
       <div class="form-group">
-        <label>Usas transporte publico?</label>
+        <label>Usas transporte publico o estas en lugares con mucha gente a diario?</label>
         <div class="option-grid">
           <div class="option-card" onclick="selectRadio(this,'transporte')"><input type="radio" name="transporte" value="si"><div class="check"></div><span>Si</span></div>
           <div class="option-card" onclick="selectRadio(this,'transporte')"><input type="radio" name="transporte" value="no"><div class="check"></div><span>No</span></div>
