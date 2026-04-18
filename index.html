@@ -11,1350 +11,2072 @@
       --hueso: #F6F4F2;
       --piedra: #E9E6E1;
       --topo: #C9C5BE;
+      --topoDark: #A8A39A;
       --salvia: #B8C1B6;
+      --salviaDark: #8FA08A;
       --bosque: #6E766B;
+      --bosqueDark: #565D54;
       --carbon: #2E2E2E;
-      --blanco: #FFFFFF;
-      --text: #2E2E2E;
-      --text-mid: #6B6B6B;
-      --text-light: #9B9B9B;
-      --border: #E9E6E1;
-      --error: #C0616B;
+      --carbonSoft: #4A4A4A;
+      --muted: #7A7972;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html, body { height: 100%; }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--hueso);
-      color: var(--text);
+      color: var(--carbon);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ===== HEADER ===== */
-    header {
-      padding: 20px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(246,244,242,0.97);
-      backdrop-filter: blur(12px);
-      border-bottom: 2px solid var(--bosque);
-    }
-    .logo {
-      font-family: 'Inter', sans-serif;
-      font-size: 26px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: 6px;
-      text-transform: lowercase;
-    }
-
-    /* ===== ANIMATIONS ===== */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      70% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
     }
 
-    /* ===== HERO / LANDING ===== */
-    .hero-wrapper {
-      position: relative;
-      width: 100%;
-      min-height: 90vh;
+    /* ===== LANDING ===== */
+    #landing {
       display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      overflow: hidden;
-      background: url('fondo.png') center 60% / cover no-repeat;
-      background-color: var(--piedra);
+      flex-direction: column;
+      height: 100vh;
     }
-    .hero-wrapper::before {
+
+    .hero {
+      position: relative;
+      height: 520px;
+      flex-shrink: 0;
+      overflow: hidden;
+      background: url('fondo.png') center 40% / cover no-repeat, var(--piedra);
+    }
+
+    .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(246,244,242,0.88) 0%,
-        rgba(246,244,242,0.72) 35%,
-        rgba(246,244,242,0.35) 65%,
-        rgba(246,244,242,0.15) 100%
-      );
+      background: linear-gradient(180deg, rgba(246,244,242,0.72) 0%, rgba(246,244,242,0.25) 38%, rgba(246,244,242,0.1) 62%, rgba(246,244,242,0.85) 100%);
       z-index: 1;
     }
-    .landing {
-      position: relative;
-      z-index: 2;
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 60px 32px 120px;
+
+    .hero-logo {
+      position: absolute;
+      top: 22px;
+      left: 0;
+      right: 0;
       text-align: center;
-      animation: fadeUp 0.8s ease-out;
-      align-self: flex-start;
-      margin-top: 20px;
-    }
-    .landing h1 {
-      font-family: 'Inter', sans-serif;
-      font-size: 3.2em;
-      font-weight: 300;
-      color: var(--text);
-      margin-bottom: 20px;
-      line-height: 1.15;
-      letter-spacing: -1px;
-    }
-    .landing h1 em {
-      font-style: italic;
-      font-weight: 400;
-    }
-    .landing .subtitle {
-      font-size: 1.05em;
-      color: var(--text-mid);
-      margin-bottom: 48px;
-      max-width: 420px;
-      margin-left: auto;
-      margin-right: auto;
-      font-weight: 300;
-      line-height: 1.8;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--carbon);
+      letter-spacing: 4px;
+      text-transform: lowercase;
+      z-index: 2;
     }
 
-    /* ===== PASOS (3 steps) ===== */
-    .pasos-section {
-      background: var(--blanco);
-      padding: 72px 32px;
-      text-align: center;
+    .hero-headline {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 28px;
+      z-index: 2;
     }
-    .pasos-section h2 {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.6em;
+
+    .hero-headline h1 {
+      font-size: 42px;
       font-weight: 300;
-      color: var(--text);
-      margin-bottom: 48px;
-      letter-spacing: -0.3px;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      color: var(--carbon);
+      margin: 0;
     }
-    .pasos-grid {
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      max-width: 780px;
-      margin: 0 auto;
-      flex-wrap: wrap;
+
+    .hero-headline em {
+      font-style: italic;
+      font-weight: 300;
     }
-    .paso {
+
+    .landing-content {
+      padding: 32px 24px 120px;
       flex: 1;
-      min-width: 180px;
-      max-width: 220px;
-      text-align: center;
+      overflow: auto;
     }
-    .paso-icon {
-      width: 52px;
-      height: 52px;
-      margin: 0 auto 20px;
+
+    .landing-subtitle {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--carbonSoft);
+      margin-bottom: 24px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 18px 20px;
+      background: var(--bosque);
+      color: var(--hueso);
+      border: none;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--bosqueDark);
+    }
+
+    .btn-primary:disabled {
+      background: var(--topo);
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 17px 20px;
+      background: transparent;
+      color: var(--carbon);
+      border: 1px solid var(--topo);
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--carbon);
+    }
+
+    .pill-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid var(--topo);
+      color: var(--carbonSoft);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-top: 16px;
+    }
+
+    .pill-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .como-funciona {
+      margin-top: 56px;
+    }
+
+    .como-funciona-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(46,46,46,0.08);
+    }
+
+    .step-number {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      padding-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .step-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      background: var(--piedra);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--hueso);
-      border-radius: 50%;
+      color: var(--bosque);
+      flex-shrink: 0;
     }
-    .paso-icon svg {
-      width: 24px;
-      height: 24px;
+
+    .step-icon svg {
+      width: 20px;
+      height: 20px;
       stroke: var(--bosque);
-      stroke-width: 1.8;
+      stroke-width: 1.5px;
       fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
-    .paso h3 {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95em;
+
+    .step-title {
+      font-size: 16px;
       font-weight: 500;
-      color: var(--text);
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-    .paso p {
-      font-size: 0.82em;
-      color: var(--text-light);
-      font-weight: 300;
-      line-height: 1.6;
-    }
-    @media (max-width: 600px) {
-      .hero-wrapper { min-height: 75vh; }
-      .pasos-grid { flex-direction: column; align-items: center; gap: 32px; }
-      .paso { max-width: 280px; }
-    }
-
-    /* Buttons */
-    .btn-primary {
-      background: var(--bosque);
-      color: var(--blanco);
-      border: 1.5px solid var(--bosque);
-      padding: 16px 48px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82em;
-      font-weight: 500;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .btn-primary:hover {
-      background: var(--salvia);
-      border-color: var(--salvia);
       color: var(--carbon);
-    }
-    .btn-primary:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1.5px solid var(--topo);
-      padding: 14px 36px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82em;
-      font-weight: 400;
-      border-radius: 6px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      border-radius: 0;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .btn-secondary:hover {
-      border-color: var(--text);
-    }
-    .btn-sage {
-      background: var(--bosque);
-      color: white;
-      border: 1.5px solid var(--bosque);
-    }
-    .btn-sage:hover {
-      background: var(--salvia);
-      border-color: var(--salvia);
-      color: var(--carbon);
+      margin-bottom: 4px;
     }
 
-    .landing-note {
-      margin-top: 16px;
-      font-size: 0.75em;
-      color: var(--carbon);
-      font-weight: 400;
-      letter-spacing: 0.5px;
-      background: var(--piedra);
-      display: block;
-      padding: 6px 18px;
-      border-radius: 20px;
-      width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
+    .step-desc {
+      font-size: 14px;
+      color: var(--carbonSoft);
+      line-height: 1.5;
     }
 
-
+    .landing-footer {
+      margin-top: 56px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(46,46,46,0.08);
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
 
     /* ===== FORM ===== */
-    .form-container {
-      max-width: 520px;
-      margin: 0 auto;
-      padding: 40px 24px;
+    #form-wrapper {
       display: none;
+      flex-direction: column;
+      height: 100vh;
     }
-    .progress-wrapper { margin-bottom: 40px; }
-    .step-indicator {
-      text-align: center;
-      font-size: 0.7em;
-      color: var(--text-light);
-      margin-bottom: 12px;
-      font-weight: 400;
-      letter-spacing: 3px;
-      text-transform: uppercase;
+
+    .form-header {
+      padding: 12px 24px 20px;
+      border-bottom: 1px solid rgba(46,46,46,0.08);
     }
+
+    .form-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: var(--carbon);
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      width: 20px;
+      height: 20px;
+    }
+
+    .back-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--carbon);
+      stroke-width: 1.5px;
+      fill: none;
+    }
+
+    .step-counter {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
     .progress-bar {
-      background: var(--piedra);
       height: 1px;
+      background: var(--piedra);
+      border-radius: 1px;
       overflow: hidden;
     }
+
     .progress-fill {
-      background: var(--bosque);
       height: 100%;
-      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--bosque);
+      transition: width 0.3s;
+      width: 12.5%;
+    }
+
+    .form-content {
+      flex: 1;
+      overflow: auto;
+      padding: 32px 24px 24px;
+      animation: fadeUp 0.4s ease;
     }
 
     .form-step {
       display: none;
-      animation: fadeUp 0.4s ease-out;
     }
-    .form-step.active { display: block; }
+
+    .form-step.active {
+      display: block;
+    }
 
     .form-step h2 {
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      margin-bottom: 6px;
-      font-size: 1.6em;
-      font-weight: 300;
-      letter-spacing: -0.3px;
-    }
-    .step-desc {
-      color: var(--text-light);
-      margin-bottom: 32px;
-      font-size: 0.88em;
-      font-weight: 300;
+      font-size: 26px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--carbon);
+      margin: 0 0 8px;
+      letter-spacing: -0.5px;
     }
 
-    .form-group { margin-bottom: 24px; }
-    .form-group label {
+    .form-step-subtitle {
+      font-size: 14px;
+      color: var(--carbonSoft);
+      margin: 0 0 32px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
       display: block;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
       font-weight: 500;
-      margin-bottom: 12px;
-      font-size: 0.85em;
-      color: var(--text);
-      letter-spacing: 0.2px;
-    }
-    .form-group input[type="text"],
-    .form-group input[type="email"] {
-      width: 100%;
-      padding: 14px 0;
-      border: none;
-      border-bottom: 1px solid var(--topo);
-      font-family: 'Inter', sans-serif;
-      font-size: 1em;
-      color: var(--text);
-      background: transparent;
-      transition: all 0.3s ease;
-      border-radius: 0;
-    }
-    .form-group input:focus {
-      outline: none;
-      border-bottom-color: var(--carbon);
-    }
-    .form-group input::placeholder {
-      color: var(--text-light);
-      font-weight: 300;
     }
 
-    /* Option cards */
-    .option-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--topo);
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: var(--carbon);
+      background: var(--hueso);
+      outline: none;
+      transition: border-color 0.2s;
     }
-    .option-grid.single-col { grid-template-columns: 1fr; }
+
+    .form-input:focus {
+      border-color: var(--bosque);
+    }
+
+    .form-input::placeholder {
+      color: #999;
+    }
+
+    .form-grid {
+      display: flex;
+      gap: 16px;
+    }
+
+    .form-grid .form-group {
+      flex: 1;
+    }
+
+    .option-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
     .option-card {
-      border: 1px solid var(--border);
-      padding: 14px 18px;
-      cursor: pointer;
-      transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 0.85em;
-      background: var(--blanco);
+      gap: 16px;
+      padding: 20px 18px;
+      border: 1px solid var(--topo);
+      border-radius: 4px;
+      background: var(--hueso);
+      cursor: pointer;
+      transition: all 0.2s;
     }
+
     .option-card:hover {
-      border-color: var(--topo);
+      border-color: var(--topoDark);
     }
+
     .option-card.selected {
       border-color: var(--bosque);
-      background: var(--blanco);
+      box-shadow: inset 0 0 0 1px var(--bosque);
     }
-    .option-card input { display: none; }
-    .option-card .check {
-      width: 16px; height: 16px;
+
+    .option-card input {
+      display: none;
+    }
+
+    .option-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 22px;
+      background: var(--piedra);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .option-card.selected .option-icon {
+      background: var(--salvia);
+    }
+
+    .option-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--bosque);
+      stroke-width: 1.5px;
+      fill: none;
+    }
+
+    .option-text h3 {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--carbon);
+      margin: 0 0 4px;
+    }
+
+    .option-text p {
+      font-size: 13px;
+      color: var(--carbonSoft);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .checkbox-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
       border: 1px solid var(--topo);
+      border-radius: 4px;
+      background: var(--hueso);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .checkbox-item:hover {
+      border-color: var(--topoDark);
+    }
+
+    .checkbox-item.checked {
+      border-color: var(--bosque);
+      box-shadow: inset 0 0 0 1px var(--bosque);
+    }
+
+    .checkbox-box {
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--topo);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .checkbox-item.checked .checkbox-box {
+      background: var(--bosque);
+      border-color: var(--bosque);
+    }
+
+    .checkbox-item.checked .checkbox-box::after {
+      content: '✓';
+      color: var(--hueso);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .checkbox-item input {
+      display: none;
+    }
+
+    .checkbox-text {
+      font-size: 15px;
+      color: var(--carbon);
+    }
+
+    .radio-grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .radio-grid-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .radio-grid-single {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .radio-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      border: 1px solid var(--topo);
+      border-radius: 4px;
+      background: var(--hueso);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .radio-item:hover {
+      border-color: var(--topoDark);
+    }
+
+    .radio-item.checked {
+      border-color: var(--bosque);
+      box-shadow: inset 0 0 0 1px var(--bosque);
+    }
+
+    .radio-circle {
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--topo);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: all 0.2s ease;
+      transition: all 0.2s;
     }
-    .option-card.checkbox .check { border-radius: 2px; }
-    .option-card.selected .check {
+
+    .radio-item.checked .radio-circle {
       border-color: var(--bosque);
       background: var(--bosque);
     }
-    .option-card.selected .check::after {
+
+    .radio-item.checked .radio-circle::after {
       content: '';
-      width: 4px; height: 4px;
-      background: var(--blanco);
+      width: 6px;
+      height: 6px;
+      background: var(--hueso);
       border-radius: 50%;
     }
-    .option-card.checkbox.selected .check::after { border-radius: 1px; }
 
-    /* Objetivo cards */
-    .objetivo-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
+    .radio-item input {
+      display: none;
     }
-    .objetivo-card {
-      border: 1px solid var(--border);
-      padding: 20px 24px;
+
+    .radio-text {
+      font-size: 15px;
+      color: var(--carbon);
+    }
+
+    .button-group-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .button-group-item {
+      flex: 1;
+      padding: 12px 4px;
+      border: 1px solid var(--topo);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--carbon);
+      font-size: 13px;
       cursor: pointer;
-      transition: all 0.2s ease;
-      background: var(--blanco);
+      transition: all 0.2s;
     }
-    .objetivo-card:hover {
-      border-color: var(--topo);
-    }
-    .objetivo-card.selected {
+
+    .button-group-item.selected {
+      background: var(--bosque);
+      color: var(--hueso);
       border-color: var(--bosque);
-      background: var(--blanco);
     }
-    .objetivo-card h3 {
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      margin-bottom: 4px;
-      font-size: 0.95em;
-      font-weight: 500;
+
+    .button-group-item input {
+      display: none;
     }
-    .objetivo-card p {
-      color: var(--text-light);
-      font-size: 0.8em;
-      font-weight: 300;
-      line-height: 1.5;
-    }
-    .objetivo-card input { display: none; }
 
     .form-nav {
+      padding: 16px 24px 24px;
+      border-top: 1px solid rgba(46,46,46,0.08);
       display: flex;
+      gap: 10px;
       justify-content: space-between;
-      align-items: center;
-      margin-top: 40px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
     }
 
-    .encouragement {
-      text-align: center;
-      padding: 10px 16px;
-      background: var(--piedra);
-      margin-bottom: 20px;
-      font-size: 0.8em;
-      color: var(--text-mid);
-      font-weight: 300;
-      display: none;
+    .form-nav .btn-secondary {
+      flex: 1;
+    }
+
+    .form-nav .btn-primary {
+      flex: 1;
     }
 
     /* ===== LOADING ===== */
-    .loading {
+    #loading {
       display: none;
-      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       padding: 140px 24px;
+      text-align: center;
     }
-    .loading-bar {
-      width: 100px;
-      height: 1px;
-      background: var(--piedra);
-      margin: 0 auto 32px;
-      overflow: hidden;
-      position: relative;
+
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--piedra);
+      border-top-color: var(--bosque);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 32px;
     }
-    .loading-bar::after {
-      content: '';
-      position: absolute;
-      left: -40%;
-      width: 40%;
-      height: 100%;
-      background: var(--bosque);
-      animation: loadSlide 1.2s ease infinite;
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
-    @keyframes loadSlide {
-      0% { left: -40%; }
-      100% { left: 100%; }
+
+    #loading h2 {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--carbon);
+      margin-bottom: 8px;
+    }
+
+    #loading p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--carbonSoft);
     }
 
     /* ===== RESULTS ===== */
-    .result-container {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 40px 24px 32px;
+    #results {
       display: none;
-      animation: fadeUp 0.6s ease-out;
-    }
-    .result-header {
-      text-align: center;
-      margin-bottom: 12px;
-    }
-    .result-label {
-      font-size: 0.7em;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--text-light);
-      margin-bottom: 12px;
-    }
-    .result-header h1 {
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      font-size: 2.4em;
-      font-weight: 300;
-      margin-bottom: 8px;
-      line-height: 1.2;
-      letter-spacing: -0.5px;
-    }
-    .result-header h1 em {
-      font-style: italic;
-      font-weight: 400;
-    }
-    .result-intro {
-      text-align: center;
-      margin-bottom: 28px;
-      font-size: 0.92em;
-      color: var(--text-mid);
-      line-height: 1.8;
-      font-weight: 300;
+      flex-direction: column;
+      padding: 32px 24px 40px;
       max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
+      animation: fadeUp 0.6s ease;
     }
 
-    /* Supplement cards */
-    .sup-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .sup-card {
-      background: var(--blanco);
-      border: 1px solid var(--border);
-      padding: 28px 20px;
-      text-align: center;
-      transition: transform 0.2s ease;
-    }
-    .sup-card:hover {
-      transform: translateY(-2px);
-    }
-    .sup-card::before {
-      content: '';
-      display: block;
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      margin: 0 auto 16px;
-    }
-    .sup-card:nth-child(1)::before { background: var(--salvia); }
-    .sup-card:nth-child(2)::before { background: var(--topo); }
-    .sup-card:nth-child(3)::before { background: var(--piedra); }
-
-    .sup-card .sup-reason {
-      font-size: 0.7em;
-      color: var(--bosque);
-      letter-spacing: 2px;
+    .result-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      color: var(--muted);
       text-transform: uppercase;
-      margin-bottom: 10px;
-      font-weight: 500;
+      margin-bottom: 12px;
     }
-    .sup-card .sup-name {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.05em;
-      color: var(--text);
-      margin-bottom: 10px;
-      font-weight: 500;
+
+    .result-title {
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.8px;
+      color: var(--carbon);
+      margin: 0 0 16px;
     }
-    .sup-card .sup-benefit {
-      font-size: 0.8em;
-      color: var(--text-mid);
+
+    .result-title em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .result-intro {
+      font-size: 15px;
+      color: var(--carbonSoft);
       line-height: 1.6;
-      font-weight: 300;
+      margin-bottom: 24px;
     }
 
-    /* Plan summary card */
-    .plan-card {
-      background: var(--blanco);
-      border: 1px solid var(--border);
-      padding: 32px;
-      text-align: center;
-      margin: 24px 0 16px;
-    }
-    .plan-card .plan-label {
-      font-size: 0.7em;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--text-light);
-      margin-bottom: 8px;
-    }
-    .plan-card .plan-price {
-      font-family: 'Inter', sans-serif;
-      font-size: 2.6em;
-      color: var(--text);
-      font-weight: 300;
-      line-height: 1.2;
-    }
-    .plan-card .plan-price span {
-      font-size: 0.35em;
-      color: var(--text-mid);
-    }
-    .plan-card .plan-note {
-      font-size: 0.8em;
-      color: var(--text-mid);
-      margin-top: 8px;
-      font-weight: 300;
-    }
-    .plan-card .plan-original {
-      font-size: 0.75em;
-      color: var(--text-light);
-      margin-top: 4px;
-      text-decoration: line-through;
-    }
-
-    /* Includes list */
-    .includes {
+    .sup-cards-grid {
       display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .sup-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: var(--hueso);
+      border: 1px solid var(--topo);
+      border-radius: 4px;
+    }
+
+    .sup-disc {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
-      margin: 16px 0;
-      padding: 20px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .includes-item {
-      font-size: 0.78em;
-      color: var(--text-mid);
-      font-weight: 300;
-    }
-    .includes-item strong {
-      display: block;
+      color: rgba(46,46,46,0.5);
+      font-size: 11px;
       font-weight: 500;
-      color: var(--text);
-      font-size: 0.9em;
-      margin-bottom: 2px;
-    }
-
-    /* CTA section */
-    .cta-section {
-      text-align: center;
-      margin-top: 24px;
-      padding: 36px 32px;
-      background: var(--piedra);
-      border-radius: 8px;
-    }
-    .cta-section h3 {
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      font-size: 1.4em;
-      font-weight: 300;
-      margin-bottom: 8px;
-    }
-    .cta-section p {
-      color: var(--text-mid);
-      font-size: 0.88em;
-      margin-bottom: 28px;
-      font-weight: 300;
-    }
-    .cta-buttons {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .cta-fine-print {
-      margin-top: 20px;
-      font-size: 0.7em;
-      color: var(--text-light);
       letter-spacing: 0.3px;
     }
 
-    /* ===== FOOTER ===== */
-    .footer {
+    .sup-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sup-reason {
+      font-size: 11px;
+      color: #565D54;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+      font-weight: 500;
+    }
+
+    .sup-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--carbon);
+      margin-bottom: 2px;
+    }
+
+    .sup-moment {
+      font-size: 13px;
+      color: var(--carbonSoft);
+    }
+
+    .extras-section {
+      margin-top: 24px;
+    }
+
+    .extras-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .extra-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      background: var(--piedra);
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .extra-disc {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(46,46,46,0.5);
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .extra-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .extra-reason {
+      font-size: 12px;
+      color: var(--carbonSoft);
+      margin-bottom: 2px;
+    }
+
+    .extra-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--carbon);
+    }
+
+    .extra-price {
+      font-size: 13px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .plan-card {
+      margin-top: 32px;
+      padding: 20px;
+      background: var(--carbon);
+      color: var(--hueso);
+      border-radius: 4px;
+    }
+
+    .plan-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .plan-amount {
+      font-size: 36px;
+      font-weight: 300;
+      letter-spacing: -1px;
+    }
+
+    .plan-currency {
+      font-size: 13px;
+      opacity: 0.5;
+    }
+
+    .plan-original {
+      font-size: 13px;
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+
+    .plan-discount {
+      font-size: 11px;
+      color: var(--salvia);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .plan-note {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-top: 6px;
+    }
+
+    .includes-list {
+      margin-top: 24px;
+    }
+
+    .includes-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(46,46,46,0.08);
+    }
+
+    .includes-item:last-child {
+      border-bottom: none;
+    }
+
+    .includes-check {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--bosque);
+    }
+
+    .includes-check svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--bosque);
+      stroke-width: 1.5px;
+      fill: none;
+    }
+
+    .includes-text {
+      font-size: 14px;
+      color: var(--carbon);
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .cta-buttons .btn-primary,
+    .cta-buttons .btn-secondary {
+      margin: 0;
+    }
+
+    .fine-print {
+      font-size: 12px;
+      color: var(--muted);
       text-align: center;
-      padding: 48px 24px;
-      font-size: 0.7em;
-      color: var(--text-light);
-      letter-spacing: 3px;
-      text-transform: lowercase;
+      margin-top: 16px;
+      margin-bottom: 40px;
+      line-height: 1.5;
+    }
+
+    /* Confirmation */
+    .confirmation-checkmark {
+      width: 72px;
+      height: 72px;
+      border-radius: 36px;
+      background: var(--bosque);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      animation: pop 0.4s cubic-bezier(0.2, 0.8, 0.3, 1.2);
+    }
+
+    .confirmation-checkmark::after {
+      content: '✓';
+      color: var(--hueso);
+      font-size: 36px;
+      font-weight: 600;
+    }
+
+    .confirmation-box {
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .confirmation-box h3 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      margin-bottom: 0.5rem;
+    }
+
+    .confirmation-box p {
+      color: var(--carbonSoft);
       font-weight: 300;
     }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 640px) {
-      .landing h1 { font-size: 2.2em; }
-      .landing { padding: 48px 20px 40px; }
-      .option-grid { grid-template-columns: 1fr; }
-      .sup-cards-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
+    .return-btn {
+      display: inline-block;
+      margin-top: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .form-grid {
+        flex-direction: column;
       }
-      .result-header h1 { font-size: 1.8em; }
-      .plan-card { padding: 28px 20px; }
-      .plan-card .plan-price { font-size: 2em; }
-      .includes { gap: 20px; }
-      .cta-section { padding: 36px 20px; }
+
+      .form-grid .form-group {
+        flex: none;
+      }
+
+      .radio-grid-2col,
+      .radio-grid-3col {
+        grid-template-columns: 1fr;
+      }
+
+      .button-group-row {
+        flex-wrap: wrap;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">niva</div>
-  </header>
+  <!-- LANDING -->
+  <div id="landing" style="display: flex; flex-direction: column; height: 100vh;">
+    <div class="hero">
+      <div class="hero-logo">niva</div>
+      <div class="hero-headline">
+        <h1>tu bienestar,<br><em>más simple</em></h1>
+      </div>
+    </div>
 
-  <!-- HERO con fondo -->
-  <div class="hero-wrapper" id="heroWrapper">
-    <section class="landing" id="landing">
-      <h1>tu bienestar,<br><em>mas simple</em></h1>
-      <p class="subtitle">
-        Te ayudamos a saber que tomar,<br>
-        cuando y como sostenerlo.<br>
-        Un plan hecho para vos.
+    <div class="landing-content">
+      <p class="landing-subtitle">
+        Suplementos pensados para vos, con seguimiento real y evidencia científica detrás de cada recomendación.
       </p>
+
       <button class="btn-primary" onclick="startForm()">EMPEZAR</button>
-      <p class="landing-note">5 minutos. Gratuito. Sin compromiso.</p>
-    </section>
+
+      <div class="pill-container">
+        <span class="pill-outline">5 min · Gratuito · Sin compromiso</span>
+      </div>
+
+      <div class="como-funciona">
+        <div class="como-funciona-label">Cómo funciona</div>
+
+        <div class="step-item">
+          <div class="step-number">01</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 20 20">
+              <path d="M3 5a2 2 0 012-2h10a2 2 0 012 2v7a2 2 0 01-2 2H8l-4 3v-3a2 2 0 01-2-2V5z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="step-title">Respondés unas preguntas</div>
+            <div class="step-desc">Sobre vos, tu rutina y tus objetivos.</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">02</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 20 20">
+              <path d="M17 3C8 3 3 8 3 14c0 2 1 3 3 3 6 0 11-5 11-14zM6 17c2-5 6-9 11-11"/>
+            </svg>
+          </div>
+          <div>
+            <div class="step-title">Te armamos un plan</div>
+            <div class="step-desc">Claro, personalizado y fácil de seguir.</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">03</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 20 20">
+              <path d="M3 17V4M3 17h14M6 13l3-4 3 2 4-6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="step-title">Lo sostenés en el tiempo</div>
+            <div class="step-desc">Con check-ins y ajustes según tu evolución.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="landing-footer">
+        niva · tu bienestar, más simple · montevideo
+      </div>
+    </div>
   </div>
 
-  <!-- PASOS: como funciona -->
-  <section class="pasos-section" id="pasosSection">
-    <h2>empezar es simple</h2>
-    <div class="pasos-grid">
-      <div class="paso">
-        <div class="paso-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
-            <rect x="9" y="3" width="6" height="4" rx="1"/>
-            <line x1="9" y1="12" x2="15" y2="12"/>
-            <line x1="9" y1="16" x2="13" y2="16"/>
-          </svg>
-        </div>
-        <h3>respondes unas preguntas</h3>
-        <p>sobre vos y tu rutina</p>
-      </div>
-      <div class="paso">
-        <div class="paso-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
-          </svg>
-        </div>
-        <h3>te armamos un plan</h3>
-        <p>claro y facil de seguir</p>
-      </div>
-      <div class="paso">
-        <div class="paso-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-            <polyline points="22 4 12 14.01 9 11.01"/>
-          </svg>
-        </div>
-        <h3>lo sostenes en el tiempo</h3>
-        <p>con acompanamiento</p>
-      </div>
-    </div>
-  </section>
-
   <!-- FORM -->
-  <section class="form-container" id="formContainer">
-    <div class="progress-wrapper">
-      <div class="step-indicator" id="stepIndicator">Paso 1 de 8</div>
+  <div id="form-wrapper" style="display: none; flex-direction: column; height: 100vh;">
+    <div class="form-header">
+      <div class="form-header-top">
+        <button class="back-btn" id="backBtn" onclick="prevStep()" style="visibility: hidden;">
+          <svg viewBox="0 0 20 20">
+            <path d="M16 10H4M9 5l-5 5 5 5"/>
+          </svg>
+        </button>
+        <div class="step-counter" id="stepCounter">1 de 8</div>
+        <div style="width: 0;"></div>
+      </div>
       <div class="progress-bar">
-        <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
+        <div class="progress-fill" id="progressFill" style="width: 12.5%;"></div>
       </div>
     </div>
 
-    <!-- STEP 1 -->
-    <div class="form-step active" data-step="1">
-      <h2>Contanos sobre vos</h2>
-      <p class="step-desc">Para armar tu plan.</p>
-      <div class="form-group">
-        <label>Tu nombre</label>
-        <input type="text" id="nombre" placeholder="Como te llamas?">
-      </div>
-      <div class="form-group">
-        <label>Tu email</label>
-        <input type="email" id="email" placeholder="Para enviarte tu plan">
-      </div>
-      <div class="form-group">
-        <label>Edad</label>
-        <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'edad')"><input type="radio" name="edad" value="18-29"><div class="check"></div><span>18 - 29</span></div>
-          <div class="option-card" onclick="selectRadio(this,'edad')"><input type="radio" name="edad" value="30-49"><div class="check"></div><span>30 - 49</span></div>
-          <div class="option-card" onclick="selectRadio(this,'edad')"><input type="radio" name="edad" value="50+"><div class="check"></div><span>50+</span></div>
+    <div class="form-content" id="formContent">
+      <!-- STEP 1: Intro -->
+      <div class="form-step active" data-step="1">
+        <h2>Contanos sobre vos</h2>
+        <p class="form-step-subtitle">Para armarte un plan a medida.</p>
+
+        <div class="form-group">
+          <label class="form-label">Nombre</label>
+          <input type="text" id="nombre" class="form-input" placeholder="Como te llamás">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" id="email" class="form-input" placeholder="tu@email.com">
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Edad</label>
+            <div class="radio-grid-single">
+              <button class="radio-item" onclick="selectRadio(this, 'edad', '18-29')">
+                <input type="radio" name="edad" value="18-29">
+                <div class="radio-circle"></div>
+                <span class="radio-text">18 - 29</span>
+              </button>
+              <button class="radio-item" onclick="selectRadio(this, 'edad', '30-49')">
+                <input type="radio" name="edad" value="30-49">
+                <div class="radio-circle"></div>
+                <span class="radio-text">30 - 49</span>
+              </button>
+              <button class="radio-item" onclick="selectRadio(this, 'edad', '50+')">
+                <input type="radio" name="edad" value="50+">
+                <div class="radio-circle"></div>
+                <span class="radio-text">50+</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Género</label>
+            <div class="radio-grid-single">
+              <button class="radio-item" onclick="selectRadio(this, 'sexo', 'femenino')">
+                <input type="radio" name="sexo" value="femenino">
+                <div class="radio-circle"></div>
+                <span class="radio-text">Femenino</span>
+              </button>
+              <button class="radio-item" onclick="selectRadio(this, 'sexo', 'masculino')">
+                <input type="radio" name="sexo" value="masculino">
+                <div class="radio-circle"></div>
+                <span class="radio-text">Masculino</span>
+              </button>
+              <button class="radio-item" onclick="selectRadio(this, 'sexo', 'otro')">
+                <input type="radio" name="sexo" value="otro">
+                <div class="radio-circle"></div>
+                <span class="radio-text">Prefiero no decir</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="form-group">
-        <label>Genero</label>
+
+      <!-- STEP 2: Objetivo -->
+      <div class="form-step" data-step="2">
+        <h2>¿Cuál es tu objetivo principal?</h2>
+        <p class="form-step-subtitle">Elegí el que más te resuena.</p>
+
         <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'sexo')"><input type="radio" name="sexo" value="femenino"><div class="check"></div><span>Femenino</span></div>
-          <div class="option-card" onclick="selectRadio(this,'sexo')"><input type="radio" name="sexo" value="masculino"><div class="check"></div><span>Masculino</span></div>
-          <div class="option-card" onclick="selectRadio(this,'sexo')"><input type="radio" name="sexo" value="otro"><div class="check"></div><span>Prefiero no decir</span></div>
+          <button class="option-card" onclick="selectObjetivo(this, 'energia')">
+            <input type="radio" name="objetivo_principal" value="energia">
+            <div class="option-icon">
+              <svg viewBox="0 0 20 20">
+                <path d="M10 2v4M10 14v4M2 10h4M14 10h4M4.5 4.5l2.5 2.5M13 13l2.5 2.5M4.5 15.5L7 13M13 7l2.5-2.5"/>
+              </svg>
+            </div>
+            <div class="option-text">
+              <h3>Energía y Vitalidad</h3>
+              <p>Reducir la fatiga, sentirte mejor cada día.</p>
+            </div>
+          </button>
+
+          <button class="option-card" onclick="selectObjetivo(this, 'estres')">
+            <input type="radio" name="objetivo_principal" value="estres">
+            <div class="option-icon">
+              <svg viewBox="0 0 20 20">
+                <path d="M16 11.5A7 7 0 016.5 4a7 7 0 109.5 7.5z"/>
+              </svg>
+            </div>
+            <div class="option-text">
+              <h3>Estrés y Sueño</h3>
+              <p>Dormir mejor, manejar el estrés.</p>
+            </div>
+          </button>
+
+          <button class="option-card" onclick="selectObjetivo(this, 'inmunidad')">
+            <input type="radio" name="objetivo_principal" value="inmunidad">
+            <div class="option-icon">
+              <svg viewBox="0 0 20 20">
+                <path d="M10 2l6 2v5c0 4-3 7-6 9-3-2-6-5-6-9V4l6-2z"/>
+              </svg>
+            </div>
+            <div class="option-text">
+              <h3>Inmunidad</h3>
+              <p>Fortalecer tus defensas.</p>
+            </div>
+          </button>
+
+          <button class="option-card" onclick="selectObjetivo(this, 'piel')">
+            <input type="radio" name="objetivo_principal" value="piel">
+            <div class="option-icon">
+              <svg viewBox="0 0 20 20">
+                <path d="M10 2s5 5 5 10a5 5 0 01-10 0c0-5 5-10 5-10z"/>
+              </svg>
+            </div>
+            <div class="option-text">
+              <h3>Piel y Pelo</h3>
+              <p>Cuidarte desde adentro.</p>
+            </div>
+          </button>
+
+          <button class="option-card" onclick="selectObjetivo(this, 'fitness')">
+            <input type="radio" name="objetivo_principal" value="fitness">
+            <div class="option-icon">
+              <svg viewBox="0 0 20 20">
+                <path d="M4 7v6M7 5v10M13 5v10M16 7v6M7 10h6"/>
+              </svg>
+            </div>
+            <div class="option-text">
+              <h3>Fitness y Rendimiento</h3>
+              <p>Optimizar entrenamiento y recuperación.</p>
+            </div>
+          </button>
         </div>
       </div>
-      <div class="form-nav"><div></div><button class="btn-primary" onclick="nextStep()">SIGUIENTE</button></div>
+
+      <!-- STEP 3: Sueño -->
+      <div class="form-step" data-step="3">
+        <h2>Estrés y sueño</h2>
+        <p class="form-step-subtitle">Marcá lo que te pasa habitualmente.</p>
+
+        <div class="form-group">
+          <label class="form-label">¿Te cuesta dormirte?</label>
+          <div class="radio-grid-2col">
+            <button class="radio-item" onclick="selectRadio(this, 'dificultad_dormirse', 'si')">
+              <input type="radio" name="dificultad_dormirse" value="si">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Sí, frecuentemente</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'dificultad_dormirse', 'no')">
+              <input type="radio" name="dificultad_dormirse" value="no">
+              <div class="radio-circle"></div>
+              <span class="radio-text">No, duermo bien</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">¿Te despertas durante la noche?</label>
+          <div class="radio-grid-2col">
+            <button class="radio-item" onclick="selectRadio(this, 'dificultad_mantener', 'si')">
+              <input type="radio" name="dificultad_mantener" value="si">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Sí, seguido</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'dificultad_mantener', 'no')">
+              <input type="radio" name="dificultad_mantener" value="no">
+              <div class="radio-circle"></div>
+              <span class="radio-text">No, de corrido</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">¿Con qué frecuencia sentís fatiga?</label>
+          <div class="radio-grid-single">
+            <button class="radio-item" onclick="selectRadio(this, 'fatiga', 'nunca')">
+              <input type="radio" name="fatiga" value="nunca">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Casi nunca</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'fatiga', 'a_veces')">
+              <input type="radio" name="fatiga" value="a_veces">
+              <div class="radio-circle"></div>
+              <span class="radio-text">A veces</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'fatiga', 'frecuente')">
+              <input type="radio" name="fatiga" value="frecuente">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Frecuentemente</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'fatiga', 'siempre')">
+              <input type="radio" name="fatiga" value="siempre">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Casi siempre</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: Foco -->
+      <div class="form-step" data-step="4">
+        <h2>Concentración y claridad</h2>
+        <p class="form-step-subtitle">Vas muy bien, ya completaste la mitad.</p>
+
+        <div class="form-group">
+          <label class="form-label">Marca las que apliquen:</label>
+          <div class="checkbox-grid">
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'mental', 'foco')">
+              <input type="checkbox" name="mental" value="foco">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Me cuesta concentrarme</span>
+            </button>
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'mental', 'brain_fog')">
+              <input type="checkbox" name="mental" value="brain_fog">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Siento niebla mental</span>
+            </button>
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'mental', 'memoria')">
+              <input type="checkbox" name="mental" value="memoria">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Problemas de memoria</span>
+            </button>
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'mental', 'ninguno')">
+              <input type="checkbox" name="mental" value="ninguno">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Ninguna</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5: Piel y pelo -->
+      <div class="form-step" data-step="5">
+        <h2>Piel y pelo</h2>
+        <p class="form-step-subtitle">Aunque no sea tu objetivo principal, afina tu plan.</p>
+
+        <div class="form-group">
+          <label class="form-label">Tu piel:</label>
+          <div class="checkbox-grid">
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'piel', 'seca')">
+              <input type="checkbox" name="piel" value="seca">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Piel seca o sin brillo</span>
+            </button>
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'piel', 'acne')">
+              <input type="checkbox" name="piel" value="acne">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Acné o irritación</span>
+            </button>
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'piel', 'opaca')">
+              <input type="checkbox" name="piel" value="opaca">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Opaca o sin brillo</span>
+            </button>
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'piel', 'bien')">
+              <input type="checkbox" name="piel" value="bien">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Está bien</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tu pelo:</label>
+          <div class="checkbox-grid">
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'pelo', 'fino')">
+              <input type="checkbox" name="pelo" value="fino">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Pelo quebradizo o caída</span>
+            </button>
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'pelo', 'seco')">
+              <input type="checkbox" name="pelo" value="seco">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Seco o dañado</span>
+            </button>
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'pelo', 'lento')">
+              <input type="checkbox" name="pelo" value="lento">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Cicatrización lenta</span>
+            </button>
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'pelo', 'bien')">
+              <input type="checkbox" name="pelo" value="bien">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Está bien</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 6: Salud -->
+      <div class="form-step" data-step="6">
+        <h2>Tu salud</h2>
+        <p class="form-step-subtitle">Algunas preguntas sobre tu historial.</p>
+
+        <div class="form-group">
+          <label class="form-label">¿Historial familiar de osteoporosis?</label>
+          <div class="radio-grid-2col">
+            <button class="radio-item" onclick="selectRadio(this, 'osteoporosis', 'si')">
+              <input type="radio" name="osteoporosis" value="si">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Sí</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'osteoporosis', 'no')">
+              <input type="radio" name="osteoporosis" value="no">
+              <div class="radio-circle"></div>
+              <span class="radio-text">No / No sé</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">¿Dolor articular?</label>
+          <div class="radio-grid-3col">
+            <button class="radio-item" onclick="selectRadio(this, 'articular', 'nunca')">
+              <input type="radio" name="articular" value="nunca">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Nunca</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'articular', 'a_veces')">
+              <input type="radio" name="articular" value="a_veces">
+              <div class="radio-circle"></div>
+              <span class="radio-text">A veces</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'articular', 'frecuente')">
+              <input type="radio" name="articular" value="frecuente">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Frecuente</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">¿Historial cardiovascular familiar?</label>
+          <div class="radio-grid-2col">
+            <button class="radio-item" onclick="selectRadio(this, 'cardiovascular', 'si')">
+              <input type="radio" name="cardiovascular" value="si">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Sí</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'cardiovascular', 'no')">
+              <input type="radio" name="cardiovascular" value="no">
+              <div class="radio-circle"></div>
+              <span class="radio-text">No / No sé</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Preocupaciones cardíacas:</label>
+          <div class="checkbox-grid">
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'corazon', 'colesterol')">
+              <input type="checkbox" name="corazon" value="colesterol">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Colesterol alto</span>
+            </button>
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'corazon', 'presion')">
+              <input type="checkbox" name="corazon" value="presion">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Presión arterial</span>
+            </button>
+            <button class="checkbox-item" onclick="toggleCheckbox(this, 'corazon', 'ninguno')">
+              <input type="checkbox" name="corazon" value="ninguno">
+              <div class="checkbox-box"></div>
+              <span class="checkbox-text">Ninguna</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Regularidad intestinal</label>
+          <div class="radio-grid-single">
+            <button class="radio-item" onclick="selectRadio(this, 'digestion', 'regular')">
+              <input type="radio" name="digestion" value="regular">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Regular</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'digestion', 'irregular')">
+              <input type="radio" name="digestion" value="irregular">
+              <div class="radio-circle"></div>
+              <span class="radio-text">A veces irregular</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'digestion', 'muy_irregular')">
+              <input type="radio" name="digestion" value="muy_irregular">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Bastante irregular</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 7: Inmunidad -->
+      <div class="form-step" data-step="7">
+        <h2>Inmunidad</h2>
+        <p class="form-step-subtitle">Queremos entender tu nivel de exposición diaria.</p>
+
+        <div class="form-group">
+          <label class="form-label">¿Convivís o tenés contacto frecuente con niños o personas vulnerables?</label>
+          <div class="radio-grid-2col">
+            <button class="radio-item" onclick="selectRadio(this, 'poblacion_vulnerable', 'si')">
+              <input type="radio" name="poblacion_vulnerable" value="si">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Sí</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'poblacion_vulnerable', 'no')">
+              <input type="radio" name="poblacion_vulnerable" value="no">
+              <div class="radio-circle"></div>
+              <span class="radio-text">No</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">¿Usas transporte público o estás en lugares concurridos a diario?</label>
+          <div class="radio-grid-2col">
+            <button class="radio-item" onclick="selectRadio(this, 'transporte', 'si')">
+              <input type="radio" name="transporte" value="si">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Sí</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'transporte', 'no')">
+              <input type="radio" name="transporte" value="no">
+              <div class="radio-circle"></div>
+              <span class="radio-text">No</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 8: Estilo de vida -->
+      <div class="form-step" data-step="8">
+        <h2>Tu estilo de vida</h2>
+        <p class="form-step-subtitle">Última sección.</p>
+
+        <div class="form-group">
+          <label class="form-label">Ejercicio semanal</label>
+          <div class="button-group-row">
+            <button class="button-group-item" onclick="selectRadio(this, 'ejercicio', 'nada')">
+              <input type="radio" name="ejercicio" value="nada">
+              Nada
+            </button>
+            <button class="button-group-item" onclick="selectRadio(this, 'ejercicio', '1-2')">
+              <input type="radio" name="ejercicio" value="1-2">
+              1-2x
+            </button>
+            <button class="button-group-item" onclick="selectRadio(this, 'ejercicio', '3-4')">
+              <input type="radio" name="ejercicio" value="3-4">
+              3-4x
+            </button>
+            <button class="button-group-item" onclick="selectRadio(this, 'ejercicio', '5+')">
+              <input type="radio" name="ejercicio" value="5+">
+              5+
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Frutas al día</label>
+          <div class="button-group-row">
+            <button class="button-group-item" onclick="selectRadio(this, 'frutas', 'bajo')">
+              <input type="radio" name="frutas" value="bajo">
+              0
+            </button>
+            <button class="button-group-item" onclick="selectRadio(this, 'frutas', 'medio')">
+              <input type="radio" name="frutas" value="medio">
+              1-2
+            </button>
+            <button class="button-group-item" onclick="selectRadio(this, 'frutas', 'alto')">
+              <input type="radio" name="frutas" value="alto">
+              3+
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Verduras al día</label>
+          <div class="button-group-row">
+            <button class="button-group-item" onclick="selectRadio(this, 'verduras', 'bajo')">
+              <input type="radio" name="verduras" value="bajo">
+              0
+            </button>
+            <button class="button-group-item" onclick="selectRadio(this, 'verduras', 'medio')">
+              <input type="radio" name="verduras" value="medio">
+              1-2
+            </button>
+            <button class="button-group-item" onclick="selectRadio(this, 'verduras', 'alto')">
+              <input type="radio" name="verduras" value="alto">
+              3+
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tipo de dieta</label>
+          <div class="radio-grid-single">
+            <button class="radio-item" onclick="selectRadio(this, 'dieta', 'omnivora')">
+              <input type="radio" name="dieta" value="omnivora">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Omnívora (como de todo)</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'dieta', 'vegetariana')">
+              <input type="radio" name="dieta" value="vegetariana">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Vegetariana</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'dieta', 'vegana')">
+              <input type="radio" name="dieta" value="vegana">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Vegana</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- STEP 2 -->
-    <div class="form-step" data-step="2">
-      <h2>Tu objetivo principal</h2>
-      <p class="step-desc">Tu plan se centra en esto.</p>
-      <div class="objetivo-grid">
-        <div class="objetivo-card" onclick="selectObjetivo(this,'energia')"><input type="radio" name="objetivo_principal" value="energia"><h3>Energia y Vitalidad</h3><p>Reducir la fatiga y mejorar tu dia a dia.</p></div>
-        <div class="objetivo-card" onclick="selectObjetivo(this,'estres')"><input type="radio" name="objetivo_principal" value="estres"><h3>Estres y Sueno</h3><p>Dormir mejor y manejar el estres.</p></div>
-        <div class="objetivo-card" onclick="selectObjetivo(this,'inmunidad')"><input type="radio" name="objetivo_principal" value="inmunidad"><h3>Inmunidad</h3><p>Fortalecer tus defensas.</p></div>
-        <div class="objetivo-card" onclick="selectObjetivo(this,'piel')"><input type="radio" name="objetivo_principal" value="piel"><h3>Piel y Pelo</h3><p>Cuidarte desde adentro.</p></div>
-        <div class="objetivo-card" onclick="selectObjetivo(this,'fitness')"><input type="radio" name="objetivo_principal" value="fitness"><h3>Fitness y Rendimiento</h3><p>Optimizar rendimiento y recuperacion.</p></div>
-      </div>
-      <div class="form-nav"><button class="btn-secondary" onclick="prevStep()">ATRAS</button><button class="btn-primary" onclick="nextStep()">SIGUIENTE</button></div>
+    <div class="form-nav">
+      <button class="btn-secondary" onclick="prevStep()" id="prevBtn" style="display: none;">Atrás</button>
+      <button class="btn-primary" onclick="nextStep()" id="nextBtn">Continuar</button>
     </div>
-
-    <!-- STEP 3 -->
-    <div class="form-step" data-step="3">
-      <h2>Estres y sueno</h2>
-      <p class="step-desc">Como dormis y como manejas el estres.</p>
-      <div class="form-group">
-        <label>Te cuesta dormirte a la noche?</label>
-        <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'dificultad_dormirse')"><input type="radio" name="dificultad_dormirse" value="si"><div class="check"></div><span>Si, frecuentemente</span></div>
-          <div class="option-card" onclick="selectRadio(this,'dificultad_dormirse')"><input type="radio" name="dificultad_dormirse" value="no"><div class="check"></div><span>No, duermo bien</span></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Te despertas durante la noche?</label>
-        <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'dificultad_mantener')"><input type="radio" name="dificultad_mantener" value="si"><div class="check"></div><span>Si, seguido</span></div>
-          <div class="option-card" onclick="selectRadio(this,'dificultad_mantener')"><input type="radio" name="dificultad_mantener" value="no"><div class="check"></div><span>No, de corrido</span></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Con que frecuencia sentis fatiga?</label>
-        <div class="option-grid single-col">
-          <div class="option-card" onclick="selectRadio(this,'fatiga')"><input type="radio" name="fatiga" value="nunca"><div class="check"></div><span>Casi nunca</span></div>
-          <div class="option-card" onclick="selectRadio(this,'fatiga')"><input type="radio" name="fatiga" value="a_veces"><div class="check"></div><span>A veces</span></div>
-          <div class="option-card" onclick="selectRadio(this,'fatiga')"><input type="radio" name="fatiga" value="frecuente"><div class="check"></div><span>Frecuentemente</span></div>
-          <div class="option-card" onclick="selectRadio(this,'fatiga')"><input type="radio" name="fatiga" value="siempre"><div class="check"></div><span>Casi siempre</span></div>
-        </div>
-      </div>
-      <div class="form-nav"><button class="btn-secondary" onclick="prevStep()">ATRAS</button><button class="btn-primary" onclick="nextStep()">SIGUIENTE</button></div>
-    </div>
-
-    <!-- STEP 4 -->
-    <div class="form-step" data-step="4">
-      <h2>Concentracion y claridad</h2>
-      <p class="step-desc">Esto nos ayuda a afinar tu plan.</p>
-      <div class="encouragement" id="encouragement">Vas muy bien, ya completaste la mitad.</div>
-      <div class="form-group">
-        <label>Marca las que apliquen:</label>
-        <div class="option-grid single-col">
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="mental" value="foco"><div class="check"></div><span>Me cuesta concentrarme</span></div>
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="mental" value="brain_fog"><div class="check"></div><span>Siento niebla mental</span></div>
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="mental" value="memoria"><div class="check"></div><span>Me olvido cosas</span></div>
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="mental" value="ninguno"><div class="check"></div><span>Ninguna</span></div>
-        </div>
-      </div>
-      <div class="form-nav"><button class="btn-secondary" onclick="prevStep()">ATRAS</button><button class="btn-primary" onclick="nextStep()">SIGUIENTE</button></div>
-    </div>
-
-    <!-- STEP 5 -->
-    <div class="form-step" data-step="5">
-      <h2>Piel y pelo</h2>
-      <p class="step-desc">Aunque no sea tu objetivo principal, afina tu plan.</p>
-      <div class="form-group">
-        <label>Tu piel:</label>
-        <div class="option-grid">
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="piel" value="seca"><div class="check"></div><span>Seca</span></div>
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="piel" value="grasa"><div class="check"></div><span>Grasa</span></div>
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="piel" value="opaca"><div class="check"></div><span>Opaca</span></div>
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="piel" value="bien"><div class="check"></div><span>Esta bien</span></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Tu pelo:</label>
-        <div class="option-grid">
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="pelo" value="fino"><div class="check"></div><span>Fino / se cae</span></div>
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="pelo" value="seco"><div class="check"></div><span>Seco / danado</span></div>
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="pelo" value="lento"><div class="check"></div><span>Crece lento</span></div>
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="pelo" value="bien"><div class="check"></div><span>Esta bien</span></div>
-        </div>
-      </div>
-      <div class="form-nav"><button class="btn-secondary" onclick="prevStep()">ATRAS</button><button class="btn-primary" onclick="nextStep()">SIGUIENTE</button></div>
-    </div>
-
-    <!-- STEP 6 -->
-    <div class="form-step" data-step="6">
-      <h2>Tu salud</h2>
-      <p class="step-desc">Algunas preguntas sobre tu historial.</p>
-      <div class="form-group">
-        <label>Historial familiar de osteoporosis?</label>
-        <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'osteoporosis')"><input type="radio" name="osteoporosis" value="si"><div class="check"></div><span>Si</span></div>
-          <div class="option-card" onclick="selectRadio(this,'osteoporosis')"><input type="radio" name="osteoporosis" value="no"><div class="check"></div><span>No / No se</span></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Dolor articular?</label>
-        <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'articular')"><input type="radio" name="articular" value="nunca"><div class="check"></div><span>Nunca</span></div>
-          <div class="option-card" onclick="selectRadio(this,'articular')"><input type="radio" name="articular" value="a_veces"><div class="check"></div><span>A veces</span></div>
-          <div class="option-card" onclick="selectRadio(this,'articular')"><input type="radio" name="articular" value="frecuente"><div class="check"></div><span>Frecuente</span></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Historial cardiovascular familiar?</label>
-        <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'cardiovascular')"><input type="radio" name="cardiovascular" value="si"><div class="check"></div><span>Si</span></div>
-          <div class="option-card" onclick="selectRadio(this,'cardiovascular')"><input type="radio" name="cardiovascular" value="no"><div class="check"></div><span>No / No se</span></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Preocupaciones cardiacas:</label>
-        <div class="option-grid single-col">
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="corazon" value="colesterol"><div class="check"></div><span>Colesterol alto</span></div>
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="corazon" value="presion"><div class="check"></div><span>Presion arterial</span></div>
-          <div class="option-card checkbox" onclick="toggleCheckbox(this)"><input type="checkbox" name="corazon" value="ninguno"><div class="check"></div><span>Ninguna</span></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Regularidad intestinal</label>
-        <div class="option-grid single-col">
-          <div class="option-card" onclick="selectRadio(this,'digestion')"><input type="radio" name="digestion" value="regular"><div class="check"></div><span>Regular</span></div>
-          <div class="option-card" onclick="selectRadio(this,'digestion')"><input type="radio" name="digestion" value="irregular"><div class="check"></div><span>A veces irregular</span></div>
-          <div class="option-card" onclick="selectRadio(this,'digestion')"><input type="radio" name="digestion" value="muy_irregular"><div class="check"></div><span>Bastante irregular</span></div>
-        </div>
-      </div>
-      <div class="form-nav"><button class="btn-secondary" onclick="prevStep()">ATRAS</button><button class="btn-primary" onclick="nextStep()">SIGUIENTE</button></div>
-    </div>
-
-    <!-- STEP 7 -->
-    <div class="form-step" data-step="7">
-      <h2>Inmunidad</h2>
-      <p class="step-desc">Queremos entender tu nivel de exposicion diaria.</p>
-      <div class="form-group">
-        <label>Convivis o tenes contacto frecuente con ninos o personas que se enferman seguido?</label>
-        <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'poblacion_vulnerable')"><input type="radio" name="poblacion_vulnerable" value="si"><div class="check"></div><span>Si</span></div>
-          <div class="option-card" onclick="selectRadio(this,'poblacion_vulnerable')"><input type="radio" name="poblacion_vulnerable" value="no"><div class="check"></div><span>No</span></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Usas transporte publico o estas en lugares con mucha gente a diario?</label>
-        <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'transporte')"><input type="radio" name="transporte" value="si"><div class="check"></div><span>Si</span></div>
-          <div class="option-card" onclick="selectRadio(this,'transporte')"><input type="radio" name="transporte" value="no"><div class="check"></div><span>No</span></div>
-        </div>
-      </div>
-      <div class="form-nav"><button class="btn-secondary" onclick="prevStep()">ATRAS</button><button class="btn-primary" onclick="nextStep()">SIGUIENTE</button></div>
-    </div>
-
-    <!-- STEP 8 -->
-    <div class="form-step" data-step="8">
-      <h2>Tu estilo de vida</h2>
-      <p class="step-desc">Ultima seccion.</p>
-      <div class="form-group">
-        <label>Ejercicio semanal</label>
-        <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'ejercicio')"><input type="radio" name="ejercicio" value="nada"><div class="check"></div><span>No hago</span></div>
-          <div class="option-card" onclick="selectRadio(this,'ejercicio')"><input type="radio" name="ejercicio" value="1-2"><div class="check"></div><span>1-2 veces</span></div>
-          <div class="option-card" onclick="selectRadio(this,'ejercicio')"><input type="radio" name="ejercicio" value="3-4"><div class="check"></div><span>3-4 veces</span></div>
-          <div class="option-card" onclick="selectRadio(this,'ejercicio')"><input type="radio" name="ejercicio" value="5+"><div class="check"></div><span>5 o mas</span></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Consumo de frutas</label>
-        <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'frutas')"><input type="radio" name="frutas" value="bajo"><div class="check"></div><span>Bajo (0-1/dia)</span></div>
-          <div class="option-card" onclick="selectRadio(this,'frutas')"><input type="radio" name="frutas" value="medio"><div class="check"></div><span>Medio (2-3)</span></div>
-          <div class="option-card" onclick="selectRadio(this,'frutas')"><input type="radio" name="frutas" value="alto"><div class="check"></div><span>Alto (4+)</span></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Consumo de verduras</label>
-        <div class="option-grid">
-          <div class="option-card" onclick="selectRadio(this,'verduras')"><input type="radio" name="verduras" value="bajo"><div class="check"></div><span>Bajo</span></div>
-          <div class="option-card" onclick="selectRadio(this,'verduras')"><input type="radio" name="verduras" value="medio"><div class="check"></div><span>Medio</span></div>
-          <div class="option-card" onclick="selectRadio(this,'verduras')"><input type="radio" name="verduras" value="alto"><div class="check"></div><span>Alto</span></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Tu dieta</label>
-        <div class="option-grid single-col">
-          <div class="option-card" onclick="selectRadio(this,'dieta')"><input type="radio" name="dieta" value="omnivora"><div class="check"></div><span>Omnivora (como de todo)</span></div>
-          <div class="option-card" onclick="selectRadio(this,'dieta')"><input type="radio" name="dieta" value="vegetariana"><div class="check"></div><span>Vegetariana</span></div>
-          <div class="option-card" onclick="selectRadio(this,'dieta')"><input type="radio" name="dieta" value="vegana"><div class="check"></div><span>Vegana</span></div>
-        </div>
-      </div>
-      <div class="form-nav"><button class="btn-secondary" onclick="prevStep()">ATRAS</button><button class="btn-primary" onclick="submitForm()">VER MI PLAN</button></div>
-    </div>
-  </section>
+  </div>
 
   <!-- LOADING -->
-  <section class="loading" id="loading">
-    <div class="loading-bar"></div>
-    <h2 style="font-family:'Inter',sans-serif; font-weight:300; font-size:1.4em; margin-bottom:8px;">Analizando tu perfil</h2>
-    <p style="color:var(--text-light); font-weight:300; font-size:0.88em;">Armando tu plan personalizado.</p>
-  </section>
+  <div id="loading" style="display: none; flex-direction: column; align-items: center; justify-content: center; padding: 140px 24px; text-align: center; height: 100vh;">
+    <div class="loading-spinner"></div>
+    <h2>Analizando tu perfil</h2>
+    <p>Armando tu plan personalizado.</p>
+  </div>
 
   <!-- RESULTS -->
-  <section class="result-container" id="results">
-    <div class="result-header">
-      <div class="result-label">tu plan niva</div>
-      <h1 id="resultTitle">Pensado para <em>vos</em></h1>
-    </div>
-    <div class="result-intro" id="resultIntro"></div>
-    <div class="sup-cards-grid" id="supplementCards"></div>
+  <div id="results" style="display: none; flex-direction: column; height: 100vh; overflow: auto;">
+    <div id="results-content" style="padding: 32px 24px 40px; max-width: 480px; margin: 0 auto; width: 100%;">
+      <div class="result-label">Tu plan niva</div>
+      <h1 class="result-title">Pensado para <em id="result-name">vos</em></h1>
+      <p class="result-intro" id="result-intro"></p>
 
-    <div class="plan-card" id="planCard"></div>
+      <div class="result-label" style="margin-top: 24px;">Tu stack base</div>
+      <div class="sup-cards-grid" id="sup-cards"></div>
 
-    <div class="includes">
-      <div class="includes-item"><strong>Suplementos</strong>Seleccionados para vos</div>
-      <div class="includes-item"><strong>Envio</strong>A domicilio en Montevideo</div>
-      <div class="includes-item"><strong>Seguimiento</strong>Check-ins personalizados</div>
-    </div>
+      <div id="extras-container"></div>
 
-    <div class="cta-section">
-      <h3>Empeza simple</h3>
-      <p>Proba un mes y senti la diferencia.</p>
+      <div class="plan-card" id="plan-card"></div>
+
+      <div class="includes-list" id="includes-list"></div>
+
       <div class="cta-buttons">
-        <button class="btn-primary btn-sage" onclick="confirmarCompra('suscripcion')">PLAN MENSUAL (10% OFF)</button>
-        <button class="btn-secondary" onclick="confirmarCompra('unica')">PROBAR UN MES</button>
+        <button class="btn-primary" onclick="confirmarCompra('suscripcion')">Plan mensual (10% off)</button>
+        <button class="btn-secondary" onclick="confirmarCompra('unica')">Probar un mes</button>
       </div>
-      <p class="cta-fine-print">Nos contactamos en menos de 24hs. Sin permanencia, cancela cuando quieras.</p>
-      <div id="confirmacionCompra" style="display:none;text-align:center;padding:2rem 0;">
-        <div style="font-size:1.5rem;margin-bottom:1rem;color:var(--bosque);">&#10003;</div>
-        <h3 style="font-family:'Inter',sans-serif;font-weight:400;margin-bottom:0.5rem;">Listo, recibimos tu pedido</h3>
-        <p style="color:var(--text-mid);font-weight:300;">Te enviamos un email con tu recomendacion. Nos contactamos en menos de 24hs.</p>
-        <button class="btn-secondary" style="margin-top:2rem;display:inline-block;" onclick="volverAlInicio()">VOLVER AL INICIO</button>
-      </div>
-    </div>
-    <div style="text-align:center;padding:2rem 0;">
-      <button class="btn-secondary" style="display:inline-block;font-size:13px;padding:12px 32px;" onclick="volverAlInicio()">VOLVER AL INICIO</button>
-    </div>
-  </section>
 
-  <div class="footer">niva &middot; tu bienestar, mas simple &middot; montevideo</div>
+      <div id="confirmation" style="display: none;">
+        <div class="confirmation-box">
+          <div class="confirmation-checkmark"></div>
+          <h3>Listo, recibimos tu pedido</h3>
+          <p>Te enviamos un email a <strong id="confirmation-email">email</strong> con la confirmación. Nos contactamos en menos de 24hs.</p>
+          <button class="btn-secondary return-btn" onclick="volverAlInicio()">Volver al inicio</button>
+        </div>
+      </div>
+
+      <p class="fine-print">Nos contactamos en menos de 24hs.<br>Sin permanencia, cancelás cuando quieras.</p>
+    </div>
+  </div>
 
   <script>
-    // --- POST a Google Form via iframe oculto (evita CORS desde file://) ---
-    const GOOGLE_FORM_URL='https://docs.google.com/forms/d/e/1FAIpQLSeiBXtXouOas5r_XhLKCU9spj7wrDBtkdzID1OGXvOL0Htn1Q/formResponse';
-    function postToGoogleForm(fields){
-      const iframe=document.createElement('iframe');
-      iframe.name='niva_hidden_'+Date.now();
-      iframe.style.display='none';
+    // Design tokens & catalog
+    const DISC_COLORS = {
+      complejo_b: '#B8C1B6', magnesio: '#C9C5BE', maca: '#D4C4A8',
+      ashwagandha: '#9DA89A', omega3: '#C5BFAE', zinc_vitc: '#E0D4B8',
+      probioticos: '#E9E6E1', vitamina_d_calcio: '#D6CEB8', colageno: '#DCC9B8',
+      astaxantina: '#C7A89A', proteina: '#B3B09B'
+    };
+
+    const DISC_LABELS = {
+      complejo_b: 'B', magnesio: 'Mg', maca: 'Mc', ashwagandha: 'Ah',
+      omega3: 'O3', zinc_vitc: 'Zn', probioticos: 'Pr', vitamina_d_calcio: 'D3',
+      colageno: 'Co', astaxantina: 'Ax', proteina: 'Pt'
+    };
+
+    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeiBXtXouOas5r_XhLKCU9spj7wrDBtkdzID1OGXvOL0Htn1Q/formResponse';
+
+    function postToGoogleForm(fields) {
+      const iframe = document.createElement('iframe');
+      iframe.name = 'niva_hidden_' + Date.now();
+      iframe.style.display = 'none';
       document.body.appendChild(iframe);
-      const form=document.createElement('form');
-      form.method='POST';
-      form.action=GOOGLE_FORM_URL;
-      form.target=iframe.name;
-      for(const[k,v]of Object.entries(fields)){
-        const inp=document.createElement('input');
-        inp.type='hidden';inp.name=k;inp.value=v;
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = GOOGLE_FORM_URL;
+      form.target = iframe.name;
+      for (const [k, v] of Object.entries(fields)) {
+        const inp = document.createElement('input');
+        inp.type = 'hidden';
+        inp.name = k;
+        inp.value = v;
         form.appendChild(inp);
       }
       document.body.appendChild(form);
       form.submit();
-      setTimeout(()=>{form.remove();iframe.remove();},5000);
-      console.log('Form POST enviado via iframe');
+      setTimeout(() => { form.remove(); iframe.remove(); }, 5000);
     }
 
     let currentStep = 1;
     const totalSteps = 8;
 
-    // === CATALOGO ===
     const CATALOGO = {
-      complejo_b:{nombre:"Complejo B",dosis_base:"1 comprimido/dia con el desayuno",precio_niva:890,evidencia:"Fuerte",beneficio:"Cofactor energetico esencial para tu metabolismo"},
-      magnesio:{nombre:"Magnesio",dosis_base:"300-400 mg/dia con la cena",precio_niva:1090,evidencia:"Fuerte",beneficio:"Relajacion muscular, mejor sueno y energia"},
-      maca:{nombre:"Maca",dosis_base:"500-1000 mg/dia con el almuerzo",precio_niva:1290,evidencia:"Moderado",beneficio:"Energia percibida y vitalidad"},
-      ashwagandha:{nombre:"Ashwagandha",dosis_base:"300-600 mg/dia antes de dormir",precio_niva:1690,evidencia:"Fuerte",beneficio:"Reduce estres y mejora calidad del sueno"},
-      omega3:{nombre:"Omega 3",dosis_base:"1000 mg/dia con el almuerzo",precio_niva:990,evidencia:"Moderado-Fuerte",beneficio:"Antiinflamatorio, salud cardiovascular y cerebral"},
-      zinc_vitc:{nombre:"Zinc + Vitamina C",dosis_base:"1 comprimido/dia con el desayuno",precio_niva:790,evidencia:"Fuerte",beneficio:"Fortalece defensas y reduce duracion de resfrios"},
-      probioticos:{nombre:"Probioticos",dosis_base:"1 capsula/dia en ayunas",precio_niva:1290,evidencia:"Moderado-Fuerte",beneficio:"Salud intestinal y absorcion de nutrientes"},
-      vitamina_d_calcio:{nombre:"Vitamina D + Calcio",dosis_base:"1 comprimido/dia con almuerzo",precio_niva:690,evidencia:"Fuerte",beneficio:"Huesos fuertes y sistema inmune"},
-      colageno:{nombre:"Colageno Hidrolizado",dosis_base:"10g/dia en ayunas",precio_niva:1290,evidencia:"Moderado",beneficio:"Elasticidad de piel, pelo y unas"},
-      astaxantina:{nombre:"Astaxantina",dosis_base:"6 mg/dia con comida",precio_niva:1690,evidencia:"Moderado",beneficio:"Antioxidante potente, proteccion solar natural"},
-      proteina:{nombre:"Proteina en Polvo",dosis_base:"25-30g/dia post-entrenamiento",precio_niva:2390,evidencia:"Muy Fuerte",beneficio:"Recuperacion muscular y composicion corporal"},
+      complejo_b: { nombre: 'Complejo B', dosis_base: '1 comprimido/día con el desayuno', precio_niva: 890, evidencia: 'Fuerte', beneficio: 'Cofactor energético esencial', momento: 'Desayuno' },
+      magnesio: { nombre: 'Magnesio', dosis_base: '300 mg/día con la cena', precio_niva: 1090, evidencia: 'Fuerte', beneficio: 'Regula GABA y relajación muscular', momento: 'Cena' },
+      maca: { nombre: 'Maca', dosis_base: '1500 mg/día con el almuerzo', precio_niva: 1290, evidencia: 'Moderado', beneficio: 'Mejora rendimiento físico', momento: 'Almuerzo' },
+      ashwagandha: { nombre: 'Ashwagandha', dosis_base: '600 mg/día antes de dormir', precio_niva: 1690, evidencia: 'Fuerte', beneficio: 'Reduce cortisol', momento: 'Noche' },
+      omega3: { nombre: 'Omega 3', dosis_base: '1000 mg/día con el almuerzo', precio_niva: 990, evidencia: 'Moderado-Fuerte', beneficio: 'Antiinflamatorio', momento: 'Almuerzo' },
+      zinc_vitc: { nombre: 'Zinc + Vitamina C', dosis_base: '15 mg Zn + 500 mg Vit C', precio_niva: 790, evidencia: 'Fuerte', beneficio: 'Fortalece defensas', momento: 'Desayuno' },
+      probioticos: { nombre: 'Probióticos', dosis_base: '10-20 mil millones UFC/día', precio_niva: 1290, evidencia: 'Moderado-Fuerte', beneficio: 'Modula respuesta inmune', momento: 'Ayunas' },
+      vitamina_d_calcio: { nombre: 'Vitamina D + Calcio', dosis_base: '2000 UI D3 + 500 mg Ca', precio_niva: 690, evidencia: 'Fuerte', beneficio: 'Absorción de calcio', momento: 'Almuerzo' },
+      colageno: { nombre: 'Colágeno Hidrolizado', dosis_base: '10 g/día en ayunas', precio_niva: 1290, evidencia: 'Moderado', beneficio: 'Estimula fibroblastos', momento: 'Ayunas' },
+      astaxantina: { nombre: 'Astaxantina', dosis_base: '6 mg/día con comida', precio_niva: 1690, evidencia: 'Moderado', beneficio: 'Antioxidante potente', momento: 'Comida' },
+      proteina: { nombre: 'Proteína en Polvo', dosis_base: '25-30 g/día post-entreno', precio_niva: 2390, evidencia: 'Muy Fuerte', beneficio: 'Síntesis proteica muscular', momento: 'Post-entreno' },
     };
+
     const OBJETIVOS = {
-      energia:{nombre:"Energia y Vitalidad",base:["complejo_b","magnesio","maca"],desc:"Optimizar tus niveles de energia y reducir la fatiga."},
-      estres:{nombre:"Estres y Sueno",base:["ashwagandha","magnesio","omega3"],desc:"Manejar el estres, mejorar el sueno y tu equilibrio."},
-      inmunidad:{nombre:"Inmunidad",base:["zinc_vitc","probioticos","vitamina_d_calcio"],desc:"Fortalecer tus defensas."},
-      piel:{nombre:"Piel y Pelo",base:["colageno","astaxantina","omega3"],desc:"Cuidar tu piel y pelo desde adentro."},
-      fitness:{nombre:"Fitness y Rendimiento",base:["proteina","magnesio","omega3"],desc:"Optimizar rendimiento y recuperacion."},
+      energia: { nombre: 'Energía y Vitalidad', base: ['complejo_b', 'magnesio', 'maca'] },
+      estres: { nombre: 'Estrés y Sueño', base: ['ashwagandha', 'magnesio', 'omega3'] },
+      inmunidad: { nombre: 'Inmunidad', base: ['zinc_vitc', 'probioticos', 'vitamina_d_calcio'] },
+      piel: { nombre: 'Piel y Pelo', base: ['colageno', 'astaxantina', 'omega3'] },
+      fitness: { nombre: 'Fitness y Rendimiento', base: ['proteina', 'magnesio', 'omega3'] },
     };
 
     const RAZONES = {
-      complejo_b: (d) => d.dieta==='vegana'||d.dieta==='vegetariana' ? 'Esencial por tu dieta' : d.fatiga==='frecuente'||d.fatiga==='siempre' ? 'Para tu fatiga' : 'Para tu energia',
-      magnesio: (d) => d.dificultad_dormirse ? 'Para tu sueno' : d.ejercicio==='3-4'||d.ejercicio==='5+' ? 'Para tu actividad' : 'Para tu equilibrio',
-      maca: (d) => 'Para tu vitalidad',
-      ashwagandha: (d) => d.dificultad_dormirse ? 'Para tu estres y sueno' : 'Para tu estres',
-      omega3: (d) => d.cardiovascular ? 'Para tu corazon' : d.piel.length>0 ? 'Para tu piel' : 'Para tu bienestar',
-      zinc_vitc: (d) => d.poblacion_vulnerable ? 'Por tu exposicion' : 'Para tus defensas',
-      probioticos: (d) => d.digestion==='irregular'||d.digestion==='muy_irregular' ? 'Para tu digestion' : 'Para tu inmunidad',
-      vitamina_d_calcio: (d) => d.osteoporosis ? 'Por tu historial' : 'Para tus huesos',
-      colageno: (d) => d.pelo.length>0 ? 'Para tu pelo' : 'Para tu piel',
-      astaxantina: (d) => 'Para tu piel',
-      proteina: (d) => d.ejercicio==='5+' ? 'Para tu rendimiento' : 'Para tu recuperacion',
+      complejo_b: (d) => d.dieta === 'vegana' || d.dieta === 'vegetariana' ? 'Esencial en dieta sin carne' : d.fatiga === 'frecuente' || d.fatiga === 'siempre' ? 'Para tu fatiga diaria' : 'Metabolismo energético',
+      magnesio: (d) => d.dificultad_dormirse ? 'Para mejorar tu sueño' : d.ejercicio === '3-4' || d.ejercicio === '5+' ? 'Recuperación muscular' : 'Regula reacciones metabólicas',
+      maca: (d) => d.fatiga === 'frecuente' || d.fatiga === 'siempre' ? 'Reduce fatiga muscular' : 'Energía y vitalidad',
+      ashwagandha: (d) => d.dificultad_dormirse ? 'Regula tu eje de estrés' : 'Reduce cortisol',
+      omega3: (d) => d.cardiovascular ? 'Protección cardiovascular' : d.mental.includes('memoria') ? 'Protege membranas neuronales' : 'Antiinflamatorio general',
+      zinc_vitc: (d) => d.poblacion_vulnerable && d.transporte ? 'Alta exposición: defensa reforzada' : 'Fortalece tus defensas',
+      probioticos: (d) => d.digestion === 'muy_irregular' ? 'Prioridad por tu digestión' : 'Modula tu respuesta inmune',
+      vitamina_d_calcio: (d) => d.osteoporosis ? 'Prevención ósea familiar' : 'Deficiencia común en Uruguay',
+      colageno: (d) => d.pelo.includes('fino') ? 'Para tu pelo y uñas' : d.piel.includes('seca') ? 'Para tu piel' : 'Elasticidad y estructura',
+      astaxantina: (d) => d.edad === '30-49' || d.edad === '50+' ? 'Anti-edad celular potente' : 'Protección antioxidante',
+      proteina: (d) => d.ejercicio === '5+' ? 'Síntesis muscular por entrenos' : d.edad === '50+' ? 'Previene pérdida muscular' : 'Optimiza recuperación',
     };
 
-    // === NAV ===
-    function startForm(){
-      document.getElementById('heroWrapper').style.display='none';
-      document.getElementById('pasosSection').style.display='none';
-      document.getElementById('formContainer').style.display='block';
-      window.scrollTo({top:0,behavior:'smooth'});
+    const PESO_EVIDENCIA = {
+      complejo_b: 1.0, magnesio: 1.0, maca: 0.8, ashwagandha: 1.0,
+      omega3: 0.9, zinc_vitc: 1.0, probioticos: 0.9, vitamina_d_calcio: 1.0,
+      colageno: 0.8, astaxantina: 0.8, proteina: 1.2
+    };
+
+    // Form state
+    function getRadioValue(name) {
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? el.value : '';
     }
-    function updateProgress(){
-      document.getElementById('stepIndicator').textContent=`Paso ${currentStep} de ${totalSteps}`;
-      document.getElementById('progressFill').style.width=`${(currentStep/totalSteps)*100}%`;
-      const enc=document.getElementById('encouragement');
-      if(enc) enc.style.display=(currentStep===4)?'block':'none';
+
+    function getCheckboxValues(name) {
+      return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`))
+        .map(e => e.value)
+        .filter(v => v !== 'ninguno' && v !== 'bien');
     }
-    function showStep(n){
-      document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
-      const step=document.querySelector(`[data-step="${n}"]`);
-      if(step){step.classList.add('active');step.style.animation='none';step.offsetHeight;step.style.animation='fadeUp 0.4s ease-out';}
+
+    // UI Functions
+    function startForm() {
+      document.getElementById('landing').style.display = 'none';
+      document.getElementById('form-wrapper').style.display = 'flex';
+      currentStep = 1;
       updateProgress();
-      window.scrollTo({top:0,behavior:'smooth'});
+      showStep(1);
+      window.scrollTo(0, 0);
     }
-    function nextStep(){if(currentStep<totalSteps){currentStep++;showStep(currentStep);}}
-    function prevStep(){if(currentStep>1){currentStep--;showStep(currentStep);}}
 
-    // === FORM CONTROLS ===
-    function selectRadio(card,name){
-      card.closest('.option-grid,.objetivo-grid').querySelectorAll('.option-card,.objetivo-card').forEach(c=>c.classList.remove('selected'));
-      card.classList.add('selected');
-      card.querySelector('input').checked=true;
+    function updateProgress() {
+      document.getElementById('stepCounter').textContent = `${currentStep} de ${totalSteps}`;
+      document.getElementById('progressFill').style.width = `${(currentStep / totalSteps) * 100}%`;
+      const backBtn = document.getElementById('backBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      backBtn.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+      prevBtn.style.display = currentStep === 1 ? 'none' : 'block';
+      const nextBtn = document.getElementById('nextBtn');
+      nextBtn.textContent = currentStep === totalSteps ? 'Ver mi plan' : 'Continuar';
     }
-    function selectObjetivo(card,val){
-      document.querySelectorAll('.objetivo-card').forEach(c=>c.classList.remove('selected'));
-      card.classList.add('selected');
-      card.querySelector('input').checked=true;
-    }
-    function toggleCheckbox(card){
-      const inp=card.querySelector('input');
-      const name=inp.name;
-      const val=inp.value;
-      const isNone=(val==='ninguno'||val==='bien');
 
-      if(isNone){
-        // Si clickea "Ninguna": deseleccionar todas las demas del mismo grupo
-        document.querySelectorAll(`input[name="${name}"]`).forEach(other=>{
-          if(other!==inp){other.checked=false;other.closest('.option-card').classList.remove('selected');}
-        });
-        card.classList.toggle('selected');
-        inp.checked=!inp.checked;
+    function showStep(n) {
+      document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+      const step = document.querySelector(`[data-step="${n}"]`);
+      if (step) {
+        step.classList.add('active');
+      }
+      updateProgress();
+      document.getElementById('formContent').scrollTo(0, 0);
+    }
+
+    function nextStep() {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        showStep(currentStep);
       } else {
-        // Si clickea una opcion real: deseleccionar "Ninguna" del mismo grupo
-        document.querySelectorAll(`input[name="${name}"]`).forEach(other=>{
-          const v=other.value;
-          if(v==='ninguno'||v==='bien'){other.checked=false;other.closest('.option-card').classList.remove('selected');}
-        });
-        card.classList.toggle('selected');
-        inp.checked=!inp.checked;
+        submitForm();
       }
     }
-    function getRadioValue(n){const el=document.querySelector(`input[name="${n}"]:checked`);return el?el.value:'';}
-    function getCheckboxValues(n){return Array.from(document.querySelectorAll(`input[name="${n}"]:checked`)).map(e=>e.value).filter(v=>v!=='ninguno'&&v!=='bien');}
 
-    // === SCORING ===
-    function calculateScoring(d){
-      const s={};Object.keys(CATALOGO).forEach(k=>s[k]=0);
-      const obj=OBJETIVOS[d.objetivo_principal];
-      if(obj)obj.base.forEach(x=>s[x]+=10);
-      if(d.dificultad_dormirse){s.ashwagandha+=5;s.magnesio+=4;}
-      if(d.dificultad_mantener){s.ashwagandha+=3;s.magnesio+=3;}
-      if(d.fatiga==='frecuente'){s.complejo_b+=4;s.magnesio+=3;s.maca+=3;}
-      if(d.fatiga==='siempre'){s.complejo_b+=5;s.magnesio+=4;s.maca+=4;}
-      if(d.mental.includes('foco')){s.ashwagandha+=3;s.omega3+=3;}
-      if(d.mental.includes('brain_fog')){s.ashwagandha+=4;s.omega3+=3;}
-      if(d.mental.includes('memoria'))s.omega3+=4;
-      if(d.piel.length){s.colageno+=d.piel.length*2;s.astaxantina+=d.piel.length*2;s.omega3+=d.piel.length;}
-      if(d.pelo.length)s.colageno+=d.pelo.length*2;
-      if(d.osteoporosis)s.vitamina_d_calcio+=5;
-      if(['frecuente','siempre'].includes(d.articular)){s.vitamina_d_calcio+=3;s.omega3+=3;s.colageno+=2;}
-      if(d.cardiovascular)s.omega3+=5;
-      if(d.corazon.includes('colesterol'))s.omega3+=4;
-      if(d.corazon.includes('presion')){s.omega3+=3;s.magnesio+=3;}
-      if(['irregular','muy_irregular'].includes(d.digestion))s.probioticos+=5;
-      if(d.poblacion_vulnerable){s.zinc_vitc+=4;s.vitamina_d_calcio+=3;}
-      if(d.transporte){s.zinc_vitc+=3;s.probioticos+=2;}
-      if(['3-4','5+'].includes(d.ejercicio)){s.proteina+=5;s.magnesio+=3;}
-      if(d.ejercicio==='1-2'){s.proteina+=2;s.magnesio+=2;}
-      if(['vegetariana','vegana'].includes(d.dieta)){s.complejo_b+=5;s.proteina+=4;s.omega3+=3;}
-      if(d.frutas==='bajo')s.zinc_vitc+=3;
-      if(d.verduras==='bajo'){s.probioticos+=2;s.zinc_vitc+=2;}
-      if(d.edad==='18-29'){s.proteina+=2;s.complejo_b+=1;}
-      if(d.edad==='30-49'){s.colageno+=2;s.ashwagandha+=2;s.omega3+=1;}
-      if(d.edad==='50+'){s.vitamina_d_calcio+=5;s.magnesio+=3;s.omega3+=3;}
-      if(d.sexo==='femenino'){s.colageno+=1;s.magnesio+=1;}
-      if(d.sexo==='masculino'){s.maca+=1;s.proteina+=1;}
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    }
+
+    function selectRadio(btn, name, value) {
+      const grid = btn.parentElement;
+      grid.querySelectorAll('.radio-item').forEach(item => item.classList.remove('checked'));
+      btn.classList.add('checked');
+      btn.querySelector('input').checked = true;
+    }
+
+    function selectObjetivo(btn, value) {
+      document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+      btn.classList.add('selected');
+      btn.querySelector('input').checked = true;
+    }
+
+    function toggleCheckbox(btn, name, value) {
+      btn.classList.toggle('checked');
+      btn.querySelector('input').checked = !btn.querySelector('input').checked;
+      const checked = btn.querySelector('input').checked;
+      const isNone = value === 'ninguno' || value === 'bien';
+      if (isNone && checked) {
+        document.querySelectorAll(`input[name="${name}"]`).forEach(other => {
+          if (other !== btn.querySelector('input')) {
+            other.checked = false;
+            other.closest('.checkbox-item').classList.remove('checked');
+          }
+        });
+      } else if (!isNone && checked) {
+        document.querySelectorAll(`input[name="${name}"]`).forEach(other => {
+          const v = other.value;
+          if (v === 'ninguno' || v === 'bien') {
+            other.checked = false;
+            other.closest('.checkbox-item').classList.remove('checked');
+          }
+        });
+      }
+    }
+
+    // Scoring
+    function calculateScoring(d) {
+      const s = {};
+      Object.keys(CATALOGO).forEach(k => s[k] = 0);
+
+      const obj = OBJETIVOS[d.objetivo_principal];
+      if (obj) obj.base.forEach(x => s[x] += Math.round(10 * PESO_EVIDENCIA[x]));
+
+      if (d.dificultad_dormirse) { s.ashwagandha += 5; s.magnesio += 4; }
+      if (d.dificultad_mantener) { s.ashwagandha += 3; s.magnesio += 4; }
+      if (d.fatiga === 'frecuente') { s.complejo_b += 4; s.magnesio += 3; s.maca += 2; }
+      if (d.fatiga === 'siempre') { s.complejo_b += 6; s.magnesio += 4; s.maca += 3; }
+
+      if (d.mental.includes('foco')) { s.omega3 += 4; s.ashwagandha += 3; }
+      if (d.mental.includes('brain_fog')) { s.omega3 += 4; s.ashwagandha += 4; s.complejo_b += 2; }
+      if (d.mental.includes('memoria')) { s.omega3 += 5; }
+
+      if (d.piel.length) { s.colageno += d.piel.length * 2; s.astaxantina += d.piel.length * 2; }
+      if (d.pelo.length) { s.colageno += d.pelo.length * 2; s.complejo_b += 1; }
+
+      if (d.osteoporosis) { s.vitamina_d_calcio += 6; }
+      if (d.articular === 'a_veces') { s.omega3 += 2; s.colageno += 2; }
+      if (d.articular === 'frecuente') { s.omega3 += 4; s.vitamina_d_calcio += 3; s.colageno += 3; }
+
+      if (d.cardiovascular) { s.omega3 += 6; }
+      if (d.corazon.includes('colesterol')) { s.omega3 += 5; }
+      if (d.corazon.includes('presion')) { s.omega3 += 3; s.magnesio += 4; }
+
+      if (d.digestion === 'irregular') s.probioticos += 4;
+      if (d.digestion === 'muy_irregular') s.probioticos += 6;
+
+      if (d.poblacion_vulnerable) { s.zinc_vitc += 5; s.vitamina_d_calcio += 3; }
+      if (d.transporte) { s.zinc_vitc += 3; s.probioticos += 2; s.vitamina_d_calcio += 2; }
+
+      if (d.ejercicio === '5+') { s.proteina += 6; s.magnesio += 4; s.omega3 += 2; }
+      if (d.ejercicio === '3-4') { s.proteina += 4; s.magnesio += 3; }
+      if (d.ejercicio === '1-2') { s.proteina += 2; s.magnesio += 2; }
+
+      if (d.dieta === 'vegana') { s.complejo_b += 6; s.proteina += 5; s.omega3 += 4; }
+      if (d.dieta === 'vegetariana') { s.complejo_b += 4; s.proteina += 3; s.omega3 += 3; }
+
+      if (d.frutas === 'bajo') { s.zinc_vitc += 3; s.complejo_b += 1; }
+      if (d.verduras === 'bajo') { s.probioticos += 2; s.zinc_vitc += 2; s.magnesio += 1; }
+
+      if (d.edad === '50+') { s.vitamina_d_calcio += 6; s.magnesio += 4; s.omega3 += 3; s.proteina += 3; s.colageno += 2; }
+
+      Object.keys(s).forEach(k => { s[k] = Math.round(s[k] * PESO_EVIDENCIA[k]); });
+
       return s;
     }
-    function adjustDosis(id,d){
-      const b=CATALOGO[id].dosis_base;
-      if(d.edad==='50+'&&id==='magnesio')return'400 mg/dia con la cena (dosis mayor por edad)';
-      if(d.edad==='50+'&&id==='vitamina_d_calcio')return'1 comprimido 2 veces/dia (dosis mayor por edad)';
-      if(id==='proteina'&&d.ejercicio==='5+')return'30-40g/dia: mitad post-entreno, mitad con comida';
-      if(id==='magnesio'&&['3-4','5+'].includes(d.ejercicio))return'400 mg/dia con la cena (mayor por actividad)';
-      if(id==='complejo_b'&&['vegetariana','vegana'].includes(d.dieta))return'1 comprimido/dia (esencial por dieta sin carne)';
-      if(id==='omega3'&&['vegetariana','vegana'].includes(d.dieta))return'1000 mg/dia Omega 3 vegano (a base de algas)';
-      if(id==='ashwagandha'&&d.dificultad_dormirse&&['frecuente','siempre'].includes(d.fatiga))return'600 mg/dia: 300mg almuerzo + 300mg noche';
+
+    function adjustDosis(id, d) {
+      const b = CATALOGO[id].dosis_base;
+      if (id === 'magnesio' && d.edad === '50+') return '400 mg glicinato/día con la cena';
+      if (id === 'vitamina_d_calcio' && d.edad === '50+') return '2000 UI D3 + 1000 mg Ca/día';
+      if (id === 'proteina' && d.ejercicio === '5+') return '30-40 g/día post-entreno';
+      if (id === 'complejo_b' && (d.dieta === 'vegana' || d.dieta === 'vegetariana')) return '1 comprimido/día con B12';
+      if (id === 'zinc_vitc' && d.poblacion_vulnerable && d.transporte) return '15 mg Zn + 1000 mg Vit C/día';
       return b;
     }
 
-    // === COLLECT & SUBMIT ===
-    function collectFormData(){
+    function collectFormData() {
       return {
-        nombre:document.getElementById('nombre').value,
-        email:document.getElementById('email').value,
-        edad:getRadioValue('edad'),sexo:getRadioValue('sexo'),
-        objetivo_principal:getRadioValue('objetivo_principal'),
-        dificultad_dormirse:getRadioValue('dificultad_dormirse')==='si',
-        dificultad_mantener:getRadioValue('dificultad_mantener')==='si',
-        fatiga:getRadioValue('fatiga'),
-        mental:getCheckboxValues('mental'),piel:getCheckboxValues('piel'),pelo:getCheckboxValues('pelo'),
-        osteoporosis:getRadioValue('osteoporosis')==='si',articular:getRadioValue('articular'),
-        cardiovascular:getRadioValue('cardiovascular')==='si',corazon:getCheckboxValues('corazon'),
-        digestion:getRadioValue('digestion'),
-        poblacion_vulnerable:getRadioValue('poblacion_vulnerable')==='si',
-        transporte:getRadioValue('transporte')==='si',
-        ejercicio:getRadioValue('ejercicio'),frutas:getRadioValue('frutas'),
-        verduras:getRadioValue('verduras'),dieta:getRadioValue('dieta'),
-        timestamp:new Date().toISOString(),
+        nombre: document.getElementById('nombre').value,
+        email: document.getElementById('email').value,
+        edad: getRadioValue('edad'),
+        sexo: getRadioValue('sexo'),
+        objetivo_principal: getRadioValue('objetivo_principal'),
+        dificultad_dormirse: getRadioValue('dificultad_dormirse') === 'si',
+        dificultad_mantener: getRadioValue('dificultad_mantener') === 'si',
+        fatiga: getRadioValue('fatiga'),
+        mental: getCheckboxValues('mental'),
+        piel: getCheckboxValues('piel'),
+        pelo: getCheckboxValues('pelo'),
+        osteoporosis: getRadioValue('osteoporosis') === 'si',
+        articular: getRadioValue('articular'),
+        cardiovascular: getRadioValue('cardiovascular') === 'si',
+        corazon: getCheckboxValues('corazon'),
+        digestion: getRadioValue('digestion'),
+        poblacion_vulnerable: getRadioValue('poblacion_vulnerable') === 'si',
+        transporte: getRadioValue('transporte') === 'si',
+        ejercicio: getRadioValue('ejercicio'),
+        frutas: getRadioValue('frutas'),
+        verduras: getRadioValue('verduras'),
+        dieta: getRadioValue('dieta'),
+        timestamp: new Date().toISOString(),
       };
     }
 
-    function submitForm(){
-      const data=collectFormData();
-      if(!data.nombre||!data.email||!data.objetivo_principal){
-        alert('Por favor completa tu nombre, email y objetivo principal.');return;
+    function submitForm() {
+      const data = collectFormData();
+      if (!data.nombre || !data.email || !data.objetivo_principal) {
+        alert('Por favor completa tu nombre, email y objetivo principal.');
+        return;
       }
 
-      document.getElementById('formContainer').style.display='none';
-      document.getElementById('loading').style.display='block';
-      window.scrollTo({top:0,behavior:'smooth'});
+      document.getElementById('form-wrapper').style.display = 'none';
+      document.getElementById('loading').style.display = 'flex';
+      window.scrollTo(0, 0);
 
-      const scores=calculateScoring(data);
-      const ranking=Object.entries(scores).sort((a,b)=>b[1]-a[1]).filter(([,s])=>s>0).slice(0,3);
-      const recommendation=ranking.map(([id,score])=>({id,...CATALOGO[id],score,dosis:adjustDosis(id,data),precio_niva:CATALOGO[id].precio_niva,beneficio:CATALOGO[id].beneficio,razon:RAZONES[id]?RAZONES[id](data):'Para tu bienestar'}));
+      const scores = calculateScoring(data);
+      const allRanked = Object.entries(scores).sort((a, b) => b[1] - a[1]).filter(([, s]) => s > 0);
+      const topBase = allRanked.slice(0, 3);
+      const extras = allRanked.slice(3, 5).filter(([, s]) => s > 3);
 
-      const sheetData={
-        ...data, mental:data.mental.join(', '), piel:data.piel.join(', '),
-        pelo:data.pelo.join(', '), corazon:data.corazon.join(', '),
-        suplemento_1:recommendation[0]?.nombre||'', dosis_1:recommendation[0]?.dosis||'',
-        suplemento_2:recommendation[1]?.nombre||'', dosis_2:recommendation[1]?.dosis||'',
-        suplemento_3:recommendation[2]?.nombre||'', dosis_3:recommendation[2]?.dosis||'',
-        scores_json:JSON.stringify(scores),
-      };
+      const recommendation = topBase.map(([id, score]) => ({
+        id, ...CATALOGO[id], score, dosis: adjustDosis(id, data),
+        razon: RAZONES[id] ? RAZONES[id](data) : 'Para tu bienestar', tipo: 'base'
+      }));
 
-      // --- Google Form POST (iframe method, works from file:// and https://) ---
-      postToGoogleForm({
-        'entry.2138784916': sheetData.nombre||'',
-        'entry.1151583417': sheetData.email||'',
-        'entry.598438093': sheetData.objetivo_principal||'',
-        'entry.1591476047': sheetData.suplemento_1||'',
-        'entry.325244073': sheetData.dosis_1||'',
-        'entry.380781196': sheetData.suplemento_2||'',
-        'entry.1015253526': sheetData.dosis_2||'',
-        'entry.2018852506': sheetData.suplemento_3||'',
-        'entry.434870582': sheetData.dosis_3||'',
-        'entry.595941863': '',
-        'entry.1403490488': '',
-        'entry.211084352': sheetData.scores_json||''
-      });
+      const recExtras = extras.map(([id, score]) => ({
+        id, ...CATALOGO[id], score, dosis: adjustDosis(id, data),
+        razon: RAZONES[id] ? RAZONES[id](data) : 'Complementa tu plan', tipo: 'extra'
+      }));
 
-      window._nivaData=sheetData;
-      window._nivaRec=recommendation;
+      window._nivaData = data;
+      window._nivaRec = recommendation;
+      window._nivaExtras = recExtras;
 
-      setTimeout(()=>showResults(data,recommendation),2500);
+      setTimeout(() => showResults(data, recommendation, recExtras), 2500);
     }
 
-    function showResults(data,rec){
-      document.getElementById('loading').style.display='none';
-      document.getElementById('results').style.display='block';
-      const obj=OBJETIVOS[data.objetivo_principal];
-      const firstName=data.nombre.split(' ')[0];
+    function showResults(data, rec, extras) {
+      extras = extras || [];
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('results').style.display = 'flex';
 
-      document.getElementById('resultTitle').innerHTML=`Pensado para <em>${firstName}</em>`;
-      document.getElementById('resultIntro').innerHTML=`${firstName}, analizamos tu perfil y seleccionamos ${rec.length} suplementos para tu objetivo de <strong>${obj?.nombre?.toLowerCase()||''}</strong>. ${obj?.desc||''}`;
+      const obj = OBJETIVOS[data.objetivo_principal];
+      const firstName = data.nombre.split(' ')[0];
 
-      let html='';let total=0;
-      rec.forEach((s,i)=>{
-        total+=s.precio_niva;
-        html+=`<div class="sup-card">
-          <div class="sup-reason">${s.razon}</div>
-          <div class="sup-name">${s.nombre}</div>
-          <div class="sup-benefit">${s.beneficio}</div>
+      document.getElementById('result-name').textContent = firstName;
+      const introText = `${firstName}, analizamos tu perfil y seleccionamos ${rec.length} suplementos base para tu objetivo de <strong>${obj?.nombre?.toLowerCase() || ''}</strong>${extras.length > 0 ? ', más ' + extras.length + ' sugerencia' + (extras.length > 1 ? 's' : '') + ' adicional' + (extras.length > 1 ? 'es' : '') : ''}.`;
+      document.getElementById('result-intro').innerHTML = introText;
+
+      let html = '';
+      let total = 0;
+      rec.forEach((s) => {
+        total += s.precio_niva;
+        const color = DISC_COLORS[s.id] || '#B8C1B6';
+        const label = DISC_LABELS[s.id] || 'S';
+        html += `<div class="sup-card">
+          <div class="sup-disc" style="background-color: ${color};">${label}</div>
+          <div class="sup-info">
+            <div class="sup-reason">${s.razon}</div>
+            <div class="sup-name">${s.nombre}</div>
+            <div class="sup-moment">${s.momento} · Evidencia ${s.evidencia}</div>
+          </div>
         </div>`;
       });
-      document.getElementById('supplementCards').innerHTML=html;
+      document.getElementById('sup-cards').innerHTML = html;
 
-      const subsPrice=Math.round(total*0.9/10)*10;
-      document.getElementById('planCard').innerHTML=`
-        <div class="plan-label">tu plan niva</div>
-        <div class="plan-price">$${subsPrice.toLocaleString('es-UY')} <span>UYU / mes</span></div>
-        <div class="plan-note">${rec.length} suplementos + seguimiento + envio</div>
-        <div class="plan-original">$${total.toLocaleString('es-UY')} UYU sin suscripcion</div>
+      let extrasHtml = '';
+      if (extras.length > 0) {
+        extrasHtml = '<div class="extras-section"><div class="extras-label">También te puede ayudar</div>';
+        extras.forEach(s => {
+          const color = DISC_COLORS[s.id] || '#B8C1B6';
+          const label = DISC_LABELS[s.id] || 'S';
+          extrasHtml += `<div class="extra-card">
+            <div class="extra-disc" style="background-color: ${color};">${label}</div>
+            <div class="extra-info">
+              <div class="extra-reason">${s.razon}</div>
+              <div class="extra-name">${s.nombre}</div>
+            </div>
+            <div class="extra-price">+$${s.precio_niva}</div>
+          </div>`;
+        });
+        extrasHtml += '</div>';
+      }
+      document.getElementById('extras-container').innerHTML = extrasHtml;
+
+      const subsPrice = Math.round(total * 0.9 / 10) * 10;
+      const planHtml = `
+        <div class="plan-label">plan mensual</div>
+        <div class="plan-price">
+          <span class="plan-amount">$${subsPrice.toLocaleString('es-UY')}</span>
+          <span class="plan-currency">UYU / mes</span>
+        </div>
+        <div class="plan-note">${rec.length} suplementos · envío · seguimiento</div>
       `;
-      window.scrollTo({top:0,behavior:'smooth'});
+      document.getElementById('plan-card').innerHTML = planHtml;
+
+      const includesHtml = `
+        <div class="includes-item">
+          <div class="includes-check">
+            <svg viewBox="0 0 20 20">
+              <path d="M4 10l4 4 8-8"/>
+            </svg>
+          </div>
+          <span class="includes-text">Suplementos seleccionados para vos</span>
+        </div>
+        <div class="includes-item">
+          <div class="includes-check">
+            <svg viewBox="0 0 20 20">
+              <path d="M4 10l4 4 8-8"/>
+            </svg>
+          </div>
+          <span class="includes-text">Envío a domicilio en Montevideo</span>
+        </div>
+        <div class="includes-item">
+          <div class="includes-check">
+            <svg viewBox="0 0 20 20">
+              <path d="M4 10l4 4 8-8"/>
+            </svg>
+          </div>
+          <span class="includes-text">Seguimiento con check-ins por WhatsApp</span>
+        </div>
+      `;
+      document.getElementById('includes-list').innerHTML = includesHtml;
+
+      window.scrollTo(0, 0);
     }
 
-    function confirmarCompra(tipo){
-      const d=window._nivaData;
-      const rec=window._nivaRec;
-      if(!d||!rec)return;
-      const total=rec.reduce((sum,s)=>sum+s.precio_niva,0);
-      const subsPrice=Math.round(total*0.9/10)*10;
-      const esSub=tipo==='suscripcion';
-      const precioFinal=esSub?subsPrice:total;
-      const tipoTexto=esSub?'Plan mensual (suscripcion)':'Compra por un mes (prueba)';
+    function confirmarCompra(tipo) {
+      const d = window._nivaData;
+      const rec = window._nivaRec;
+      if (!d || !rec) return;
+
+      const total = rec.reduce((sum, s) => sum + s.precio_niva, 0);
+      const subsPrice = Math.round(total * 0.9 / 10) * 10;
 
       postToGoogleForm({
-        'entry.2138784916': d.nombre||'',
-        'entry.1151583417': d.email||'',
-        'entry.598438093': d.objetivo_principal||'',
-        'entry.1591476047': d.suplemento_1||'',
-        'entry.325244073': d.dosis_1||'',
-        'entry.380781196': d.suplemento_2||'',
-        'entry.1015253526': d.dosis_2||'',
-        'entry.2018852506': d.suplemento_3||'',
-        'entry.434870582': d.dosis_3||'',
-        'entry.595941863': tipoTexto,
-        'entry.1403490488': String(precioFinal),
-        'entry.211084352': d.scores_json||''
+        'entry.2138784916': d.nombre || '',
+        'entry.1151583417': d.email || '',
+        'entry.598438093': d.objetivo_principal || '',
       });
 
-      document.querySelector('.cta-buttons').style.display='none';
-      document.querySelector('.cta-section h3').style.display='none';
-      document.querySelector('.cta-section > p:not(.cta-fine-print)').style.display='none';
-      document.querySelector('.cta-fine-print').style.display='none';
-      document.getElementById('confirmacionCompra').style.display='block';
-      document.getElementById('confirmacionCompra').scrollIntoView({behavior:'smooth',block:'center'});
+      document.querySelector('.cta-buttons').style.display = 'none';
+      document.getElementById('confirmation').style.display = 'block';
+      document.getElementById('confirmation-email').textContent = d.email;
     }
 
-    function volverAlInicio(){
-      // Reset form and show landing
-      document.getElementById('results').style.display='none';
-      document.getElementById('formContainer').style.display='none';
-      document.getElementById('loading').style.display='none';
-      document.getElementById('heroWrapper').style.display='flex';
-      document.getElementById('pasosSection').style.display='block';
-      // Reset form state
-      currentStep=1;
-      updateProgress();
-      showStep(1);
-      document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
-      document.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false);
-      document.querySelectorAll('input[type="text"],input[type="email"]').forEach(i=>i.value='');
-      // Reset CTA section
-      const ctaBtns=document.querySelector('.cta-buttons');
-      if(ctaBtns) ctaBtns.style.display='';
-      const ctaH3=document.querySelector('.cta-section h3');
-      if(ctaH3) ctaH3.style.display='';
-      const ctaP=document.querySelector('.cta-section > p:not(.cta-fine-print)');
-      if(ctaP) ctaP.style.display='';
-      const ctaFine=document.querySelector('.cta-fine-print');
-      if(ctaFine) ctaFine.style.display='';
-      document.getElementById('confirmacionCompra').style.display='none';
-      window.scrollTo({top:0,behavior:'smooth'});
+    function volverAlInicio() {
+      document.getElementById('results').style.display = 'none';
+      document.getElementById('form-wrapper').style.display = 'none';
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('landing').style.display = 'flex';
+
+      // Reset form
+      currentStep = 1;
+      document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+      document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+      document.querySelectorAll('input[type="text"], input[type="email"]').forEach(i => i.value = '');
+      document.querySelectorAll('.radio-item, .checkbox-item, .option-card, .button-group-item').forEach(c => c.classList.remove('checked', 'selected'));
+
+      document.querySelector('.cta-buttons').style.display = 'flex';
+      document.getElementById('confirmation').style.display = 'none';
+
+      window.scrollTo(0, 0);
     }
   </script>
+
 </body>
 </html>
