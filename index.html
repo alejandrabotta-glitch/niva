@@ -46,9 +46,7 @@
 
     /* ===== LANDING ===== */
     #landing {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
+      display: block;
     }
 
     .hero {
@@ -104,9 +102,7 @@
     }
 
     .landing-content {
-      padding: 32px 24px 120px;
-      flex: 1;
-      overflow: auto;
+      padding: 32px 24px 80px;
     }
 
     .landing-subtitle {
@@ -1067,7 +1063,7 @@
       </div>
 
       <div class="landing-footer">
-        niva · tu bienestar, más simple · montevideo
+        niva · tu bienestar, más simple
       </div>
     </div>
   </div>
@@ -1632,8 +1628,9 @@
       <div class="includes-list" id="includes-list"></div>
 
       <div class="cta-buttons">
-        <button class="btn-primary" onclick="confirmarCompra('suscripcion')">Plan mensual (10% off)</button>
-        <button class="btn-secondary" onclick="confirmarCompra('unica')">Probar un mes</button>
+        <button class="btn-primary" onclick="confirmarCompra('semestral')">Semestral · mejor precio</button>
+        <button class="btn-secondary" onclick="confirmarCompra('trimestral')">Trimestral · -10%</button>
+        <button class="btn-secondary" style="background:transparent; border:1px solid var(--topo); color:var(--carbon);" onclick="confirmarCompra('mensual')">Probar un mes</button>
       </div>
 
       <div id="confirmation" style="display: none;">
@@ -1730,6 +1727,15 @@
       complejo_b: 1.0, magnesio: 1.0, maca: 0.8, ashwagandha: 1.0,
       omega3: 0.9, zinc_vitc: 1.0, probioticos: 0.9, vitamina_d_calcio: 1.0,
       colageno: 0.8, astaxantina: 0.8, proteina: 1.2
+    };
+
+    // Plan-based pricing (not per-supplement)
+    const PLAN_PRECIOS = {
+      esencial: 2490,       // 3 suplementos base
+      completo: 3690,       // 3 base + hasta 2 extras
+      addon_proteina: 1490, // proteína como add-on separado
+      desc_trimestral: 0.10,
+      desc_semestral: 0.15,
     };
 
     // Form state
@@ -1957,14 +1963,18 @@
       const obj = OBJETIVOS[data.objetivo_principal];
       const firstName = data.nombre.split(' ')[0];
 
+      // Check if proteína is in rec or extras — separate it as add-on
+      const hasProteina = rec.some(s => s.id === 'proteina') || extras.some(s => s.id === 'proteina');
+      const proteinaItem = [...rec, ...extras].find(s => s.id === 'proteina');
+      rec = rec.filter(s => s.id !== 'proteina');
+      extras = extras.filter(s => s.id !== 'proteina');
+
       document.getElementById('result-name').textContent = firstName;
       const introText = `${firstName}, analizamos tu perfil y seleccionamos ${rec.length} suplementos base para tu objetivo de <strong>${obj?.nombre?.toLowerCase() || ''}</strong>${extras.length > 0 ? ', más ' + extras.length + ' sugerencia' + (extras.length > 1 ? 's' : '') + ' adicional' + (extras.length > 1 ? 'es' : '') : ''}.`;
       document.getElementById('result-intro').innerHTML = introText;
 
       let html = '';
-      let total = 0;
       rec.forEach((s) => {
-        total += s.precio_niva;
         const color = DISC_COLORS[s.id] || '#B8C1B6';
         const label = DISC_LABELS[s.id] || 'S';
         html += `<div class="sup-card">
@@ -1978,9 +1988,20 @@
       });
       document.getElementById('sup-cards').innerHTML = html;
 
+      // Determine plan type
+      const isCompleto = extras.length > 0;
+      const planBase = isCompleto ? PLAN_PRECIOS.completo : PLAN_PRECIOS.esencial;
+      const planTrimestral = Math.round(planBase * (1 - PLAN_PRECIOS.desc_trimestral) / 10) * 10;
+      const planSemestral = Math.round(planBase * (1 - PLAN_PRECIOS.desc_semestral) / 10) * 10;
+      const planNombre = isCompleto ? 'Plan Completo' : 'Plan Esencial';
+      const totalSups = rec.length + extras.length;
+
+      // Store for confirmarCompra
+      window._nivaPlan = { nombre: planNombre, precio: planBase, trimestral: planTrimestral, semestral: planSemestral, hasProteina, totalSups };
+
       let extrasHtml = '';
       if (extras.length > 0) {
-        extrasHtml = '<div class="extras-section"><div class="extras-label">También te puede ayudar</div>';
+        extrasHtml = '<div class="extras-section"><div class="extras-label">También en tu plan</div>';
         extras.forEach(s => {
           const color = DISC_COLORS[s.id] || '#B8C1B6';
           const label = DISC_LABELS[s.id] || 'S';
@@ -1990,21 +2011,44 @@
               <div class="extra-reason">${s.razon}</div>
               <div class="extra-name">${s.nombre}</div>
             </div>
-            <div class="extra-price">+$${s.precio_niva}</div>
           </div>`;
         });
         extrasHtml += '</div>';
       }
+
+      // Proteína add-on
+      if (hasProteina && proteinaItem) {
+        extrasHtml += `<div class="extras-section" style="margin-top:16px;">
+          <div class="extras-label">Add-on recomendado</div>
+          <div class="extra-card">
+            <div class="extra-disc" style="background-color: ${DISC_COLORS.proteina};">Pt</div>
+            <div class="extra-info">
+              <div class="extra-reason">${proteinaItem.razon}</div>
+              <div class="extra-name">Proteína en Polvo</div>
+            </div>
+            <div class="extra-price" style="cursor:pointer;" onclick="window.open('${MP_LINKS.addon_proteina}','_blank')">+$${PLAN_PRECIOS.addon_proteina.toLocaleString('es-UY')} <span style="font-size:11px; display:block; color:var(--bosque);">agregar</span></div>
+          </div>
+        </div>`;
+      }
       document.getElementById('extras-container').innerHTML = extrasHtml;
 
-      const subsPrice = Math.round(total * 0.9 / 10) * 10;
       const planHtml = `
-        <div class="plan-label">plan mensual</div>
+        <div class="plan-label">${planNombre.toLowerCase()}</div>
         <div class="plan-price">
-          <span class="plan-amount">$${subsPrice.toLocaleString('es-UY')}</span>
+          <span class="plan-amount">$${planBase.toLocaleString('es-UY')}</span>
           <span class="plan-currency">UYU / mes</span>
         </div>
-        <div class="plan-note">${rec.length} suplementos · envío · seguimiento</div>
+        <div class="plan-note">${totalSups} suplementos · envío · seguimiento personalizado</div>
+        <div style="margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.15);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:13px; color:rgba(255,255,255,0.7);">Trimestral <span style="background:rgba(184,193,182,0.3); padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; color:#B8C1B6;">-10%</span></span>
+            <span style="font-size:14px; font-weight:500; color:#fff;">$${planTrimestral.toLocaleString('es-UY')}/mes</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:13px; color:rgba(255,255,255,0.7);">Semestral <span style="background:rgba(184,193,182,0.3); padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; color:#B8C1B6;">-15%</span></span>
+            <span style="font-size:14px; font-weight:500; color:#fff;">$${planSemestral.toLocaleString('es-UY')}/mes</span>
+          </div>
+        </div>
       `;
       document.getElementById('plan-card').innerHTML = planHtml;
 
@@ -2023,7 +2067,7 @@
               <path d="M4 10l4 4 8-8"/>
             </svg>
           </div>
-          <span class="includes-text">Envío a domicilio en Montevideo</span>
+          <span class="includes-text">Envío a domicilio</span>
         </div>
         <div class="includes-item">
           <div class="includes-check">
@@ -2031,7 +2075,15 @@
               <path d="M4 10l4 4 8-8"/>
             </svg>
           </div>
-          <span class="includes-text">Seguimiento con check-ins por WhatsApp</span>
+          <span class="includes-text">Seguimiento personalizado por WhatsApp</span>
+        </div>
+        <div class="includes-item">
+          <div class="includes-check">
+            <svg viewBox="0 0 20 20">
+              <path d="M4 10l4 4 8-8"/>
+            </svg>
+          </div>
+          <span class="includes-text">Ajuste de plan según tu evolución</span>
         </div>
       `;
       document.getElementById('includes-list').innerHTML = includesHtml;
@@ -2039,19 +2091,44 @@
       window.scrollTo(0, 0);
     }
 
+    // Mercado Pago links
+    const MP_LINKS = {
+      'Plan Esencial': {
+        mensual: 'https://mpago.la/15P3YEq',
+        trimestral: 'https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=c872957201ee47a8b980e5477dcaef54',
+        semestral: 'https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=a81189f05988468aa9d4b7101000756b',
+      },
+      'Plan Completo': {
+        mensual: 'https://mpago.la/1gyEF4A',
+        trimestral: 'https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=99c99d9129a64856bcdb888ed1480715',
+        semestral: 'https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=ea45839ddc7644c693b2e114ec41d3c9',
+      },
+      addon_proteina: 'https://mpago.la/321sFwu',
+    };
+
     function confirmarCompra(tipo) {
       const d = window._nivaData;
       const rec = window._nivaRec;
-      if (!d || !rec) return;
+      const plan = window._nivaPlan;
+      if (!d || !rec || !plan) return;
 
-      const total = rec.reduce((sum, s) => sum + s.precio_niva, 0);
-      const subsPrice = Math.round(total * 0.9 / 10) * 10;
+      const precio = tipo === 'trimestral' ? plan.trimestral :
+                     tipo === 'semestral' ? plan.semestral : plan.precio;
 
+      // Send data to Google Form
       postToGoogleForm({
         'entry.2138784916': d.nombre || '',
         'entry.1151583417': d.email || '',
         'entry.598438093': d.objetivo_principal || '',
+        'entry.595941863': plan.nombre + ' - ' + tipo,
+        'entry.1403490488': String(precio),
       });
+
+      // Redirect to Mercado Pago
+      const mpLink = MP_LINKS[plan.nombre] && MP_LINKS[plan.nombre][tipo];
+      if (mpLink) {
+        window.open(mpLink, '_blank');
+      }
 
       document.querySelector('.cta-buttons').style.display = 'none';
       document.getElementById('confirmation').style.display = 'block';
@@ -2062,7 +2139,7 @@
       document.getElementById('results').style.display = 'none';
       document.getElementById('form-wrapper').style.display = 'none';
       document.getElementById('loading').style.display = 'none';
-      document.getElementById('landing').style.display = 'flex';
+      document.getElementById('landing').style.display = 'block';
 
       // Reset form
       currentStep = 1;
