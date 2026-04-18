@@ -1326,7 +1326,7 @@
             <button class="checkbox-item" onclick="toggleCheckbox(this, 'piel', 'seca')">
               <input type="checkbox" name="piel" value="seca">
               <div class="checkbox-box"></div>
-              <span class="checkbox-text">Piel seca o sin brillo</span>
+              <span class="checkbox-text">Piel seca</span>
             </button>
             <button class="checkbox-item" onclick="toggleCheckbox(this, 'piel', 'acne')">
               <input type="checkbox" name="piel" value="acne">
@@ -1336,7 +1336,7 @@
             <button class="checkbox-item" onclick="toggleCheckbox(this, 'piel', 'opaca')">
               <input type="checkbox" name="piel" value="opaca">
               <div class="checkbox-box"></div>
-              <span class="checkbox-text">Opaca o sin brillo</span>
+              <span class="checkbox-text">Opaca o sin luminosidad</span>
             </button>
             <button class="checkbox-item" onclick="toggleCheckbox(this, 'piel', 'bien')">
               <input type="checkbox" name="piel" value="bien">
@@ -1633,16 +1633,50 @@
         <button class="btn-secondary" style="background:transparent; border:1px solid var(--topo); color:var(--carbon);" onclick="confirmarCompra('mensual')">Probar un mes</button>
       </div>
 
-      <div id="confirmation" style="display: none;">
+      <!-- Step 1: Shipping form (shown when user clicks buy) -->
+      <div id="shipping-step" style="display: none;">
         <div class="confirmation-box">
-          <div class="confirmation-checkmark"></div>
-          <h3>Listo, recibimos tu pedido</h3>
-          <p>Te enviamos un email a <strong id="confirmation-email">email</strong> con la confirmación. Nos contactamos en menos de 24hs.</p>
-          <button class="btn-secondary return-btn" onclick="volverAlInicio()">Volver al inicio</button>
+          <h3 style="margin-bottom:4px;">Datos de envío</h3>
+          <p style="font-size:14px; color:var(--muted); margin-bottom:20px;">Completá tu dirección y te llevamos a pagar.</p>
+
+          <div style="text-align:left;">
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label" style="font-size:13px;">Dirección de envío</label>
+              <input type="text" id="ship-address" placeholder="Calle, número, apto" style="width:100%; padding:12px 14px; border:1px solid var(--topo); border-radius:10px; font-size:14px; font-family:inherit; background:var(--hueso);">
+            </div>
+            <div style="display:flex; gap:10px; margin-bottom:12px;">
+              <div style="flex:1;">
+                <label class="form-label" style="font-size:13px;">Barrio / Ciudad</label>
+                <input type="text" id="ship-barrio" placeholder="Ej: Pocitos" style="width:100%; padding:12px 14px; border:1px solid var(--topo); border-radius:10px; font-size:14px; font-family:inherit; background:var(--hueso);">
+              </div>
+              <div style="flex:1;">
+                <label class="form-label" style="font-size:13px;">Departamento</label>
+                <input type="text" id="ship-depto" placeholder="Ej: Montevideo" value="Montevideo" style="width:100%; padding:12px 14px; border:1px solid var(--topo); border-radius:10px; font-size:14px; font-family:inherit; background:var(--hueso);">
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom:16px;">
+              <label class="form-label" style="font-size:13px;">Nota (opcional)</label>
+              <input type="text" id="ship-nota" placeholder="Timbre, horario preferido, etc." style="width:100%; padding:12px 14px; border:1px solid var(--topo); border-radius:10px; font-size:14px; font-family:inherit; background:var(--hueso);">
+            </div>
+            <button class="btn-primary" onclick="procesarPago()" style="width:100%;">Continuar al pago</button>
+            <p style="font-size:12px; color:var(--topo); margin-top:10px; text-align:center;">Envío gratis en Montevideo · Interior consultar</p>
+            <button class="btn-secondary" style="width:100%; margin-top:8px; background:transparent; border:1px solid var(--topo); color:var(--carbon);" onclick="volverAResultados()">Volver</button>
+          </div>
         </div>
       </div>
 
-      <p class="fine-print">Nos contactamos en menos de 24hs.<br>Sin permanencia, cancelás cuando quieras.</p>
+      <!-- Step 2: Confirmation (shown after payment redirect) -->
+      <div id="confirmation" style="display: none;">
+        <div class="confirmation-box">
+          <div class="confirmation-checkmark"></div>
+          <h3>Tu plan está en camino</h3>
+          <p style="font-size:13px; color:var(--muted);">Confirmación enviada a <strong id="confirmation-email">email</strong></p>
+          <p style="font-size:12px; color:var(--topo); margin-top:8px;">Envío gratis en Montevideo · Interior consultar</p>
+          <button class="btn-secondary return-btn" style="margin-top:16px;" onclick="volverAlInicio()">Volver al inicio</button>
+        </div>
+      </div>
+
+      <p class="fine-print">Envío gratis en Montevideo.<br>Sin permanencia, cancelás cuando quieras.</p>
     </div>
   </div>
 
@@ -1799,8 +1833,12 @@
 
     function selectRadio(btn, name, value) {
       const grid = btn.parentElement;
-      grid.querySelectorAll('.radio-item').forEach(item => item.classList.remove('checked'));
+      grid.querySelectorAll('.radio-item, .button-group-item').forEach(item => {
+        item.classList.remove('checked');
+        item.classList.remove('selected');
+      });
       btn.classList.add('checked');
+      btn.classList.add('selected');
       btn.querySelector('input').checked = true;
     }
 
@@ -2067,7 +2105,7 @@
               <path d="M4 10l4 4 8-8"/>
             </svg>
           </div>
-          <span class="includes-text">Envío a domicilio</span>
+          <span class="includes-text">Envío gratis en Montevideo</span>
         </div>
         <div class="includes-item">
           <div class="includes-check">
@@ -2107,21 +2145,53 @@
     };
 
     function confirmarCompra(tipo) {
+      // Store selected plan type, show shipping form
+      window._nivaTipoCompra = tipo;
+      document.querySelector('.cta-buttons').style.display = 'none';
+      document.getElementById('shipping-step').style.display = 'block';
+      document.getElementById('shipping-step').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function volverAResultados() {
+      document.getElementById('shipping-step').style.display = 'none';
+      document.querySelector('.cta-buttons').style.display = 'flex';
+    }
+
+    function procesarPago() {
       const d = window._nivaData;
       const rec = window._nivaRec;
       const plan = window._nivaPlan;
-      if (!d || !rec || !plan) return;
+      const tipo = window._nivaTipoCompra;
+      if (!d || !rec || !plan || !tipo) return;
+
+      const address = document.getElementById('ship-address').value.trim();
+      const barrio = document.getElementById('ship-barrio').value.trim();
+      if (!address || !barrio) {
+        alert('Por favor completá tu dirección y barrio.');
+        return;
+      }
+
+      const depto = document.getElementById('ship-depto').value.trim();
+      const nota = document.getElementById('ship-nota').value.trim();
+      const direccionCompleta = `${address}, ${barrio}, ${depto}${nota ? ' — ' + nota : ''}`;
 
       const precio = tipo === 'trimestral' ? plan.trimestral :
                      tipo === 'semestral' ? plan.semestral : plan.precio;
 
-      // Send data to Google Form
+      // Send all data to Google Form
       postToGoogleForm({
         'entry.2138784916': d.nombre || '',
         'entry.1151583417': d.email || '',
         'entry.598438093': d.objetivo_principal || '',
         'entry.595941863': plan.nombre + ' - ' + tipo,
         'entry.1403490488': String(precio),
+        'entry.211084352': JSON.stringify({
+          suplementos: rec.map(s => s.nombre),
+          direccion: direccionCompleta,
+          plan: plan.nombre,
+          frecuencia: tipo,
+          precio: precio,
+        }),
       });
 
       // Redirect to Mercado Pago
@@ -2130,7 +2200,7 @@
         window.open(mpLink, '_blank');
       }
 
-      document.querySelector('.cta-buttons').style.display = 'none';
+      document.getElementById('shipping-step').style.display = 'none';
       document.getElementById('confirmation').style.display = 'block';
       document.getElementById('confirmation-email').textContent = d.email;
     }
@@ -2149,7 +2219,12 @@
       document.querySelectorAll('.radio-item, .checkbox-item, .option-card, .button-group-item').forEach(c => c.classList.remove('checked', 'selected'));
 
       document.querySelector('.cta-buttons').style.display = 'flex';
+      document.getElementById('shipping-step').style.display = 'none';
       document.getElementById('confirmation').style.display = 'none';
+      document.getElementById('ship-address').value = '';
+      document.getElementById('ship-barrio').value = '';
+      document.getElementById('ship-depto').value = 'Montevideo';
+      document.getElementById('ship-nota').value = '';
 
       window.scrollTo(0, 0);
     }
