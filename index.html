@@ -54,7 +54,8 @@
       height: 520px;
       flex-shrink: 0;
       overflow: hidden;
-      background: url('fondo.png') center 40% / cover no-repeat, var(--piedra);
+      background: url('fondo.webp') center 40% / cover no-repeat, var(--piedra);
+      background-image: image-set(url('fondo.webp') type('image/webp'), url('fondo.jpg') type('image/jpeg'));
     }
 
     .hero::before {
@@ -729,12 +730,19 @@
       border-radius: 50%;
       flex-shrink: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: rgba(46,46,46,0.5);
-      font-size: 11px;
-      font-weight: 500;
+      gap: 1px;
+      color: rgba(46,46,46,0.55);
+      font-size: 9px;
+      font-weight: 600;
       letter-spacing: 0.3px;
+    }
+    .sup-disc svg, .extra-disc svg {
+      width: 20px;
+      height: 20px;
+      opacity: 0.5;
     }
 
     .sup-info {
@@ -792,11 +800,17 @@
       border-radius: 50%;
       flex-shrink: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: rgba(46,46,46,0.5);
-      font-size: 10px;
-      font-weight: 500;
+      gap: 0px;
+      color: rgba(46,46,46,0.55);
+      font-size: 8px;
+      font-weight: 600;
+    }
+    .extra-disc svg {
+      width: 16px;
+      height: 16px;
     }
 
     .extra-info {
@@ -1698,6 +1712,27 @@
       colageno: 'Co', astaxantina: 'Ax', proteina: 'Pt'
     };
 
+    // SVG icons per supplement type
+    const ICON_CAPSULE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="8" y="2" width="8" height="20" rx="4"/><line x1="8" y1="12" x2="16" y2="12"/></svg>';
+    const ICON_TABLET = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><line x1="12" y1="4" x2="12" y2="20"/></svg>';
+    const ICON_POWDER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18h14"/><path d="M7 18V8l3-4h4l3 4v10"/><path d="M9 12h6"/></svg>';
+    const ICON_DROPS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c0 0-6 6.5-6 10.5a6 6 0 0 0 12 0C18 9.5 12 3 12 3z"/></svg>';
+    const ICON_SOFTGEL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="12" rx="6" ry="8"/><path d="M6.8 9.5c2.5 1.5 7.9 1.5 10.4 0"/></svg>';
+
+    const DISC_ICONS = {
+      complejo_b: ICON_TABLET,
+      magnesio: ICON_TABLET,
+      maca: ICON_CAPSULE,
+      ashwagandha: ICON_CAPSULE,
+      omega3: ICON_SOFTGEL,
+      zinc_vitc: ICON_TABLET,
+      probioticos: ICON_CAPSULE,
+      vitamina_d_calcio: ICON_TABLET,
+      colageno: ICON_POWDER,
+      astaxantina: ICON_SOFTGEL,
+      proteina: ICON_POWDER,
+    };
+
     const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeiBXtXouOas5r_XhLKCU9spj7wrDBtkdzID1OGXvOL0Htn1Q/formResponse';
 
     function postToGoogleForm(fields) {
@@ -2024,7 +2059,7 @@
         const color = DISC_COLORS[s.id] || '#B8C1B6';
         const label = DISC_LABELS[s.id] || 'S';
         html += `<div class="sup-card">
-          <div class="sup-disc" style="background-color: ${color};">${label}</div>
+          <div class="sup-disc" style="background-color: ${color};">${DISC_ICONS[s.id] || ICON_CAPSULE}<span>${label}</span></div>
           <div class="sup-info">
             <div class="sup-reason">${s.razon}</div>
             <div class="sup-name">${s.nombre}</div>
@@ -2053,7 +2088,7 @@
           const color = DISC_COLORS[s.id] || '#B8C1B6';
           const label = DISC_LABELS[s.id] || 'S';
           extrasHtml += `<div class="extra-card" style="opacity:0.5; transition:opacity 0.3s;" data-extra-card>
-            <div class="extra-disc" style="background-color: ${color};">${label}</div>
+            <div class="extra-disc" style="background-color: ${color};">${DISC_ICONS[s.id] || ICON_CAPSULE}<span>${label}</span></div>
             <div class="extra-info">
               <div class="extra-reason">${s.razon}</div>
               <div class="extra-name">${s.nombre}</div>
@@ -2075,7 +2110,7 @@
             ">+$${PLAN_PRECIOS.addon_proteina.toLocaleString('es-UY')}</button>
           </div>
           <div class="extra-card" style="opacity:0.5; transition:opacity 0.3s;" data-proteina-card>
-            <div class="extra-disc" style="background-color: ${DISC_COLORS.proteina};">Pt</div>
+            <div class="extra-disc" style="background-color: ${DISC_COLORS.proteina};">${ICON_POWDER}<span>Pt</span></div>
             <div class="extra-info">
               <div class="extra-reason">${proteinaItem.razon}</div>
               <div class="extra-name">Proteína en Polvo</div>
