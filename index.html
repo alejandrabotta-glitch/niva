@@ -406,6 +406,8 @@
       background: var(--hueso);
       cursor: pointer;
       transition: all 0.2s;
+      text-align: left;
+      width: 100%;
     }
 
     .option-card:hover {
@@ -442,6 +444,11 @@
       stroke: var(--bosque);
       stroke-width: 1.5px;
       fill: none;
+    }
+
+    .option-text {
+      flex: 1;
+      min-width: 0;
     }
 
     .option-text h3 {
@@ -1049,7 +1056,7 @@
           </div>
           <div>
             <div class="step-title">Respondés unas preguntas</div>
-            <div class="step-desc">Sobre vos, tu rutina y tus objetivos.</div>
+            <div class="step-desc">Sobre tu rutina, objetivos y estilo de vida. Son 2 minutos.</div>
           </div>
         </div>
 
@@ -1061,8 +1068,8 @@
             </svg>
           </div>
           <div>
-            <div class="step-title">Recibís tu plan</div>
-            <div class="step-desc">Elegís tu plan, pagás seguro por Mercado Pago y te llega todo por email.</div>
+            <div class="step-title">Ves tu recomendación gratis</div>
+            <div class="step-desc">Te mostramos qué suplementos necesitás y por qué, sin compromiso.</div>
           </div>
         </div>
 
@@ -1074,8 +1081,8 @@
             </svg>
           </div>
           <div>
-            <div class="step-title">Lo sostenés en el tiempo</div>
-            <div class="step-desc">Con check-ins y ajustes según tu evolución.</div>
+            <div class="step-title">Armás tu plan y te lo enviamos</div>
+            <div class="step-desc">Si te convence, elegís tu plan, pagás seguro y te llega a casa con seguimiento semanal.</div>
           </div>
         </div>
       </div>
@@ -2303,7 +2310,7 @@
               <path d="M4 10l4 4 8-8"/>
             </svg>
           </div>
-          <span class="includes-text">Seguimiento personalizado por WhatsApp</span>
+          <span class="includes-text">Seguimiento semanal personalizado</span>
         </div>
         <div class="includes-item">
           <div class="includes-check">
