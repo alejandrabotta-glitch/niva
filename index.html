@@ -2045,6 +2045,11 @@
       rec = rec.filter(s => s.id !== 'proteina');
       extras = extras.filter(s => s.id !== 'proteina');
 
+      // Backfill: if proteína was removed from base (fitness), promote next best from extras
+      while (rec.length < 3 && extras.length > 0) {
+        rec.push(extras.shift());
+      }
+
       // Update globals after filtering proteína
       window._nivaRec = rec;
       window._nivaExtras = extras;
