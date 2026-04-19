@@ -251,6 +251,10 @@
       color: var(--muted);
     }
 
+    details summary::-webkit-details-marker { display: none; }
+    details[open] summary span:last-child { transform: rotate(45deg); }
+    details summary span:last-child { transition: transform 0.2s; }
+
     /* ===== FORM ===== */
     #form-wrapper {
       display: none;
@@ -1076,9 +1080,108 @@
         </div>
       </div>
 
+      <!-- Disclaimer breve (capa 1) -->
+      <div style="margin-top:40px; padding:0 8px; text-align:center;">
+        <p style="font-size:13px; color:var(--muted); line-height:1.7; max-width:420px; margin:0 auto;">
+          La alimentación es la base. En algunos casos, la suplementación puede ser un complemento útil.
+        </p>
+      </div>
+
+      <!-- FAQ (capa 3) -->
+      <div style="margin-top:48px; text-align:left; max-width:480px; margin-left:auto; margin-right:auto;">
+        <div style="font-size:13px; font-weight:600; color:var(--bosque); letter-spacing:1px; text-transform:uppercase; margin-bottom:20px; text-align:center;">Preguntas frecuentes</div>
+
+        <details style="margin-bottom:16px; border-bottom:1px solid var(--piedra); padding-bottom:16px;">
+          <summary style="font-size:14px; font-weight:500; color:var(--carbon); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center;">
+            ¿La suplementación reemplaza una buena alimentación?
+            <span style="font-size:18px; color:var(--muted); margin-left:12px;">+</span>
+          </summary>
+          <p style="font-size:13px; color:var(--carbonSoft); line-height:1.7; margin-top:10px;">
+            No. La base sigue siendo una alimentación variada y equilibrada. La suplementación puede ser un complemento en algunos casos, según la rutina, las preferencias y las necesidades de cada persona.
+          </p>
+        </details>
+
+        <details style="margin-bottom:16px; border-bottom:1px solid var(--piedra); padding-bottom:16px;">
+          <summary style="font-size:14px; font-weight:500; color:var(--carbon); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center;">
+            ¿niva reemplaza una consulta profesional?
+            <span style="font-size:18px; color:var(--muted); margin-left:12px;">+</span>
+          </summary>
+          <p style="font-size:13px; color:var(--carbonSoft); line-height:1.7; margin-top:10px;">
+            No. niva no sustituye la consulta médica ni nutricional. Ante condiciones de salud, embarazo, lactancia, medicación u otras situaciones particulares, la suplementación debe evaluarse de forma individual con un profesional.
+          </p>
+        </details>
+
+        <details style="margin-bottom:16px; border-bottom:1px solid var(--piedra); padding-bottom:16px;">
+          <summary style="font-size:14px; font-weight:500; color:var(--carbon); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center;">
+            ¿Qué incluye mi plan?
+            <span style="font-size:18px; color:var(--muted); margin-left:12px;">+</span>
+          </summary>
+          <p style="font-size:13px; color:var(--carbonSoft); line-height:1.7; margin-top:10px;">
+            Tu plan incluye 3 suplementos base seleccionados para tu objetivo, con dosis, forma, horarios de toma y la evidencia científica detrás de cada uno. También podés agregar suplementos adicionales y proteína como add-on.
+          </p>
+        </details>
+
+        <details style="margin-bottom:16px; border-bottom:1px solid var(--piedra); padding-bottom:16px;">
+          <summary style="font-size:14px; font-weight:500; color:var(--carbon); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center;">
+            ¿Puedo cancelar en cualquier momento?
+            <span style="font-size:18px; color:var(--muted); margin-left:12px;">+</span>
+          </summary>
+          <p style="font-size:13px; color:var(--carbonSoft); line-height:1.7; margin-top:10px;">
+            Sí. Podés cancelar tu suscripción cuando quieras desde Mercado Pago, sin permanencia mínima ni penalización.
+          </p>
+        </details>
+      </div>
+
+      <!-- Footer con legal (capa 4) -->
       <div class="landing-footer">
         niva · tu bienestar, más simple<br>
         <a href="mailto:hola@niva.uy" style="color:var(--muted); font-size:12px; text-decoration:none;">hola@niva.uy</a>
+        <div style="margin-top:16px; font-size:11px; color:var(--topoDark);">
+          <a href="#" onclick="document.getElementById('modal-terminos').style.display='flex'; return false;" style="color:var(--topoDark); text-decoration:none;">Términos y Condiciones</a>
+          <span style="margin:0 6px;">·</span>
+          <a href="#" onclick="document.getElementById('modal-privacidad').style.display='flex'; return false;" style="color:var(--topoDark); text-decoration:none;">Política de Privacidad</a>
+        </div>
+        <div style="margin-top:12px; font-size:11px; color:var(--topo); line-height:1.6; max-width:400px; margin-left:auto; margin-right:auto;">
+          La información brindada por niva tiene fines orientativos y no sustituye la consulta con profesionales de la salud.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Términos y Condiciones -->
+  <div id="modal-terminos" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; padding:20px;" onclick="if(event.target===this)this.style.display='none'">
+    <div style="background:#fff; border-radius:16px; max-width:560px; width:100%; max-height:80vh; overflow-y:auto; padding:32px 28px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h2 style="font-size:20px; font-weight:500; color:var(--carbon); margin:0;">Términos y Condiciones</h2>
+        <button onclick="document.getElementById('modal-terminos').style.display='none'" style="background:none; border:none; font-size:24px; color:var(--muted); cursor:pointer;">&times;</button>
+      </div>
+      <div style="font-size:13px; color:var(--carbonSoft); line-height:1.8;">
+        <p><strong>1. Servicio</strong><br>niva es un servicio de recomendación y envío de suplementos alimenticios personalizado, operado desde Montevideo, Uruguay. El servicio incluye un cuestionario de evaluación, una selección personalizada de suplementos y el envío periódico a domicilio.</p>
+        <p><strong>2. Naturaleza de las recomendaciones</strong><br>Las recomendaciones de niva se basan en información general y evidencia científica publicada. No constituyen diagnóstico, tratamiento médico ni consejo nutricional individualizado. niva no reemplaza la consulta con profesionales de la salud.</p>
+        <p><strong>3. Suscripción y pagos</strong><br>Los planes de niva funcionan como suscripción mensual, trimestral o semestral, procesada a través de Mercado Pago. El usuario puede cancelar su suscripción en cualquier momento desde su cuenta de Mercado Pago sin penalización.</p>
+        <p><strong>4. Envíos</strong><br>Los envíos se realizan dentro de Montevideo. Los tiempos de entrega son estimados y pueden variar según disponibilidad y logística.</p>
+        <p><strong>5. Responsabilidad</strong><br>niva no se responsabiliza por efectos adversos derivados del uso de suplementos sin consulta médica previa. Ante condiciones de salud, embarazo, lactancia, medicación u otras situaciones particulares, el usuario debe consultar con un profesional antes de iniciar suplementación.</p>
+        <p><strong>6. Modificaciones</strong><br>niva se reserva el derecho de modificar estos términos. Los cambios serán comunicados por email a los suscriptores activos.</p>
+        <p style="color:var(--muted); margin-top:20px;">Última actualización: abril 2026</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Política de Privacidad -->
+  <div id="modal-privacidad" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; padding:20px;" onclick="if(event.target===this)this.style.display='none'">
+    <div style="background:#fff; border-radius:16px; max-width:560px; width:100%; max-height:80vh; overflow-y:auto; padding:32px 28px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h2 style="font-size:20px; font-weight:500; color:var(--carbon); margin:0;">Política de Privacidad</h2>
+        <button onclick="document.getElementById('modal-privacidad').style.display='none'" style="background:none; border:none; font-size:24px; color:var(--muted); cursor:pointer;">&times;</button>
+      </div>
+      <div style="font-size:13px; color:var(--carbonSoft); line-height:1.8;">
+        <p><strong>1. Datos que recopilamos</strong><br>niva recopila: nombre, email, dirección de envío, y las respuestas al cuestionario de salud y estilo de vida. Estos datos se utilizan exclusivamente para personalizar tu plan y gestionar el envío.</p>
+        <p><strong>2. Uso de los datos</strong><br>Tus datos se usan para: generar tu recomendación personalizada, procesar y enviar tu pedido, enviarte emails relacionados con tu plan (confirmación, plan detallado, check-ins, seguimiento), y mejorar el servicio.</p>
+        <p><strong>3. Almacenamiento</strong><br>Los datos se almacenan en servicios de Google (Google Forms, Google Sheets) y se procesan mediante Google Apps Script. Los pagos son gestionados por Mercado Pago; niva no almacena datos de tarjetas ni información financiera.</p>
+        <p><strong>4. Compartición</strong><br>niva no vende, alquila ni comparte tus datos personales con terceros, salvo los necesarios para la operación del servicio (Mercado Pago para pagos, servicio de logística para envíos).</p>
+        <p><strong>5. Tus derechos</strong><br>Conforme a la Ley N° 18.331 de Protección de Datos Personales (Uruguay) y la regulación de la URCDP, tenés derecho a acceder, rectificar, actualizar y suprimir tus datos personales. Para ejercer estos derechos, escribinos a hola@niva.uy.</p>
+        <p><strong>6. Contacto</strong><br>Para cualquier consulta sobre privacidad: <a href="mailto:hola@niva.uy" style="color:var(--bosque);">hola@niva.uy</a></p>
+        <p style="color:var(--muted); margin-top:20px;">Última actualización: abril 2026</p>
       </div>
     </div>
   </div>
@@ -1609,6 +1712,13 @@
               <span class="radio-text">Vegana</span>
             </button>
           </div>
+        </div>
+
+        <!-- Advertencia legal (capa 2) — visible solo en el último paso -->
+        <div style="margin-top:24px; padding:12px 16px; background:var(--hueso); border-radius:10px;">
+          <p style="font-size:12px; color:var(--muted); line-height:1.6; margin:0;">
+            niva no reemplaza la consulta médica ni nutricional. Ante condiciones de salud, embarazo, lactancia, uso de medicación o dudas particulares, se recomienda consultar con un profesional de la salud antes de iniciar suplementación.
+          </p>
         </div>
       </div>
     </div>
