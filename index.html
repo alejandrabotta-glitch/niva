@@ -1061,8 +1061,8 @@
             </svg>
           </div>
           <div>
-            <div class="step-title">Te armamos un plan</div>
-            <div class="step-desc">Claro, personalizado y fácil de seguir.</div>
+            <div class="step-title">Recibís tu plan</div>
+            <div class="step-desc">Elegís tu plan, pagás seguro por Mercado Pago y te llega todo por email.</div>
           </div>
         </div>
 
@@ -1118,6 +1118,16 @@
           </summary>
           <p style="font-size:13px; color:var(--carbonSoft); line-height:1.7; margin-top:10px;">
             Tu plan incluye 3 suplementos base seleccionados para tu objetivo, con dosis, forma, horarios de toma y la evidencia científica detrás de cada uno. También podés agregar suplementos adicionales y proteína como add-on.
+          </p>
+        </details>
+
+        <details style="margin-bottom:16px; border-bottom:1px solid var(--piedra); padding-bottom:16px;">
+          <summary style="font-size:14px; font-weight:500; color:var(--carbon); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center;">
+            ¿Cómo es el proceso de compra?
+            <span style="font-size:18px; color:var(--muted); margin-left:12px;">+</span>
+          </summary>
+          <p style="font-size:13px; color:var(--carbonSoft); line-height:1.7; margin-top:10px;">
+            Completás el cuestionario y recibís tu recomendación personalizada. Al elegir tu plan, te dirigimos a Mercado Pago para el pago seguro. Una vez acreditado, te enviamos por email la confirmación y tu plan detallado con dosis, horarios y la ciencia detrás de cada suplemento. Los envíos se coordinan en Montevideo.
           </p>
         </details>
 
@@ -2458,15 +2468,16 @@
         'entry.1015253526': selectedSups[1] ? (selectedSups[1].dosis || '') : '',
         'entry.2018852506': selectedSups[2] ? selectedSups[2].nombre : '',
         'entry.434870582': selectedSups[2] ? (selectedSups[2].dosis || '') : '',
-        'entry.595941863': plan.nombre + (plan.hasProteina ? ' + Proteína' : '') + ' - ' + tipo,
+        'entry.595941863': 'pendiente',
         'entry.1403490488': String(precio),
         'entry.211084352': JSON.stringify({
           suplementos: selectedSups.map(s => s.nombre + ' (' + (s.dosis || '') + ')'),
           direccion: direccionCompleta,
-          plan: plan.nombre,
+          plan: plan.nombre + (plan.hasProteina ? ' + Proteína' : ''),
           frecuencia: tipo,
           precio: precio,
           hasProteina: plan.hasProteina || false,
+          tipo: 'pendiente_pago',
         }),
       });
 
