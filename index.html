@@ -1813,13 +1813,13 @@
       complejo_b: '#B8C1B6', magnesio: '#C9C5BE', maca: '#D4C4A8',
       ashwagandha: '#9DA89A', omega3: '#C5BFAE', zinc_vitc: '#E0D4B8',
       probioticos: '#E9E6E1', vitamina_d_calcio: '#D6CEB8', colageno: '#DCC9B8',
-      astaxantina: '#C7A89A', proteina: '#B3B09B'
+      astaxantina: '#C7A89A', proteina: '#B3B09B', creatina: '#A8B0A3'
     };
 
     const DISC_LABELS = {
       complejo_b: 'B', magnesio: 'Mg', maca: 'Mc', ashwagandha: 'Ah',
       omega3: 'O3', zinc_vitc: 'Zn', probioticos: 'Pr', vitamina_d_calcio: 'D3',
-      colageno: 'Co', astaxantina: 'Ax', proteina: 'Pt'
+      colageno: 'Co', astaxantina: 'Ax', proteina: 'Pt', creatina: 'Cr'
     };
 
     // SVG icons per supplement type
@@ -1841,6 +1841,7 @@
       colageno: ICON_POWDER,
       astaxantina: ICON_SOFTGEL,
       proteina: ICON_POWDER,
+      creatina: ICON_POWDER,
     };
 
     const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeiBXtXouOas5r_XhLKCU9spj7wrDBtkdzID1OGXvOL0Htn1Q/formResponse';
@@ -1881,6 +1882,7 @@
       colageno: { nombre: 'Colágeno Hidrolizado', dosis_base: '10 g/día en ayunas', precio_niva: 1290, evidencia: 'Moderado', beneficio: 'Estimula fibroblastos', momento: 'Ayunas' },
       astaxantina: { nombre: 'Astaxantina', dosis_base: '6 mg/día con comida', precio_niva: 1690, evidencia: 'Moderado', beneficio: 'Antioxidante potente', momento: 'Comida' },
       proteina: { nombre: 'Proteína en Polvo', dosis_base: '25-30 g/día post-entreno', precio_niva: 2390, evidencia: 'Muy Fuerte', beneficio: 'Síntesis proteica muscular', momento: 'Post-entreno' },
+      creatina: { nombre: 'Creatina Monohidrato', dosis_base: '5 g/día con cualquier comida', precio_niva: 990, evidencia: 'Muy Fuerte', beneficio: 'Fuerza, potencia y función cognitiva', momento: 'Cualquier comida' },
     };
 
     const OBJETIVOS = {
@@ -1888,7 +1890,7 @@
       estres: { nombre: 'Estrés y Sueño', base: ['ashwagandha', 'magnesio', 'omega3'] },
       inmunidad: { nombre: 'Inmunidad', base: ['zinc_vitc', 'probioticos', 'vitamina_d_calcio'] },
       piel: { nombre: 'Piel y Pelo', base: ['colageno', 'astaxantina', 'omega3'] },
-      fitness: { nombre: 'Fitness y Rendimiento', base: ['proteina', 'magnesio', 'omega3'] },
+      fitness: { nombre: 'Fitness y Rendimiento', base: ['creatina', 'proteina', 'magnesio'] },
     };
 
     const RAZONES = {
@@ -1903,12 +1905,13 @@
       colageno: (d) => d.pelo.includes('fino') ? 'Para tu pelo y uñas' : d.piel.includes('seca') ? 'Para tu piel' : 'Elasticidad y estructura',
       astaxantina: (d) => d.edad === '30-49' || d.edad === '50+' ? 'Anti-edad celular potente' : 'Protección antioxidante',
       proteina: (d) => d.ejercicio === '5+' ? 'Síntesis muscular por entrenos' : d.edad === '50+' ? 'Previene pérdida muscular' : 'Optimiza recuperación',
+      creatina: (d) => d.ejercicio === '5+' ? 'Máximo rendimiento en fuerza' : d.mental && d.mental.includes('memoria') ? 'Beneficio cognitivo comprobado' : 'Fuerza, potencia y recuperación',
     };
 
     const PESO_EVIDENCIA = {
       complejo_b: 1.0, magnesio: 1.0, maca: 0.8, ashwagandha: 1.0,
       omega3: 0.9, zinc_vitc: 1.0, probioticos: 0.9, vitamina_d_calcio: 1.0,
-      colageno: 0.8, astaxantina: 0.8, proteina: 1.2
+      colageno: 0.8, astaxantina: 0.8, proteina: 1.2, creatina: 1.3
     };
 
     // Plan-based pricing (not per-supplement)
