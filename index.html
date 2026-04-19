@@ -2028,6 +2028,30 @@
       window._nivaRec = recommendation;
       window._nivaExtras = recExtras;
 
+      // Pre-submit lead data to Google Form (tipo=pendiente) for follow-up if they don't buy
+      const allSups = [...recommendation, ...recExtras];
+      postToGoogleForm({
+        'entry.2138784916': data.nombre || '',
+        'entry.1151583417': data.email || '',
+        'entry.598438093': data.objetivo_principal || '',
+        'entry.1591476047': allSups[0] ? allSups[0].nombre : '',
+        'entry.325244073': allSups[0] ? (allSups[0].dosis || '') : '',
+        'entry.380781196': allSups[1] ? allSups[1].nombre : '',
+        'entry.1015253526': allSups[1] ? (allSups[1].dosis || '') : '',
+        'entry.2018852506': allSups[2] ? allSups[2].nombre : '',
+        'entry.434870582': allSups[2] ? (allSups[2].dosis || '') : '',
+        'entry.595941863': 'pendiente',
+        'entry.1403490488': '0',
+        'entry.211084352': JSON.stringify({
+          suplementos: allSups.map(s => s.nombre + ' (' + (s.dosis || '') + ')'),
+          direccion: '',
+          plan: '',
+          frecuencia: '',
+          precio: 0,
+          tipo: 'lead',
+        }),
+      });
+
       setTimeout(() => showResults(data, recommendation, recExtras), 2500);
     }
 
