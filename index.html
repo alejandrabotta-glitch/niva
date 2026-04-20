@@ -2532,6 +2532,50 @@
 
       window.scrollTo(0, 0);
     }
+
+    // ===== DEEP LINK: reconstruir resultados desde URL params (email de lead) =====
+    // URL format: niva.uy?n=nombre&e=email&o=objetivo&s=id1,id2,id3&x=id4,id5
+    (function checkDeepLink() {
+      const params = new URLSearchParams(window.location.search);
+      if (!params.has('o') || !params.has('s')) return; // no es deep link
+
+      const nombre = decodeURIComponent(params.get('n') || '');
+      const email = decodeURIComponent(params.get('e') || '');
+      const objetivo = params.get('o') || '';
+      const baseIds = (params.get('s') || '').split(',').filter(Boolean);
+      const extraIds = (params.get('x') || '').split(',').filter(Boolean);
+
+      if (baseIds.length === 0 || !CATALOGO[baseIds[0]]) return; // IDs inválidos
+
+      // Simular data mínima para adjustDosis y RAZONES
+      const data = { nombre: nombre, email: email, objetivo_principal: objetivo,
+        edad: '', sexo: '', fatiga: '', mental: [], piel: [], pelo: [],
+        dificultad_dormirse: false, dificultad_mantener: false,
+        osteoporosis: false, articular: '', cardiovascular: false, corazon: [],
+        digestion: '', poblacion_vulnerable: false, transporte: false,
+        ejercicio: '', frutas: '', verduras: '', dieta: '' };
+
+      const rec = baseIds.map(id => ({
+        id, ...CATALOGO[id], score: 10, dosis: CATALOGO[id].dosis_base,
+        razon: RAZONES[id] ? RAZONES[id](data) : 'Para tu bienestar', tipo: 'base'
+      }));
+
+      const extras = extraIds.map(id => ({
+        id, ...CATALOGO[id], score: 5, dosis: CATALOGO[id].dosis_base,
+        razon: RAZONES[id] ? RAZONES[id](data) : 'Complementa tu plan', tipo: 'extra'
+      })).filter(s => CATALOGO[s.id]); // filtrar IDs inválidos
+
+      // Guardar data global
+      window._nivaData = data;
+
+      // Ocultar landing, mostrar resultados directo
+      document.getElementById('landing').style.display = 'none';
+      document.getElementById('loading').style.display = 'none';
+      showResults(data, rec, extras);
+
+      // Limpiar URL sin recargar
+      window.history.replaceState({}, '', window.location.pathname);
+    })();
   </script>
 
 </body>
