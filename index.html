@@ -1859,7 +1859,28 @@
               </div>
               <div style="flex:1;">
                 <label class="form-label" style="font-size:13px;">Departamento</label>
-                <input type="text" id="ship-depto" placeholder="Ej: Montevideo, Canelones..." value="" style="width:100%; padding:12px 14px; border:1px solid var(--topo); border-radius:10px; font-size:14px; font-family:inherit; background:var(--hueso);">
+                <select id="ship-depto" style="width:100%; padding:12px 14px; border:1px solid var(--topo); border-radius:10px; font-size:14px; font-family:inherit; background:var(--hueso); color:var(--carbon); appearance:auto;">
+                  <option value="">Seleccioná</option>
+                  <option value="Montevideo">Montevideo</option>
+                  <option value="Canelones">Canelones</option>
+                  <option value="Maldonado">Maldonado</option>
+                  <option value="Colonia">Colonia</option>
+                  <option value="San José">San José</option>
+                  <option value="Rocha">Rocha</option>
+                  <option value="Paysandú">Paysandú</option>
+                  <option value="Salto">Salto</option>
+                  <option value="Rivera">Rivera</option>
+                  <option value="Soriano">Soriano</option>
+                  <option value="Cerro Largo">Cerro Largo</option>
+                  <option value="Florida">Florida</option>
+                  <option value="Lavalleja">Lavalleja</option>
+                  <option value="Tacuarembó">Tacuarembó</option>
+                  <option value="Durazno">Durazno</option>
+                  <option value="Treinta y Tres">Treinta y Tres</option>
+                  <option value="Artigas">Artigas</option>
+                  <option value="Flores">Flores</option>
+                  <option value="Río Negro">Río Negro</option>
+                </select>
               </div>
             </div>
             <div class="form-group" style="margin-bottom:16px;">
@@ -2525,12 +2546,11 @@
 
       const address = document.getElementById('ship-address').value.trim();
       const barrio = document.getElementById('ship-barrio').value.trim();
-      if (!address || !barrio) {
-        alert('Por favor completá tu dirección y barrio.');
+      const depto = document.getElementById('ship-depto').value.trim();
+      if (!address || !barrio || !depto) {
+        alert('Por favor completá tu dirección, barrio y departamento.');
         return;
       }
-
-      const depto = document.getElementById('ship-depto').value.trim();
       const nota = document.getElementById('ship-nota').value.trim();
       const direccionCompleta = `${address}, ${barrio}, ${depto}${nota ? ' — ' + nota : ''}`;
 
