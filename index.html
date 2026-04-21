@@ -3,7 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>niva — tu bienestar, mas simple</title>
+  <title>niva — tu bienestar, más simple</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Suplementos personalizados para vos. Completá un cuestionario de 2 minutos y recibí tu plan mensual con los suplementos que realmente necesitás, directo a tu puerta en Uruguay.">
+  <meta name="keywords" content="suplementos personalizados, vitaminas Uruguay, bienestar, salud, niva, suplementos a domicilio, plan nutricional">
+  <meta name="author" content="niva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://niva.uy/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://niva.uy/">
+  <meta property="og:title" content="niva — tu bienestar, más simple">
+  <meta property="og:description" content="Suplementos personalizados para vos. Cuestionario de 2 minutos → plan a tu medida → envío a tu puerta en Uruguay.">
+  <meta property="og:image" content="https://niva.uy/niva-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="es_UY">
+  <meta property="og:site_name" content="niva">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="niva — tu bienestar, más simple">
+  <meta name="twitter:description" content="Suplementos personalizados para vos. Cuestionario de 2 minutos → plan a tu medida → envío a tu puerta en Uruguay.">
+  <meta name="twitter:image" content="https://niva.uy/niva-og.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1176157395920886');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1176157395920886&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -2165,6 +2212,14 @@
       document.getElementById('loading').style.display = 'flex';
       window.scrollTo(0, 0);
 
+      // Meta Pixel: Lead event
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', {
+          content_name: data.objetivo_principal,
+          content_category: 'cuestionario_completado',
+        });
+      }
+
       const scores = calculateScoring(data);
       const allRanked = Object.entries(scores).sort((a, b) => b[1] - a[1]).filter(([, s]) => s > 0);
       const topBase = allRanked.slice(0, 3);
@@ -2519,6 +2574,17 @@
           consentimiento_fecha: new Date().toISOString(),
         }),
       });
+
+      // Meta Pixel: InitiateCheckout event
+      if (typeof fbq === 'function') {
+        fbq('track', 'InitiateCheckout', {
+          value: precio,
+          currency: 'UYU',
+          content_name: plan.nombre,
+          content_category: tipo,
+          num_items: plan.totalSups,
+        });
+      }
 
       // Redirect to Mercado Pago — plan link
       const mpPlanName = plan.includeExtras ? 'Plan Completo' : 'Plan Esencial';
