@@ -1337,12 +1337,12 @@
 
       <!-- STEP 2: Objetivo -->
       <div class="form-step" data-step="2">
-        <h2>¿Cuál es tu objetivo principal?</h2>
-        <p class="form-step-subtitle">Elegí el que más te resuena.</p>
+        <h2>¿Cuáles son tus objetivos?</h2>
+        <p class="form-step-subtitle">Elegí hasta 2 objetivos que más te resuenen.</p>
 
         <div class="option-grid">
           <button class="option-card" onclick="selectObjetivo(this, 'energia')">
-            <input type="radio" name="objetivo_principal" value="energia">
+            <input type="checkbox" name="objetivo_principal" value="energia">
             <div class="option-icon">
               <svg viewBox="0 0 20 20">
                 <path d="M10 2v4M10 14v4M2 10h4M14 10h4M4.5 4.5l2.5 2.5M13 13l2.5 2.5M4.5 15.5L7 13M13 7l2.5-2.5"/>
@@ -1355,7 +1355,7 @@
           </button>
 
           <button class="option-card" onclick="selectObjetivo(this, 'estres')">
-            <input type="radio" name="objetivo_principal" value="estres">
+            <input type="checkbox" name="objetivo_principal" value="estres">
             <div class="option-icon">
               <svg viewBox="0 0 20 20">
                 <path d="M16 11.5A7 7 0 016.5 4a7 7 0 109.5 7.5z"/>
@@ -1368,7 +1368,7 @@
           </button>
 
           <button class="option-card" onclick="selectObjetivo(this, 'inmunidad')">
-            <input type="radio" name="objetivo_principal" value="inmunidad">
+            <input type="checkbox" name="objetivo_principal" value="inmunidad">
             <div class="option-icon">
               <svg viewBox="0 0 20 20">
                 <path d="M10 2l6 2v5c0 4-3 7-6 9-3-2-6-5-6-9V4l6-2z"/>
@@ -1381,7 +1381,7 @@
           </button>
 
           <button class="option-card" onclick="selectObjetivo(this, 'piel')">
-            <input type="radio" name="objetivo_principal" value="piel">
+            <input type="checkbox" name="objetivo_principal" value="piel">
             <div class="option-icon">
               <svg viewBox="0 0 20 20">
                 <path d="M10 2s5 5 5 10a5 5 0 01-10 0c0-5 5-10 5-10z"/>
@@ -1394,7 +1394,7 @@
           </button>
 
           <button class="option-card" onclick="selectObjetivo(this, 'fitness')">
-            <input type="radio" name="objetivo_principal" value="fitness">
+            <input type="checkbox" name="objetivo_principal" value="fitness">
             <div class="option-icon">
               <svg viewBox="0 0 20 20">
                 <path d="M4 7v6M7 5v10M13 5v10M16 7v6M7 10h6"/>
@@ -2101,9 +2101,25 @@
     }
 
     function selectObjetivo(btn, value) {
-      document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
-      btn.classList.add('selected');
-      btn.querySelector('input').checked = true;
+      const input = btn.querySelector('input');
+      const isSelected = btn.classList.contains('selected');
+
+      if (isSelected) {
+        // Deselect
+        btn.classList.remove('selected');
+        input.checked = false;
+      } else {
+        // Check max 2 limit
+        const selectedCards = document.querySelectorAll('.option-card.selected');
+        if (selectedCards.length >= 2) {
+          // Deselect the first one to make room
+          const first = selectedCards[0];
+          first.classList.remove('selected');
+          first.querySelector('input').checked = false;
+        }
+        btn.classList.add('selected');
+        input.checked = true;
+      }
     }
 
     function toggleCheckbox(btn, name, value) {
@@ -2134,8 +2150,12 @@
       const s = {};
       Object.keys(CATALOGO).forEach(k => s[k] = 0);
 
-      const obj = OBJETIVOS[d.objetivo_principal];
-      if (obj) obj.base.forEach(x => s[x] += Math.round(10 * PESO_EVIDENCIA[x]));
+      // Support multiple objectives
+      const objs = d.objetivos || [d.objetivo_principal];
+      objs.forEach(key => {
+        const obj = OBJETIVOS[key];
+        if (obj) obj.base.forEach(x => s[x] += Math.round(10 * PESO_EVIDENCIA[x]));
+      });
 
       if (d.dificultad_dormirse) { s.ashwagandha += 5; s.magnesio += 4; }
       if (d.dificultad_mantener) { s.ashwagandha += 3; s.magnesio += 4; }
@@ -2196,7 +2216,8 @@
         email: document.getElementById('email').value,
         edad: getRadioValue('edad'),
         sexo: getRadioValue('sexo'),
-        objetivo_principal: getRadioValue('objetivo_principal'),
+        objetivos: Array.from(document.querySelectorAll('input[name="objetivo_principal"]:checked')).map(i => i.value),
+        objetivo_principal: Array.from(document.querySelectorAll('input[name="objetivo_principal"]:checked')).map(i => i.value).join(', '),
         dificultad_dormirse: getRadioValue('dificultad_dormirse') === 'si',
         dificultad_mantener: getRadioValue('dificultad_mantener') === 'si',
         fatiga: getRadioValue('fatiga'),
@@ -2220,8 +2241,8 @@
 
     function submitForm() {
       const data = collectFormData();
-      if (!data.nombre || !data.email || !data.objetivo_principal) {
-        alert('Por favor completa tu nombre, email y objetivo principal.');
+      if (!data.nombre || !data.email || !data.objetivos || data.objetivos.length === 0) {
+        alert('Por favor completa tu nombre, email y al menos un objetivo.');
         return;
       }
       if (!document.getElementById('consent_tyc').checked || !document.getElementById('consent_datos').checked) {
@@ -2236,7 +2257,7 @@
       // Meta Pixel: Lead event
       if (typeof fbq === 'function') {
         fbq('track', 'Lead', {
-          content_name: data.objetivo_principal,
+          content_name: data.objetivos.join(', '),
           content_category: 'cuestionario_completado',
         });
       }
@@ -2295,7 +2316,9 @@
       document.getElementById('loading').style.display = 'none';
       document.getElementById('results').style.display = 'flex';
 
-      const obj = OBJETIVOS[data.objetivo_principal];
+      // Support multiple objectives
+      const objs = data.objetivos || [data.objetivo_principal];
+      const objNames = objs.map(k => OBJETIVOS[k]?.nombre?.toLowerCase() || k).filter(Boolean);
       const firstName = data.nombre.split(' ')[0];
 
       // Check if proteína is in rec or extras — separate it as add-on
@@ -2314,7 +2337,11 @@
       window._nivaExtras = extras;
 
       document.getElementById('result-name').textContent = firstName;
-      const introText = `${firstName}, analizamos tu perfil y seleccionamos ${rec.length} suplementos base para tu objetivo de <strong>${obj?.nombre?.toLowerCase() || ''}</strong>. Armá tu plan:`;
+      const objLabel = objNames.length > 1
+        ? objNames.slice(0, -1).join(', ') + ' y ' + objNames[objNames.length - 1]
+        : objNames[0] || '';
+      const objWord = objs.length > 1 ? 'tus objetivos de' : 'tu objetivo de';
+      const introText = `${firstName}, analizamos tu perfil y seleccionamos ${rec.length} suplementos base para ${objWord} <strong>${objLabel}</strong>. Armá tu plan:`;
       document.getElementById('result-intro').innerHTML = introText;
 
       // Render base supplements
@@ -2654,14 +2681,15 @@
 
       const nombre = decodeURIComponent(params.get('n') || '');
       const email = decodeURIComponent(params.get('e') || '');
-      const objetivo = params.get('o') || '';
+      const objetivoRaw = params.get('o') || '';
+      const objetivos = objetivoRaw.split(',').map(s => s.trim()).filter(Boolean);
       const baseIds = (params.get('s') || '').split(',').filter(Boolean);
       const extraIds = (params.get('x') || '').split(',').filter(Boolean);
 
       if (baseIds.length === 0 || !CATALOGO[baseIds[0]]) return; // IDs inválidos
 
       // Simular data mínima para adjustDosis y RAZONES
-      const data = { nombre: nombre, email: email, objetivo_principal: objetivo,
+      const data = { nombre: nombre, email: email, objetivos: objetivos, objetivo_principal: objetivoRaw,
         edad: '', sexo: '', fatiga: '', mental: [], piel: [], pelo: [],
         dificultad_dormirse: false, dificultad_mantener: false,
         osteoporosis: false, articular: '', cardiovascular: false, corazon: [],
