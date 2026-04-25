@@ -2008,18 +2008,18 @@
     const totalSteps = 8;
 
     const CATALOGO = {
-      complejo_b: { nombre: 'Complejo B', dosis_base: '1 comprimido/día con el desayuno', precio_niva: 336, evidencia: 'Fuerte', beneficio: 'Cofactor energético esencial', momento: 'Desayuno', duracion: '40 días', formato: 'Frasco x 40 comprimidos' },
-      magnesio: { nombre: 'Magnesio', dosis_base: '300 mg/día con la cena', precio_niva: 950, evidencia: 'Fuerte', beneficio: 'Regula GABA y relajación muscular', momento: 'Cena', duracion: '100 días', formato: 'Frasco x 100 comprimidos' },
-      maca: { nombre: 'Maca', dosis_base: '1500 mg/día con el almuerzo', precio_niva: 699, evidencia: 'Moderado', beneficio: 'Mejora rendimiento físico', momento: 'Almuerzo', duracion: '33 días', formato: 'Frasco x 100 cápsulas' },
-      ashwagandha: { nombre: 'Ashwagandha', dosis_base: '600 mg/día antes de dormir', precio_niva: 750, evidencia: 'Fuerte', beneficio: 'Reduce cortisol', momento: 'Noche', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
-      omega3: { nombre: 'Omega 3', dosis_base: '1000 mg/día con el almuerzo', precio_niva: 1365, evidencia: 'Moderado-Fuerte', beneficio: 'Antiinflamatorio', momento: 'Almuerzo', duracion: '100 días', formato: 'Frasco x 100 cápsulas' },
-      zinc_vitc: { nombre: 'Zinc + Vitamina C', dosis_base: '15 mg Zn + 500 mg Vit C', precio_niva: 450, evidencia: 'Fuerte', beneficio: 'Fortalece defensas', momento: 'Desayuno', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
-      probioticos: { nombre: 'Probióticos', dosis_base: '10-20 mil millones UFC/día', precio_niva: 1039, evidencia: 'Moderado-Fuerte', beneficio: 'Modula respuesta inmune', momento: 'Ayunas', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
-      vitamina_d_calcio: { nombre: 'Vitamina D + Calcio', dosis_base: '2 gummies/día con el almuerzo', precio_niva: 554, evidencia: 'Fuerte', beneficio: 'Absorción de calcio', momento: 'Almuerzo', duracion: '30 días', formato: 'Frasco x 60 gummies' },
-      colageno: { nombre: 'Colágeno Hidrolizado', dosis_base: '7 g/día en ayunas', precio_niva: 1340, evidencia: 'Moderado', beneficio: 'Estimula fibroblastos', momento: 'Ayunas', duracion: '30 días', formato: 'Polvo x 200 g' },
-      astaxantina: { nombre: 'Astaxantina', dosis_base: '6 mg/día con comida', precio_niva: 918, evidencia: 'Moderado', beneficio: 'Antioxidante potente', momento: 'Comida', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
-      proteina: { nombre: 'Proteína en Polvo', dosis_base: '25-30 g/día post-entreno', precio_niva: 3690, evidencia: 'Muy Fuerte', beneficio: 'Síntesis proteica muscular', momento: 'Post-entreno', duracion: '30 días', formato: 'Bolsa x 908 g' },
-      creatina: { nombre: 'Creatina Monohidrato', dosis_base: '5 g/día con cualquier comida', precio_niva: 1280, evidencia: 'Muy Fuerte', beneficio: 'Fuerza, potencia y función cognitiva', momento: 'Cualquier comida', duracion: '60 días', formato: 'Polvo x 300 g' },
+      complejo_b: { nombre: 'Complejo B', marca: 'ICU-VITA', dosis_base: '1 comprimido/día con el desayuno', precio_niva: 336, evidencia: 'Fuerte', beneficio: 'Cofactor energético esencial', momento: 'Desayuno', duracion: '40 días', formato: 'Frasco x 40 comprimidos' },
+      magnesio: { nombre: 'Magnesio Citrato', marca: 'Qualivits', dosis_base: '300 mg/día con la cena', precio_niva: 950, evidencia: 'Fuerte', beneficio: 'Regula GABA y relajación muscular', momento: 'Cena', duracion: '100 días', formato: 'Frasco x 100 comprimidos' },
+      maca: { nombre: 'Maca', marca: 'Qualivits', dosis_base: '1500 mg/día con el almuerzo', precio_niva: 699, evidencia: 'Moderado', beneficio: 'Mejora rendimiento físico', momento: 'Almuerzo', duracion: '33 días', formato: 'Frasco x 100 cápsulas' },
+      ashwagandha: { nombre: 'Ashwagandha', marca: 'Naturaleza Pura', dosis_base: '600 mg/día antes de dormir', precio_niva: 750, evidencia: 'Fuerte', beneficio: 'Reduce cortisol', momento: 'Noche', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
+      omega3: { nombre: 'Omega 3', marca: 'Roemmers', dosis_base: '1000 mg/día con el almuerzo', precio_niva: 1365, evidencia: 'Moderado-Fuerte', beneficio: 'Antiinflamatorio', momento: 'Almuerzo', duracion: '100 días', formato: 'Frasco x 100 cápsulas' },
+      zinc_vitc: { nombre: 'Zinc + Vitamina C', marca: 'Vitaminway', dosis_base: '15 mg Zn + 500 mg Vit C', precio_niva: 450, evidencia: 'Fuerte', beneficio: 'Fortalece defensas', momento: 'Desayuno', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
+      probioticos: { nombre: 'Probióticos', marca: 'Biótica Pro', dosis_base: '10-20 mil millones UFC/día', precio_niva: 1039, evidencia: 'Moderado-Fuerte', beneficio: 'Modula respuesta inmune', momento: 'Ayunas', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
+      vitamina_d_calcio: { nombre: 'Vitamina D + Calcio', marca: 'Simple (Bagó)', dosis_base: '2 gummies/día con el almuerzo', precio_niva: 554, evidencia: 'Fuerte', beneficio: 'Absorción de calcio', momento: 'Almuerzo', duracion: '30 días', formato: 'Frasco x 60 gummies' },
+      colageno: { nombre: 'Colágeno Hidrolizado', marca: 'Fix1', dosis_base: '7 g/día en ayunas', precio_niva: 1340, evidencia: 'Moderado', beneficio: 'Estimula fibroblastos', momento: 'Ayunas', duracion: '30 días', formato: 'Polvo x 200 g' },
+      astaxantina: { nombre: 'Astaxantina', marca: 'Astaxan (Megalabs)', dosis_base: '6 mg/día con comida', precio_niva: 918, evidencia: 'Moderado', beneficio: 'Antioxidante potente', momento: 'Comida', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
+      proteina: { nombre: 'Proteína en Polvo', marca: 'USN', dosis_base: '25-30 g/día post-entreno', precio_niva: 3690, evidencia: 'Muy Fuerte', beneficio: 'Síntesis proteica muscular', momento: 'Post-entreno', duracion: '30 días', formato: 'Bolsa x 908 g' },
+      creatina: { nombre: 'Creatina Monohidrato', marca: 'Edatir (Sylab)', dosis_base: '5 g/día con cualquier comida', precio_niva: 1280, evidencia: 'Muy Fuerte', beneficio: 'Fuerza, potencia y función cognitiva', momento: 'Cualquier comida', duracion: '60 días', formato: 'Polvo x 300 g' },
     };
 
     const OBJETIVOS = {
@@ -2031,18 +2031,18 @@
     };
 
     const RAZONES = {
-      complejo_b: (d) => d.dieta === 'vegana' || d.dieta === 'vegetariana' ? 'Esencial en dieta sin carne' : d.fatiga === 'frecuente' || d.fatiga === 'siempre' ? 'Para tu fatiga diaria' : 'Metabolismo energético',
-      magnesio: (d) => d.dificultad_dormirse ? 'Para mejorar tu sueño' : d.ejercicio === '3-4' || d.ejercicio === '5+' ? 'Recuperación muscular' : 'Regula reacciones metabólicas',
-      maca: (d) => d.fatiga === 'frecuente' || d.fatiga === 'siempre' ? 'Reduce fatiga muscular' : 'Energía y vitalidad',
-      ashwagandha: (d) => d.dificultad_dormirse ? 'Regula tu eje de estrés' : 'Reduce cortisol',
-      omega3: (d) => d.cardiovascular ? 'Protección cardiovascular' : d.mental.includes('memoria') ? 'Protege membranas neuronales' : 'Antiinflamatorio general',
-      zinc_vitc: (d) => d.poblacion_vulnerable && d.transporte ? 'Alta exposición: defensa reforzada' : 'Fortalece tus defensas',
-      probioticos: (d) => d.digestion === 'muy_irregular' ? 'Prioridad por tu digestión' : 'Modula tu respuesta inmune',
-      vitamina_d_calcio: (d) => d.osteoporosis ? 'Prevención ósea familiar' : 'Deficiencia común en Uruguay',
-      colageno: (d) => d.pelo.includes('fino') ? 'Para tu pelo y uñas' : d.piel.includes('seca') ? 'Para tu piel' : 'Elasticidad y estructura',
-      astaxantina: (d) => d.edad === '30-49' || d.edad === '50+' ? 'Anti-edad celular potente' : 'Protección antioxidante',
-      proteina: (d) => d.ejercicio === '5+' ? 'Síntesis muscular por entrenos' : d.edad === '50+' ? 'Previene pérdida muscular' : 'Optimiza recuperación',
-      creatina: (d) => d.ejercicio === '5+' ? 'Máximo rendimiento en fuerza' : d.mental && d.mental.includes('memoria') ? 'Beneficio cognitivo comprobado' : 'Fuerza, potencia y recuperación',
+      complejo_b: (d) => d.dieta === 'vegana' || d.dieta === 'vegetariana' ? 'Tu dieta puede estar baja en vitaminas B' : d.fatiga === 'frecuente' || d.fatiga === 'siempre' ? 'Ayuda a convertir lo que comés en energía real' : 'Base para tu producción de energía diaria',
+      magnesio: (d) => d.dificultad_dormirse ? 'Relaja el sistema nervioso y mejora tu sueño' : d.ejercicio === '3-4' || d.ejercicio === '5+' ? 'Reduce calambres y acelera la recuperación' : 'Participa en más de 300 procesos de tu cuerpo',
+      maca: (d) => d.fatiga === 'frecuente' || d.fatiga === 'siempre' ? 'Reduce la fatiga y mejora tu resistencia' : 'Aumenta tu vitalidad y energía natural',
+      ashwagandha: (d) => d.dificultad_dormirse ? 'Regula el cortisol para que descanses mejor' : 'Baja el estrés y mejora tu descanso',
+      omega3: (d) => d.cardiovascular ? 'Cuida tu corazón y baja la inflamación' : d.mental.includes('memoria') ? 'Protege tus neuronas y mejora la memoria' : 'Reduce la inflamación y protege cerebro y corazón',
+      zinc_vitc: (d) => d.poblacion_vulnerable && d.transporte ? 'Refuerzo extra porque estás más expuesto/a' : 'Fortalece tus defensas frente a virus y bacterias',
+      probioticos: (d) => d.digestion === 'muy_irregular' ? 'Regula tu digestión y fortalece el intestino' : 'Equilibra tu flora intestinal y refuerza defensas',
+      vitamina_d_calcio: (d) => d.osteoporosis ? 'Prevención ósea por tu historial familiar' : 'En Uruguay hay déficit común de vitamina D',
+      colageno: (d) => d.pelo.includes('fino') ? 'Fortalece pelo y uñas desde adentro' : d.piel.includes('seca') ? 'Hidrata y da firmeza a tu piel' : 'Mejora elasticidad de piel, pelo y articulaciones',
+      astaxantina: (d) => d.edad === '30-49' || d.edad === '50+' ? 'Antioxidante potente para frenar el envejecimiento celular' : 'Protege tus células del daño oxidativo',
+      proteina: (d) => d.ejercicio === '5+' ? 'Repara y construye músculo después de entrenar' : d.edad === '50+' ? 'Previene la pérdida de masa muscular' : 'Mejora tu recuperación y composición corporal',
+      creatina: (d) => d.ejercicio === '5+' ? 'Más fuerza y potencia en tus entrenos' : d.mental && d.mental.includes('memoria') ? 'Mejora fuerza física y rendimiento cognitivo' : 'Más fuerza, potencia y energía muscular',
     };
 
     const PESO_EVIDENCIA = {
@@ -2379,13 +2379,15 @@
       rec.forEach((s) => {
         const color = DISC_COLORS[s.id] || '#B8C1B6';
         const label = DISC_LABELS[s.id] || 'S';
-        const formato = CATALOGO[s.id]?.formato || '';
-        const duracion = CATALOGO[s.id]?.duracion || '30 días';
+        const cat = CATALOGO[s.id] || {};
+        const formato = cat.formato || '';
+        const duracion = cat.duracion || '30 días';
+        const marca = cat.marca || '';
         html += `<div class="sup-card">
           <div class="sup-disc" style="background-color: ${color};">${DISC_ICONS[s.id] || ICON_CAPSULE}<span>${label}</span></div>
           <div class="sup-info">
             <div class="sup-reason">${s.razon}</div>
-            <div class="sup-name">${s.nombre}</div>
+            <div class="sup-name">${s.nombre}${marca ? ` <span style="font-weight:400; font-size:12px; color:var(--muted);">· ${marca}</span>` : ''}</div>
             <div class="sup-moment">${s.momento} · Evidencia ${s.evidencia}</div>
             <div style="font-size:11px; color:var(--topo); margin-top:4px;">${formato} · Para ${duracion}</div>
           </div>
