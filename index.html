@@ -1841,6 +1841,36 @@
         <button class="btn-secondary" style="background:transparent; border:1px solid var(--topo); color:var(--carbon);" onclick="confirmarCompra('mensual')">Probar un mes</button>
       </div>
 
+      <!-- FAQ compacto -->
+      <div id="faq-section" style="margin-top:32px; text-align:left;">
+        <div style="font-size:14px; font-weight:500; color:var(--bosque); letter-spacing:1px; text-transform:uppercase; margin-bottom:16px;">Preguntas frecuentes</div>
+
+        <details style="border-bottom:1px solid var(--piedra); padding:14px 0; cursor:pointer;">
+          <summary style="font-size:14px; font-weight:500; color:var(--carbon); list-style:none; display:flex; justify-content:space-between; align-items:center;">¿Qué recibo exactamente?<span style="font-size:18px; color:var(--topo); transition:transform 0.2s;">+</span></summary>
+          <p style="font-size:13px; color:var(--carbonSoft); line-height:1.6; margin-top:10px;">Recibís los suplementos en su envase original de farmacia, sellados y con fecha de vencimiento. Junto con el paquete te llega tu guía personalizada con las dosis exactas, en qué momento del día tomar cada uno, y la evidencia científica detrás de cada recomendación.</p>
+        </details>
+
+        <details style="border-bottom:1px solid var(--piedra); padding:14px 0; cursor:pointer;">
+          <summary style="font-size:14px; font-weight:500; color:var(--carbon); list-style:none; display:flex; justify-content:space-between; align-items:center;">¿Para cuánto tiempo me alcanza?<span style="font-size:18px; color:var(--topo); transition:transform 0.2s;">+</span></summary>
+          <p style="font-size:13px; color:var(--carbonSoft); line-height:1.6; margin-top:10px;">Cada suplemento viene en su presentación estándar de farmacia. La mayoría dura 30 días; algunos como el Magnesio o el Omega 3 vienen en frascos más grandes que duran varios meses. En cada envío solo te mandamos lo que necesitás reponer.</p>
+        </details>
+
+        <details style="border-bottom:1px solid var(--piedra); padding:14px 0; cursor:pointer;">
+          <summary style="font-size:14px; font-weight:500; color:var(--carbon); list-style:none; display:flex; justify-content:space-between; align-items:center;">¿Puedo cancelar?<span style="font-size:18px; color:var(--topo); transition:transform 0.2s;">+</span></summary>
+          <p style="font-size:13px; color:var(--carbonSoft); line-height:1.6; margin-top:10px;">Sí, sin compromiso. Podés cancelar o pausar tu suscripción en cualquier momento desde Mercado Pago. No hay permanencia mínima ni penalización.</p>
+        </details>
+
+        <details style="border-bottom:1px solid var(--piedra); padding:14px 0; cursor:pointer;">
+          <summary style="font-size:14px; font-weight:500; color:var(--carbon); list-style:none; display:flex; justify-content:space-between; align-items:center;">¿Cómo se hace el envío?<span style="font-size:18px; color:var(--topo); transition:transform 0.2s;">+</span></summary>
+          <p style="font-size:13px; color:var(--carbonSoft); line-height:1.6; margin-top:10px;">Envío gratis a todo Uruguay. Una vez confirmado tu pago, preparamos tu paquete y lo enviamos a la dirección que nos indicaste. Te avisamos por email cuando esté en camino.</p>
+        </details>
+
+        <details style="border-bottom:1px solid var(--piedra); padding:14px 0; cursor:pointer;">
+          <summary style="font-size:14px; font-weight:500; color:var(--carbon); list-style:none; display:flex; justify-content:space-between; align-items:center;">¿Son seguros los suplementos?<span style="font-size:18px; color:var(--topo); transition:transform 0.2s;">+</span></summary>
+          <p style="font-size:13px; color:var(--carbonSoft); line-height:1.6; margin-top:10px;">Todos los productos son de marcas reconocidas disponibles en farmacias de Uruguay. Las recomendaciones se basan en evidencia científica publicada. niva no reemplaza el consejo médico — si tenés alguna condición de salud, consultá con tu médico antes de empezar.</p>
+        </details>
+      </div>
+
       <!-- Step 1: Shipping form (shown when user clicks buy) -->
       <div id="shipping-step" style="display: none;">
         <div class="confirmation-box">
@@ -1978,18 +2008,18 @@
     const totalSteps = 8;
 
     const CATALOGO = {
-      complejo_b: { nombre: 'Complejo B', dosis_base: '1 comprimido/día con el desayuno', precio_niva: 890, evidencia: 'Fuerte', beneficio: 'Cofactor energético esencial', momento: 'Desayuno' },
-      magnesio: { nombre: 'Magnesio', dosis_base: '300 mg/día con la cena', precio_niva: 1090, evidencia: 'Fuerte', beneficio: 'Regula GABA y relajación muscular', momento: 'Cena' },
-      maca: { nombre: 'Maca', dosis_base: '1500 mg/día con el almuerzo', precio_niva: 1290, evidencia: 'Moderado', beneficio: 'Mejora rendimiento físico', momento: 'Almuerzo' },
-      ashwagandha: { nombre: 'Ashwagandha', dosis_base: '600 mg/día antes de dormir', precio_niva: 1690, evidencia: 'Fuerte', beneficio: 'Reduce cortisol', momento: 'Noche' },
-      omega3: { nombre: 'Omega 3', dosis_base: '1000 mg/día con el almuerzo', precio_niva: 990, evidencia: 'Moderado-Fuerte', beneficio: 'Antiinflamatorio', momento: 'Almuerzo' },
-      zinc_vitc: { nombre: 'Zinc + Vitamina C', dosis_base: '15 mg Zn + 500 mg Vit C', precio_niva: 790, evidencia: 'Fuerte', beneficio: 'Fortalece defensas', momento: 'Desayuno' },
-      probioticos: { nombre: 'Probióticos', dosis_base: '10-20 mil millones UFC/día', precio_niva: 1290, evidencia: 'Moderado-Fuerte', beneficio: 'Modula respuesta inmune', momento: 'Ayunas' },
-      vitamina_d_calcio: { nombre: 'Vitamina D + Calcio', dosis_base: '2000 UI D3 + 500 mg Ca', precio_niva: 690, evidencia: 'Fuerte', beneficio: 'Absorción de calcio', momento: 'Almuerzo' },
-      colageno: { nombre: 'Colágeno Hidrolizado', dosis_base: '10 g/día en ayunas', precio_niva: 1290, evidencia: 'Moderado', beneficio: 'Estimula fibroblastos', momento: 'Ayunas' },
-      astaxantina: { nombre: 'Astaxantina', dosis_base: '6 mg/día con comida', precio_niva: 1690, evidencia: 'Moderado', beneficio: 'Antioxidante potente', momento: 'Comida' },
-      proteina: { nombre: 'Proteína en Polvo', dosis_base: '25-30 g/día post-entreno', precio_niva: 2390, evidencia: 'Muy Fuerte', beneficio: 'Síntesis proteica muscular', momento: 'Post-entreno' },
-      creatina: { nombre: 'Creatina Monohidrato', dosis_base: '5 g/día con cualquier comida', precio_niva: 990, evidencia: 'Muy Fuerte', beneficio: 'Fuerza, potencia y función cognitiva', momento: 'Cualquier comida' },
+      complejo_b: { nombre: 'Complejo B', dosis_base: '1 comprimido/día con el desayuno', precio_niva: 336, evidencia: 'Fuerte', beneficio: 'Cofactor energético esencial', momento: 'Desayuno', duracion: '40 días', formato: 'Frasco x 40 comprimidos' },
+      magnesio: { nombre: 'Magnesio', dosis_base: '300 mg/día con la cena', precio_niva: 950, evidencia: 'Fuerte', beneficio: 'Regula GABA y relajación muscular', momento: 'Cena', duracion: '100 días', formato: 'Frasco x 100 comprimidos' },
+      maca: { nombre: 'Maca', dosis_base: '1500 mg/día con el almuerzo', precio_niva: 699, evidencia: 'Moderado', beneficio: 'Mejora rendimiento físico', momento: 'Almuerzo', duracion: '33 días', formato: 'Frasco x 100 cápsulas' },
+      ashwagandha: { nombre: 'Ashwagandha', dosis_base: '600 mg/día antes de dormir', precio_niva: 750, evidencia: 'Fuerte', beneficio: 'Reduce cortisol', momento: 'Noche', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
+      omega3: { nombre: 'Omega 3', dosis_base: '1000 mg/día con el almuerzo', precio_niva: 1365, evidencia: 'Moderado-Fuerte', beneficio: 'Antiinflamatorio', momento: 'Almuerzo', duracion: '100 días', formato: 'Frasco x 100 cápsulas' },
+      zinc_vitc: { nombre: 'Zinc + Vitamina C', dosis_base: '15 mg Zn + 500 mg Vit C', precio_niva: 450, evidencia: 'Fuerte', beneficio: 'Fortalece defensas', momento: 'Desayuno', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
+      probioticos: { nombre: 'Probióticos', dosis_base: '10-20 mil millones UFC/día', precio_niva: 1039, evidencia: 'Moderado-Fuerte', beneficio: 'Modula respuesta inmune', momento: 'Ayunas', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
+      vitamina_d_calcio: { nombre: 'Vitamina D + Calcio', dosis_base: '2 gummies/día con el almuerzo', precio_niva: 554, evidencia: 'Fuerte', beneficio: 'Absorción de calcio', momento: 'Almuerzo', duracion: '30 días', formato: 'Frasco x 60 gummies' },
+      colageno: { nombre: 'Colágeno Hidrolizado', dosis_base: '7 g/día en ayunas', precio_niva: 1340, evidencia: 'Moderado', beneficio: 'Estimula fibroblastos', momento: 'Ayunas', duracion: '30 días', formato: 'Polvo x 200 g' },
+      astaxantina: { nombre: 'Astaxantina', dosis_base: '6 mg/día con comida', precio_niva: 918, evidencia: 'Moderado', beneficio: 'Antioxidante potente', momento: 'Comida', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
+      proteina: { nombre: 'Proteína en Polvo', dosis_base: '25-30 g/día post-entreno', precio_niva: 3690, evidencia: 'Muy Fuerte', beneficio: 'Síntesis proteica muscular', momento: 'Post-entreno', duracion: '30 días', formato: 'Bolsa x 908 g' },
+      creatina: { nombre: 'Creatina Monohidrato', dosis_base: '5 g/día con cualquier comida', precio_niva: 1280, evidencia: 'Muy Fuerte', beneficio: 'Fuerza, potencia y función cognitiva', momento: 'Cualquier comida', duracion: '60 días', formato: 'Polvo x 300 g' },
     };
 
     const OBJETIVOS = {
@@ -2349,12 +2379,15 @@
       rec.forEach((s) => {
         const color = DISC_COLORS[s.id] || '#B8C1B6';
         const label = DISC_LABELS[s.id] || 'S';
+        const formato = CATALOGO[s.id]?.formato || '';
+        const duracion = CATALOGO[s.id]?.duracion || '30 días';
         html += `<div class="sup-card">
           <div class="sup-disc" style="background-color: ${color};">${DISC_ICONS[s.id] || ICON_CAPSULE}<span>${label}</span></div>
           <div class="sup-info">
             <div class="sup-reason">${s.razon}</div>
             <div class="sup-name">${s.nombre}</div>
             <div class="sup-moment">${s.momento} · Evidencia ${s.evidencia}</div>
+            <div style="font-size:11px; color:var(--topo); margin-top:4px;">${formato} · Para ${duracion}</div>
           </div>
         </div>`;
       });
@@ -2421,7 +2454,7 @@
               <path d="M4 10l4 4 8-8"/>
             </svg>
           </div>
-          <span class="includes-text">Suplementos seleccionados para vos</span>
+          <span class="includes-text">Suplementos en su envase original, directo a tu puerta</span>
         </div>
         <div class="includes-item">
           <div class="includes-check">
@@ -2437,7 +2470,7 @@
               <path d="M4 10l4 4 8-8"/>
             </svg>
           </div>
-          <span class="includes-text">Seguimiento semanal personalizado</span>
+          <span class="includes-text">Guía personalizada con dosis, horarios y ciencia detrás de cada suplemento</span>
         </div>
         <div class="includes-item">
           <div class="includes-check">
@@ -2445,7 +2478,15 @@
               <path d="M4 10l4 4 8-8"/>
             </svg>
           </div>
-          <span class="includes-text">Ajuste de plan según tu evolución</span>
+          <span class="includes-text">Sin permanencia: cancelás o pausás cuando quieras desde Mercado Pago</span>
+        </div>
+        <div class="includes-item">
+          <div class="includes-check">
+            <svg viewBox="0 0 20 20">
+              <path d="M4 10l4 4 8-8"/>
+            </svg>
+          </div>
+          <span class="includes-text">Seguimiento y ajuste de plan según tu evolución</span>
         </div>
       `;
       document.getElementById('includes-list').innerHTML = includesHtml;
@@ -2536,7 +2577,8 @@
           <span class="plan-amount">$${total.toLocaleString('es-UY')}</span>
           <span class="plan-currency">UYU / mes</span>
         </div>
-        <div class="plan-note">${totalSups} suplemento${totalSups > 1 ? 's' : ''} · envío · seguimiento personalizado</div>
+        <div class="plan-note">${totalSups} suplemento${totalSups > 1 ? 's' : ''} · envío gratis · seguimiento personalizado</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:6px;">$${Math.round(total / 30).toLocaleString('es-UY')} por día · Cancelás cuando quieras</div>
         <div style="margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.15);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <span style="font-size:13px; color:rgba(255,255,255,0.7);">Trimestral <span style="background:rgba(184,193,182,0.3); padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; color:#B8C1B6;">-10%</span></span>
