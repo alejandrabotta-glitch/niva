@@ -1116,7 +1116,7 @@
           </div>
           <div>
             <div class="step-title">Ves tu recomendación gratis</div>
-            <div class="step-desc">Te mostramos qué suplementos necesitás y por qué, sin compromiso.</div>
+            <div class="step-desc">Te mostramos qué suplementos necesitás y por qué, elaborado por Lic. en Nutrición. Sin compromiso.</div>
           </div>
         </div>
 
@@ -1843,7 +1843,7 @@
 
       <!-- Nota de seguridad -->
       <div style="margin-top:24px; padding:16px 20px; background:var(--piedra); border-radius:12px; text-align:left;">
-        <p style="font-size:13px; color:var(--carbonSoft); line-height:1.6; margin:0;">Todos los suplementos son de venta libre, de marcas reconocidas en Uruguay, y las dosis recomendadas están dentro de los rangos seguros establecidos por la evidencia científica. Si estás embarazada, amamantando o tenés alguna condición médica, consultá con tu médico/a antes de empezar.</p>
+        <p style="font-size:13px; color:var(--carbonSoft); line-height:1.6; margin:0;">Recomendaciones elaboradas por Lic. en Nutrición. Todos los suplementos son de venta libre, de marcas reconocidas en Uruguay, y las dosis recomendadas están dentro de los rangos seguros establecidos por la evidencia científica. Si estás embarazada, amamantando o tenés alguna condición médica, consultá con tu médico/a antes de empezar.</p>
       </div>
 
       <!-- FAQ compacto -->
@@ -1945,7 +1945,7 @@
         </div>
       </div>
 
-      <p class="fine-print">Envío gratis a todo Uruguay.<br>Sin permanencia, cancelás cuando quieras.</p>
+      <p class="fine-print">Recomendaciones elaboradas por Lic. en Nutrición.<br>Envío gratis a todo Uruguay. Sin permanencia, cancelás cuando quieras.</p>
     </div>
   </div>
 
@@ -2280,6 +2280,12 @@
         alert('Por favor completa tu nombre, email y al menos un objetivo.');
         return;
       }
+      // Validar formato de email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(data.email)) {
+        alert('El email no parece válido. Revisá que tenga @ y un dominio (ej: nombre@gmail.com).');
+        return;
+      }
       if (!document.getElementById('consent_tyc').checked || !document.getElementById('consent_datos').checked) {
         alert('Para continuar, necesitás aceptar los Términos y Condiciones y dar tu consentimiento para el tratamiento de datos.');
         return;
@@ -2532,7 +2538,16 @@
         trimestral: 'https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=99c99d9129a64856bcdb888ed1480715',
         semestral: 'https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=ea45839ddc7644c693b2e114ec41d3c9',
       },
-      addon_proteina: 'https://mpago.la/321sFwu',
+      'Plan Esencial + Proteína': {
+        mensual: 'https://mpago.la/1DFP7Ce',
+        trimestral: 'https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=8d939062ac5148e8816c9966db9b48c2',
+        semestral: 'https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=cf68c7ed45db4a88b52e8c35bc21cdaf',
+      },
+      'Plan Completo + Proteína': {
+        mensual: 'https://mpago.la/183Wyk4',
+        trimestral: 'https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=dbe2978374534083885bf79f3a6462ef',
+        semestral: 'https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=164bbf38a9774d7792fac42e9f231a4c',
+      },
     };
 
     function toggleExtras() {
@@ -2701,15 +2716,12 @@
         });
       }
 
-      // Redirect to Mercado Pago — plan link
-      const mpPlanName = plan.includeExtras ? 'Plan Completo' : 'Plan Esencial';
+      // Redirect to Mercado Pago — single combined link
+      let mpPlanName = plan.includeExtras ? 'Plan Completo' : 'Plan Esencial';
+      if (plan.hasProteina) mpPlanName += ' + Proteína';
       const mpLink = MP_LINKS[mpPlanName] && MP_LINKS[mpPlanName][tipo];
       if (mpLink) {
         window.open(mpLink, '_blank');
-      }
-      // If proteína added, open its payment link too
-      if (plan.hasProteina && MP_LINKS.addon_proteina) {
-        setTimeout(() => window.open(MP_LINKS.addon_proteina, '_blank'), 500);
       }
 
       document.getElementById('shipping-step').style.display = 'none';
