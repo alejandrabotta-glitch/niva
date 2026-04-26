@@ -1841,6 +1841,11 @@
         <button class="btn-secondary" style="background:transparent; border:1px solid var(--topo); color:var(--carbon);" onclick="confirmarCompra('mensual')">Probar un mes</button>
       </div>
 
+      <!-- Nota de seguridad -->
+      <div style="margin-top:24px; padding:16px 20px; background:var(--piedra); border-radius:12px; text-align:left;">
+        <p style="font-size:13px; color:var(--carbonSoft); line-height:1.6; margin:0;">Todos los suplementos son de venta libre, de marcas reconocidas en Uruguay, y las dosis recomendadas están dentro de los rangos seguros establecidos por la evidencia científica. Si estás embarazada, amamantando o tenés alguna condición médica, consultá con tu médico/a antes de empezar.</p>
+      </div>
+
       <!-- FAQ compacto -->
       <div id="faq-section" style="margin-top:32px; text-align:left;">
         <div style="font-size:14px; font-weight:500; color:var(--bosque); letter-spacing:1px; text-transform:uppercase; margin-bottom:16px;">Preguntas frecuentes</div>
@@ -2371,8 +2376,20 @@
         ? objNames.slice(0, -1).join(', ') + ' y ' + objNames[objNames.length - 1]
         : objNames[0] || '';
       const objWord = objs.length > 1 ? 'tus objetivos de' : 'tu objetivo de';
-      const introText = `${firstName}, analizamos tu perfil y seleccionamos ${rec.length} suplementos base para ${objWord} <strong>${objLabel}</strong>. Armá tu plan:`;
-      document.getElementById('result-intro').innerHTML = introText;
+
+      // Puente explicativo: por qué estos suplementos para este perfil
+      const PUENTES = {
+        energia: 'Cruzamos tus respuestas sobre fatiga, alimentación y actividad física. Tus suplementos trabajan en equipo: uno apoya la producción de energía a nivel celular, otro optimiza la función muscular y nerviosa, y el tercero potencia tu resistencia natural.',
+        estres: 'Según lo que nos contaste sobre tu sueño y tu nivel de estrés, armamos una combinación que actúa en tres frentes: regular tu respuesta al estrés, relajar el sistema nervioso para que descanses mejor, y proteger tu cerebro de la inflamación.',
+        inmunidad: 'Analizamos tu exposición, hábitos y alimentación. Estos suplementos se complementan: uno refuerza la primera línea de defensa, otro equilibra tu flora intestinal (donde está el 70% de tu sistema inmune), y el tercero cubre un déficit muy común en Uruguay.',
+        piel: 'Según tu perfil, seleccionamos una combinación que trabaja desde adentro: uno aporta la estructura que tu piel y pelo necesitan, otro protege tus células del envejecimiento, y el tercero reduce la inflamación que afecta la salud de tu piel.',
+        fitness: 'Con tu nivel de actividad física, necesitás suplementos que acompañen tu rendimiento. Esta combinación cubre fuerza y potencia, recuperación muscular, y la energía que tu cuerpo necesita para rendir al máximo.',
+      };
+      const puenteTexts = objs.map(k => PUENTES[k]).filter(Boolean);
+      const puenteText = puenteTexts.length > 0 ? puenteTexts[0] : '';
+
+      const introText = `${firstName}, analizamos tu perfil y seleccionamos ${rec.length} suplementos base para ${objWord} <strong>${objLabel}</strong>.`;
+      document.getElementById('result-intro').innerHTML = introText + (puenteText ? `<br><span style="font-size:13px; color:var(--carbonSoft); line-height:1.6; display:block; margin-top:8px;">${puenteText}</span>` : '');
 
       // Render base supplements
       let html = '';
