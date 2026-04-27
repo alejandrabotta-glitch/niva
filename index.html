@@ -2309,7 +2309,7 @@
       }
 
       const scores = calculateScoring(data);
-      const allRanked = Object.entries(scores).sort((a, b) => b[1] - a[1]).filter(([, s]) => s > 0);
+      const allRanked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
       const topBase = allRanked.slice(0, 3);
       const extras = allRanked.slice(3, 5);
 
