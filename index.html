@@ -2386,12 +2386,8 @@
 
       // Animated loading steps
       const loadingSteps = [
-        'Revisando tus objetivos...',
-        'Evaluando tu estilo de vida...',
-        'Considerando tus hábitos alimenticios...',
+        'Revisando tus objetivos y estilo de vida...',
         'Cruzando con evidencia científica...',
-        'Seleccionando los suplementos ideales...',
-        'Ajustando dosis para tu perfil...',
         'Armando tu plan personalizado...',
       ];
       let stepIdx = 0;
@@ -2403,11 +2399,11 @@
           setTimeout(() => {
             loadingEl.textContent = loadingSteps[stepIdx];
             loadingEl.style.opacity = '1';
-          }, 300);
+          }, 400);
         } else {
           clearInterval(loadingInterval);
         }
-      }, 350);
+      }, 800);
 
       // Meta Pixel: Lead event
       if (typeof fbq === 'function') {
