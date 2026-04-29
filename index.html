@@ -1338,7 +1338,7 @@
       <!-- STEP 2: Objetivo -->
       <div class="form-step" data-step="2">
         <h2>¿Cuáles son tus objetivos?</h2>
-        <p class="form-step-subtitle">Elegí hasta 2 objetivos que más te resuenen.</p>
+        <p class="form-step-subtitle">Elegí hasta 3 objetivos que más te resuenen.</p>
 
         <div class="option-grid">
           <button class="option-card" onclick="selectObjetivo(this, 'energia')">
@@ -1569,16 +1569,21 @@
 
         <div class="form-group">
           <label class="form-label">¿Historial familiar de osteoporosis?</label>
-          <div class="radio-grid-2col">
+          <div class="radio-grid-3col">
             <button class="radio-item" onclick="selectRadio(this, 'osteoporosis', 'si')">
               <input type="radio" name="osteoporosis" value="si">
               <div class="radio-circle"></div>
               <span class="radio-text">Sí</span>
             </button>
-            <button class="radio-item" onclick="selectRadio(this, 'osteoporosis', 'no')">
-              <input type="radio" name="osteoporosis" value="no">
+            <button class="radio-item" onclick="selectRadio(this, 'osteoporosis', 'no_chequeado')">
+              <input type="radio" name="osteoporosis" value="no_chequeado">
               <div class="radio-circle"></div>
-              <span class="radio-text">No / No sé</span>
+              <span class="radio-text">No, me lo chequeé</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'osteoporosis', 'no_se')">
+              <input type="radio" name="osteoporosis" value="no_se">
+              <div class="radio-circle"></div>
+              <span class="radio-text">No sé</span>
             </button>
           </div>
         </div>
@@ -1606,16 +1611,21 @@
 
         <div class="form-group">
           <label class="form-label">¿Historial cardiovascular familiar?</label>
-          <div class="radio-grid-2col">
+          <div class="radio-grid-3col">
             <button class="radio-item" onclick="selectRadio(this, 'cardiovascular', 'si')">
               <input type="radio" name="cardiovascular" value="si">
               <div class="radio-circle"></div>
               <span class="radio-text">Sí</span>
             </button>
-            <button class="radio-item" onclick="selectRadio(this, 'cardiovascular', 'no')">
-              <input type="radio" name="cardiovascular" value="no">
+            <button class="radio-item" onclick="selectRadio(this, 'cardiovascular', 'no_chequeado')">
+              <input type="radio" name="cardiovascular" value="no_chequeado">
               <div class="radio-circle"></div>
-              <span class="radio-text">No / No sé</span>
+              <span class="radio-text">No, me lo chequeé</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'cardiovascular', 'no_se')">
+              <input type="radio" name="cardiovascular" value="no_se">
+              <div class="radio-circle"></div>
+              <span class="radio-text">No sé</span>
             </button>
           </div>
         </div>
@@ -1658,6 +1668,27 @@
               <input type="radio" name="digestion" value="muy_irregular">
               <div class="radio-circle"></div>
               <span class="radio-text">Bastante irregular</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group" id="embarazo-group" style="display:none;">
+          <label class="form-label">¿Estás embarazada o buscando embarazo?</label>
+          <div class="radio-grid-3col">
+            <button class="radio-item" onclick="selectRadio(this, 'embarazo', 'si')">
+              <input type="radio" name="embarazo" value="si">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Sí</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'embarazo', 'no')">
+              <input type="radio" name="embarazo" value="no">
+              <div class="radio-circle"></div>
+              <span class="radio-text">No</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'embarazo', 'prefiero_no_decir')">
+              <input type="radio" name="embarazo" value="prefiero_no_decir">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Prefiero no decir</span>
             </button>
           </div>
         </div>
@@ -1781,6 +1812,27 @@
               <input type="radio" name="dieta" value="vegana">
               <div class="radio-circle"></div>
               <span class="radio-text">Vegana</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">¿Tomás o tomaste suplementos?</label>
+          <div class="radio-grid-single">
+            <button class="radio-item" onclick="selectRadio(this, 'suplementos_previos', 'actualmente')">
+              <input type="radio" name="suplementos_previos" value="actualmente">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Sí, actualmente tomo</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'suplementos_previos', 'antes')">
+              <input type="radio" name="suplementos_previos" value="antes">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Tomé antes pero dejé</span>
+            </button>
+            <button class="radio-item" onclick="selectRadio(this, 'suplementos_previos', 'nunca')">
+              <input type="radio" name="suplementos_previos" value="nunca">
+              <div class="radio-circle"></div>
+              <span class="radio-text">Nunca tomé</span>
             </button>
           </div>
         </div>
@@ -1955,13 +2007,15 @@
       complejo_b: '#B8C1B6', magnesio: '#C9C5BE', maca: '#D4C4A8',
       ashwagandha: '#9DA89A', omega3: '#C5BFAE', zinc_vitc: '#E0D4B8',
       probioticos: '#E9E6E1', vitamina_d_calcio: '#D6CEB8', colageno: '#DCC9B8',
-      astaxantina: '#C7A89A', proteina: '#B3B09B', creatina: '#A8B0A3'
+      astaxantina: '#C7A89A', proteina: '#B3B09B', creatina: '#A8B0A3',
+      acido_folico: '#E8C8D8'
     };
 
     const DISC_LABELS = {
       complejo_b: 'B', magnesio: 'Mg', maca: 'Mc', ashwagandha: 'Ah',
       omega3: 'O3', zinc_vitc: 'Zn', probioticos: 'Pr', vitamina_d_calcio: 'D3',
-      colageno: 'Co', astaxantina: 'Ax', proteina: 'Pt', creatina: 'Cr'
+      colageno: 'Co', astaxantina: 'Ax', proteina: 'Pt', creatina: 'Cr',
+      acido_folico: 'AF'
     };
 
     // SVG icons per supplement type
@@ -1984,6 +2038,7 @@
       astaxantina: ICON_SOFTGEL,
       proteina: ICON_POWDER,
       creatina: ICON_POWDER,
+      acido_folico: ICON_TABLET,
     };
 
     const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeiBXtXouOas5r_XhLKCU9spj7wrDBtkdzID1OGXvOL0Htn1Q/formResponse';
@@ -2025,6 +2080,7 @@
       astaxantina: { nombre: 'Astaxantina', marca: 'Astaxan (Megalabs)', queEs: 'Antioxidante natural extraído de microalgas, lo que le da color al salmón', dosis_base: '6 mg/día con comida', precio_niva: 918, evidencia: 'Moderado', beneficio: 'Antioxidante potente', momento: 'Comida', duracion: '30 días', formato: 'Frasco x 30 cápsulas' },
       proteina: { nombre: 'Proteína en Polvo', marca: 'USN', queEs: 'Proteína de suero de leche, la más estudiada para recuperación muscular', dosis_base: '25-30 g/día post-entreno', precio_niva: 3690, evidencia: 'Muy Fuerte', beneficio: 'Síntesis proteica muscular', momento: 'Post-entreno', duracion: '30 días', formato: 'Bolsa x 908 g' },
       creatina: { nombre: 'Creatina Monohidrato', marca: 'Edatir (Sylab)', queEs: 'Compuesto natural presente en la carne, el suplemento más estudiado del mundo', dosis_base: '5 g/día con cualquier comida', precio_niva: 1280, evidencia: 'Muy Fuerte', beneficio: 'Fuerza, potencia y función cognitiva', momento: 'Cualquier comida', duracion: '60 días', formato: 'Polvo x 300 g' },
+      acido_folico: { nombre: 'Ácido Fólico', marca: 'Qualivits', queEs: 'Vitamina B9, esencial para el desarrollo del tubo neural del bebé durante el embarazo', dosis_base: '800 mcg/día con el desayuno', precio_niva: 990, evidencia: 'Muy Fuerte', beneficio: 'Prevención de defectos del tubo neural', momento: 'Desayuno', duracion: '~100 días', formato: 'Frasco x 100 tabletas' },
     };
 
     const OBJETIVOS = {
@@ -2040,20 +2096,22 @@
       magnesio: (d) => d.dificultad_dormirse ? 'Relaja el sistema nervioso y mejora tu sueño' : d.ejercicio === '3-4' || d.ejercicio === '5+' ? 'Reduce calambres y acelera la recuperación' : 'Participa en más de 300 procesos de tu cuerpo',
       maca: (d) => d.fatiga === 'frecuente' || d.fatiga === 'siempre' ? 'Reduce la fatiga y mejora tu resistencia' : 'Aumenta tu vitalidad y energía natural',
       ashwagandha: (d) => d.dificultad_dormirse ? 'Regula el cortisol para que descanses mejor' : 'Baja el estrés y mejora tu descanso',
-      omega3: (d) => d.cardiovascular ? 'Cuida tu corazón y baja la inflamación' : d.mental.includes('memoria') ? 'Protege tus neuronas y mejora la memoria' : 'Reduce la inflamación y protege cerebro y corazón',
+      omega3: (d) => d.cardiovascular === 'si' ? 'Cuida tu corazón y baja la inflamación' : d.cardiovascular === 'no_se' ? 'Prevención cardiovascular recomendada' : d.mental.includes('memoria') ? 'Protege tus neuronas y mejora la memoria' : 'Reduce la inflamación y protege cerebro y corazón',
       zinc_vitc: (d) => d.poblacion_vulnerable && d.transporte ? 'Refuerzo extra porque estás más expuesto/a' : 'Fortalece tus defensas frente a virus y bacterias',
       probioticos: (d) => d.digestion === 'muy_irregular' ? 'Regula tu digestión y fortalece el intestino' : 'Equilibra tu flora intestinal y refuerza defensas',
-      vitamina_d_calcio: (d) => d.osteoporosis ? 'Prevención ósea por tu historial familiar' : 'En Uruguay hay déficit común de vitamina D',
+      vitamina_d_calcio: (d) => d.osteoporosis === 'si' ? 'Prevención ósea por tu historial familiar' : d.osteoporosis === 'no_se' ? 'Prevención ósea recomendada — consultá con tu médico para chequearlo' : 'En Uruguay hay déficit común de vitamina D',
       colageno: (d) => d.pelo.includes('fino') ? 'Fortalece pelo y uñas desde adentro' : d.piel.includes('seca') ? 'Hidrata y da firmeza a tu piel' : 'Mejora elasticidad de piel, pelo y articulaciones',
       astaxantina: (d) => d.edad === '30-49' || d.edad === '50+' ? 'Antioxidante potente para frenar el envejecimiento celular' : 'Protege tus células del daño oxidativo',
       proteina: (d) => d.ejercicio === '5+' ? 'Repara y construye músculo después de entrenar' : d.edad === '50+' ? 'Previene la pérdida de masa muscular' : 'Mejora tu recuperación y composición corporal',
       creatina: (d) => d.ejercicio === '5+' ? 'Más fuerza y potencia en tus entrenos' : d.mental && d.mental.includes('memoria') ? 'Mejora fuerza física y rendimiento cognitivo' : 'Más fuerza, potencia y energía muscular',
+      acido_folico: (d) => 'Esencial durante embarazo y búsqueda de embarazo para el desarrollo del bebé',
     };
 
     const PESO_EVIDENCIA = {
       complejo_b: 1.0, magnesio: 1.0, maca: 0.8, ashwagandha: 1.0,
       omega3: 0.9, zinc_vitc: 1.0, probioticos: 0.9, vitamina_d_calcio: 1.0,
-      colageno: 0.8, astaxantina: 0.8, proteina: 1.2, creatina: 1.3
+      colageno: 0.8, astaxantina: 0.8, proteina: 1.2, creatina: 1.3,
+      acido_folico: 1.3
     };
 
     // Plan-based pricing — precios exactos de MercadoPago
@@ -2138,6 +2196,21 @@
       btn.classList.add('checked');
       btn.classList.add('selected');
       btn.querySelector('input').checked = true;
+
+      // Show/hide pregnancy question based on gender
+      if (name === 'sexo') {
+        const embarazoGroup = document.getElementById('embarazo-group');
+        if (embarazoGroup) {
+          embarazoGroup.style.display = value === 'femenino' ? 'block' : 'none';
+          if (value !== 'femenino') {
+            // Clear pregnancy selection when not female
+            embarazoGroup.querySelectorAll('.radio-item').forEach(item => {
+              item.classList.remove('checked', 'selected');
+              item.querySelector('input').checked = false;
+            });
+          }
+        }
+      }
     }
 
     function selectObjetivo(btn, value) {
@@ -2149,9 +2222,9 @@
         btn.classList.remove('selected');
         input.checked = false;
       } else {
-        // Check max 2 limit
+        // Check max 3 limit
         const selectedCards = document.querySelectorAll('.option-card.selected');
-        if (selectedCards.length >= 2) {
+        if (selectedCards.length >= 3) {
           // Deselect the first one to make room
           const first = selectedCards[0];
           first.classList.remove('selected');
@@ -2209,11 +2282,13 @@
       if (d.piel.length) { s.colageno += d.piel.length * 2; s.astaxantina += d.piel.length * 2; }
       if (d.pelo.length) { s.colageno += d.pelo.length * 2; s.complejo_b += 1; }
 
-      if (d.osteoporosis) { s.vitamina_d_calcio += 6; }
+      if (d.osteoporosis === 'si') { s.vitamina_d_calcio += 6; }
+      if (d.osteoporosis === 'no_se') { s.vitamina_d_calcio += 4; }
       if (d.articular === 'a_veces') { s.omega3 += 2; s.colageno += 2; }
       if (d.articular === 'frecuente') { s.omega3 += 4; s.vitamina_d_calcio += 3; s.colageno += 3; }
 
-      if (d.cardiovascular) { s.omega3 += 6; }
+      if (d.cardiovascular === 'si') { s.omega3 += 6; }
+      if (d.cardiovascular === 'no_se') { s.omega3 += 4; }
       if (d.corazon.includes('colesterol')) { s.omega3 += 5; }
       if (d.corazon.includes('presion')) { s.omega3 += 3; s.magnesio += 4; }
 
@@ -2235,7 +2310,14 @@
 
       if (d.edad === '50+') { s.vitamina_d_calcio += 6; s.magnesio += 4; s.omega3 += 3; s.proteina += 3; s.colageno += 2; }
 
-      Object.keys(s).forEach(k => { s[k] = Math.round(s[k] * PESO_EVIDENCIA[k]); });
+      // Embarazo: ácido fólico como prioridad máxima
+      if (d.embarazo === 'si') {
+        s.acido_folico = 15;
+        // Vegetariana/vegana + embarazo: reforzar B12
+        if (d.dieta === 'vegana' || d.dieta === 'vegetariana') { s.complejo_b += 5; }
+      }
+
+      Object.keys(s).forEach(k => { s[k] = Math.round(s[k] * (PESO_EVIDENCIA[k] || 1)); });
 
       return s;
     }
@@ -2264,9 +2346,9 @@
         mental: getCheckboxValues('mental'),
         piel: getCheckboxValues('piel'),
         pelo: getCheckboxValues('pelo'),
-        osteoporosis: getRadioValue('osteoporosis') === 'si',
+        osteoporosis: getRadioValue('osteoporosis') || '',
         articular: getRadioValue('articular'),
-        cardiovascular: getRadioValue('cardiovascular') === 'si',
+        cardiovascular: getRadioValue('cardiovascular') || '',
         corazon: getCheckboxValues('corazon'),
         digestion: getRadioValue('digestion'),
         poblacion_vulnerable: getRadioValue('poblacion_vulnerable') === 'si',
@@ -2275,6 +2357,8 @@
         frutas: getRadioValue('frutas'),
         verduras: getRadioValue('verduras'),
         dieta: getRadioValue('dieta'),
+        embarazo: getRadioValue('embarazo') || '',
+        suplementos_previos: getRadioValue('suplementos_previos') || '',
         timestamp: new Date().toISOString(),
       };
     }
@@ -2372,6 +2456,8 @@
             frutas: data.frutas,
             verduras: data.verduras,
             dieta: data.dieta,
+            embarazo: data.embarazo,
+            suplementos_previos: data.suplementos_previos,
           },
         }),
       });
@@ -2748,6 +2834,8 @@
             frutas: window._nivaData.frutas,
             verduras: window._nivaData.verduras,
             dieta: window._nivaData.dieta,
+            embarazo: window._nivaData.embarazo,
+            suplementos_previos: window._nivaData.suplementos_previos,
           },
           consentimiento_tyc: true,
           consentimiento_datos_salud: true,
@@ -2822,9 +2910,9 @@
       const data = { nombre: nombre, email: email, objetivos: objetivos, objetivo_principal: objetivoRaw,
         edad: '', sexo: '', fatiga: '', mental: [], piel: [], pelo: [],
         dificultad_dormirse: false, dificultad_mantener: false,
-        osteoporosis: false, articular: '', cardiovascular: false, corazon: [],
+        osteoporosis: '', articular: '', cardiovascular: '', corazon: [],
         digestion: '', poblacion_vulnerable: false, transporte: false,
-        ejercicio: '', frutas: '', verduras: '', dieta: '' };
+        ejercicio: '', frutas: '', verduras: '', dieta: '', embarazo: '', suplementos_previos: '' };
 
       const rec = baseIds.map(id => ({
         id, ...CATALOGO[id], score: 10, dosis: CATALOGO[id].dosis_base,
