@@ -1568,7 +1568,7 @@
         <p class="form-step-subtitle">Algunas preguntas sobre tu historial.</p>
 
         <div class="form-group">
-          <label class="form-label">¿Historial familiar de osteoporosis?</label>
+          <label class="form-label">¿Antecedentes de osteoporosis (personales o familiares)?</label>
           <div class="radio-grid-3col">
             <button class="radio-item" onclick="selectRadio(this, 'osteoporosis', 'si')">
               <input type="radio" name="osteoporosis" value="si">
@@ -1578,7 +1578,7 @@
             <button class="radio-item" onclick="selectRadio(this, 'osteoporosis', 'no_chequeado')">
               <input type="radio" name="osteoporosis" value="no_chequeado">
               <div class="radio-circle"></div>
-              <span class="radio-text">No, me lo chequeé</span>
+              <span class="radio-text">No</span>
             </button>
             <button class="radio-item" onclick="selectRadio(this, 'osteoporosis', 'no_se')">
               <input type="radio" name="osteoporosis" value="no_se">
@@ -1610,7 +1610,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">¿Historial cardiovascular familiar?</label>
+          <label class="form-label">¿Antecedentes cardiovasculares (personales o familiares)?</label>
           <div class="radio-grid-3col">
             <button class="radio-item" onclick="selectRadio(this, 'cardiovascular', 'si')">
               <input type="radio" name="cardiovascular" value="si">
@@ -1620,7 +1620,7 @@
             <button class="radio-item" onclick="selectRadio(this, 'cardiovascular', 'no_chequeado')">
               <input type="radio" name="cardiovascular" value="no_chequeado">
               <div class="radio-circle"></div>
-              <span class="radio-text">No, me lo chequeé</span>
+              <span class="radio-text">No</span>
             </button>
             <button class="radio-item" onclick="selectRadio(this, 'cardiovascular', 'no_se')">
               <input type="radio" name="cardiovascular" value="no_se">
@@ -1868,7 +1868,7 @@
   <div id="loading" style="display: none; flex-direction: column; align-items: center; justify-content: center; padding: 140px 24px; text-align: center; height: 100vh;">
     <div class="loading-spinner"></div>
     <h2>Analizando tu perfil</h2>
-    <p>Armando tu plan personalizado.</p>
+    <p id="loading-step" style="color:var(--carbonSoft); transition: opacity 0.4s;">Revisando tus objetivos...</p>
   </div>
 
   <!-- RESULTS -->
@@ -2383,6 +2383,31 @@
       document.getElementById('form-wrapper').style.display = 'none';
       document.getElementById('loading').style.display = 'flex';
       window.scrollTo(0, 0);
+
+      // Animated loading steps
+      const loadingSteps = [
+        'Revisando tus objetivos...',
+        'Evaluando tu estilo de vida...',
+        'Considerando tus hábitos alimenticios...',
+        'Cruzando con evidencia científica...',
+        'Seleccionando los suplementos ideales...',
+        'Ajustando dosis para tu perfil...',
+        'Armando tu plan personalizado...',
+      ];
+      let stepIdx = 0;
+      const loadingEl = document.getElementById('loading-step');
+      const loadingInterval = setInterval(() => {
+        stepIdx++;
+        if (stepIdx < loadingSteps.length) {
+          loadingEl.style.opacity = '0';
+          setTimeout(() => {
+            loadingEl.textContent = loadingSteps[stepIdx];
+            loadingEl.style.opacity = '1';
+          }, 300);
+        } else {
+          clearInterval(loadingInterval);
+        }
+      }, 350);
 
       // Meta Pixel: Lead event
       if (typeof fbq === 'function') {
